@@ -1,9 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
 
-import styles from 'styles/RatingStar.module.css';
+import styles from "styles/RatingStar.module.css";
 
-function RatingStars({ rating }) {
+export type RatingOptions = 0 | 1 | 2 | 3 | 4 | 5;
+
+interface RatingStarsProps {
+  rating: RatingOptions;
+}
+
+function RatingStars({ rating }: RatingStarsProps) {
   return (
     <div className={styles.root}>
       {Array.from({ length: rating }).map((_, e) => (
@@ -15,9 +20,4 @@ function RatingStars({ rating }) {
     </div>
   );
 }
-
-RatingStars.propTypes = {
-  rating: PropTypes.oneOf([0, 1, 2, 3, 4, 5]),
-};
-
 export default RatingStars;

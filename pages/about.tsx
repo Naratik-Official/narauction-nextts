@@ -1,41 +1,41 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 
-import Grid from '@material-ui/core/Grid';
-import IconButton from 'components/IconButton';
-import Button from 'components/Button';
-
-import styles from 'styles/About.module.css';
-import { Slide } from 'react-slideshow-image';
+import Grid from "@material-ui/core/Grid";
+import IconButton from "components/IconButton";
+import Button from "components/Button";
+import styles from "styles/About.module.css";
+import { Slide } from "react-slideshow-image";
+import Layout from "components/Layout";
 
 const slides = [
   {
-    src: '/about_friendly.svg',
-    title: 'Friendly Environment',
+    src: "/about_friendly.svg",
+    title: "Friendly Environment",
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui amet tortor risus tellus sollicitudin quis faucibus sed. Nam fermentum eu amet, ut montes, pulvinar. Arcu.',
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui amet tortor risus tellus sollicitudin quis faucibus sed. Nam fermentum eu amet, ut montes, pulvinar. Arcu.",
   },
   {
-    src: '/about_support.svg',
-    title: 'Support Team',
+    src: "/about_support.svg",
+    title: "Support Team",
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui amet tortor risus tellus sollicitudin quis faucibus sed. Nam fermentum eu amet, ut montes, pulvinar. Arcu.',
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui amet tortor risus tellus sollicitudin quis faucibus sed. Nam fermentum eu amet, ut montes, pulvinar. Arcu.",
   },
   {
-    src: '/about_misc.svg',
-    title: 'Misc',
+    src: "/about_misc.svg",
+    title: "Misc",
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui amet tortor risus tellus sollicitudin quis faucibus sed. Nam fermentum eu amet, ut montes, pulvinar. Arcu.',
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui amet tortor risus tellus sollicitudin quis faucibus sed. Nam fermentum eu amet, ut montes, pulvinar. Arcu.",
   },
 ];
 
 export default function About() {
-  const sliderRef = useRef(null);
+  const sliderRef = useRef<any>(null);
 
   const handleNext = () => sliderRef.current.goNext();
   const handlePrev = () => sliderRef.current.goBack();
 
   return (
-    <>
+    <Layout>
       <Grid container className={styles.header}>
         <Grid item xs={1} />
         <Grid item xs={10}>
@@ -56,7 +56,7 @@ export default function About() {
             <div className={styles.video}>
               <IconButton src="/play_square.svg" />
               <p>
-                Lorem ipsum dolor sit amet, consectur{' '}
+                Lorem ipsum dolor sit amet, consectur{" "}
                 <a href="#">Watch Teaser</a>
               </p>
             </div>
@@ -113,7 +113,7 @@ export default function About() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
               ullamcorper non ultrices tortor, mauris, tortor, cras. Laoreet
               augue nunc sapien id posuere senectus duis mus. Sit est non velit
-              ultrices scelerisque. Ut risus, enim, ac at.{' '}
+              ultrices scelerisque. Ut risus, enim, ac at.{" "}
             </p>
             <br />
             <p>
@@ -135,6 +135,6 @@ export default function About() {
         </Grid>
         <Grid item xs={1} />
       </Grid>
-    </>
+    </Layout>
   );
 }

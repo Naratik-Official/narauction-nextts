@@ -1,22 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
 
-import Modal from 'react-modal';
-import Grid from '@material-ui/core/Grid';
+import Modal from "react-modal";
+import Grid from "@material-ui/core/Grid";
 
-import styles from 'styles/LotDetailModal.module.css';
-import { useRouter } from 'next/router';
-import Button from './Button';
-import IconButton from './IconButton';
+import styles from "styles/LotDetailModal.module.css";
+import { useRouter } from "next/router";
+import Button from "./Button";
+import IconButton from "./IconButton";
 
-function LotDetailModal({ lotId }) {
+interface LotDetailModalProps {
+  lotId?: string;
+}
+
+function LotDetailModal({ lotId }: LotDetailModalProps) {
   const router = useRouter();
 
   return (
     <Modal
       isOpen={!!lotId}
       shouldCloseOnOverlayClick
-      onRequestClose={() => router.push('/catalog', undefined, { scroll: false })
+      onRequestClose={() =>
+        router.push("/catalog", undefined, { scroll: false })
       }
       closeTimeoutMS={300}
       className={styles.root}
@@ -58,10 +62,13 @@ function LotDetailModal({ lotId }) {
             </Grid>
           </div>
           <div className={styles.buttonBar}>
-            <IconButton src="/lot_facebook.svg" color="transparent" />
-            <IconButton src="/lot_instagram.svg" color="transparent" />
-            <IconButton src="/lot_twitter.svg" color="transparent" />
-            <IconButton src="/lot_linkedin.svg" color="transparent" />
+            <IconButton src="/lot_facebook.svg" backgroundColor="transparent" />
+            <IconButton
+              src="/lot_instagram.svg"
+              backgroundColor="transparent"
+            />
+            <IconButton src="/lot_twitter.svg" backgroundColor="transparent" />
+            <IconButton src="/lot_linkedin.svg" backgroundColor="transparent" />
           </div>
         </Grid>
         <Grid item xs={8}>
@@ -76,7 +83,7 @@ function LotDetailModal({ lotId }) {
             egestas adipiscing elit erat. Enim ipsum dictum dictumst ac magna
             pharetra pretium nisi. Pellentesque suspendisse in gravida convallis
             facilisis tincidunt tincidunt.
-            {'\n\n\n'}
+            {"\n\n\n"}
             Massa cras aliquet sit sollicitudin dolor a sem risus id. Turpis
             convallis proin ipsum ut senectus lacus viverra. Nunc facilisis
             suspendisse pellentesque cras egestas. Quisque malesuada at cursus
@@ -125,25 +132,13 @@ function LotDetailModal({ lotId }) {
       </Grid>
       <div className={styles.footer}>
         <Button color="disabled">
-          <b> {'< <'} Previous Lot</b>
+          <b> {"< <"} Previous Lot</b>
         </Button>
         <Button color="disabled">
-          <b> Next Lot {'> >'}</b>
+          <b> Next Lot {"> >"}</b>
         </Button>
       </div>
     </Modal>
   );
 }
-
-LotDetailModal.propTypes = {
-  lotId: PropTypes.string.isRequired,
-  // lot: PropTypes.shape({
-  //   id: PropTypes.string,
-  //   src: PropTypes.string.isRequired,
-  //   name: PropTypes.string.isRequired,
-  //   number: PropTypes.number.isRequired,
-  //   price: PropTypes.string.isRequired,
-  // }),
-};
-
 export default LotDetailModal;

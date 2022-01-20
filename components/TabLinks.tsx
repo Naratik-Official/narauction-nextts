@@ -1,11 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
 
-import { useRouter } from 'next/router';
-import styles from 'styles/TabLinks.module.css';
-import ActiveLink from './ActiveLink';
+import { useRouter } from "next/router";
+import styles from "styles/TabLinks.module.css";
+import ActiveLink from "./ActiveLink";
 
-function TabLinks({ items, className }) {
+export interface TabLinkItem {
+  label: string;
+  href: string;
+}
+
+interface TabLinksProps {
+  items: TabLinkItem[];
+  className?: string;
+}
+
+function TabLinks({ items, className }: TabLinksProps) {
   const router = useRouter();
 
   return (
@@ -32,15 +41,5 @@ function TabLinks({ items, className }) {
     </div>
   );
 }
-
-TabLinks.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string,
-      href: PropTypes.string,
-    }).isRequired,
-  ),
-  className: PropTypes.string,
-};
 
 export default TabLinks;

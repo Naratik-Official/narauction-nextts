@@ -1,35 +1,36 @@
-import React from 'react';
+import React from "react";
 
-import Grid from '@material-ui/core/Grid';
-import LotCard from 'components/LotCard';
-import TextInput from 'components/TextInput';
-import Button from 'components/Button';
-import Paginator from 'components/Paginator';
-import CustomSlider from 'components/CustomSlider';
+import Grid from "@material-ui/core/Grid";
+import LotCard from "components/LotCard";
+import TextInput from "components/TextInput";
+import Button from "components/Button";
+import Paginator from "components/Paginator";
+import CustomSlider from "components/CustomSlider";
 
-import styles from 'styles/Catalog.module.css';
-import LotDetailModal from 'components/LotDetailModal';
-import { useRouter } from 'next/router';
-import Modal from 'react-modal';
-import Link from 'next/link';
+import styles from "styles/Catalog.module.css";
+import LotDetailModal from "components/LotDetailModal";
+import { useRouter } from "next/router";
+import Modal from "react-modal";
+import Link from "next/link";
+import Layout from "components/Layout";
 
-Modal.setAppElement('#__next');
+Modal.setAppElement("#__next");
 
 export default function Catalog() {
   const { lotId } = useRouter().query;
 
   return (
-    <>
-      <LotDetailModal lotId={lotId} />
+    <Layout>
+      <LotDetailModal lotId={lotId as string | undefined} />
       <Grid container className={styles.root}>
         <Grid item xs={1} />
         <Grid item xs={10}>
           <header>
             <h3>
-              Leo vulputate{' '}
+              Leo vulputate{" "}
               <span>
                 <h3 className="no-bold">dolor rhoncus sed velit id.</h3>
-              </span>{' '}
+              </span>{" "}
             </h3>
             <p className="medium">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis
@@ -48,9 +49,9 @@ export default function Catalog() {
                     background: `
                   linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%),
                   url("/catalog_slider_example.png")`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
                   }}
                 >
                   <div className={styles.sliderContent}>
@@ -85,7 +86,7 @@ export default function Catalog() {
             </Button>
           </div>
           <Grid container spacing={3}>
-            {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((id) => (
+            {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((id) => (
               <Grid item xs={4} key={id}>
                 <Link
                   passHref
@@ -93,15 +94,15 @@ export default function Catalog() {
                   as={`/catalog/${id}`}
                   scroll={false}
                 >
-                  <a style={{ border: 'none' }}>
+                  <a style={{ border: "none" }}>
                     <LotCard
                       lot={{
                         id,
-                        name: 'Molestie sit phasellus neque varius nisl.',
+                        name: "Molestie sit phasellus neque varius nisl.",
                         number: 904,
-                        price: 'Rp. 5.000.000',
-                        src: '/lotsample.png',
-                        date: '02 March 2021',
+                        price: "Rp. 5.000.000",
+                        src: "/lotsample.png",
+                        date: "02 March 2021",
                       }}
                     />
                   </a>
@@ -114,6 +115,6 @@ export default function Catalog() {
         <Grid item xs={1} />
         <div className={styles.background} />
       </Grid>
-    </>
+    </Layout>
   );
 }

@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import Slider from 'react-slick';
+import Slider from "react-slick";
 
 const slideSettings = {
   slidesToScroll: 1,
   centerMode: true,
-  centerPadding: '0',
+  centerPadding: "0",
   //   className: styles.slider,
   infinite: true,
   slidesToShow: 3,
