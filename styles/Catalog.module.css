@@ -1,0 +1,68 @@
+.root {
+  padding-top: 226px;
+}
+
+.background {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  height: 760px;
+  width: 100%;
+  background: url('/bg_catalog_header.png');
+}
+
+.slider {
+  margin-top: 318px;
+  margin-bottom: 84px;
+  align-items: center;
+  justify-content: center;
+}
+
+.sliderItem {
+  color: white;
+  border-radius: 10px;
+}
+
+.sliderContent {
+  padding: 144px 24px 24px 24px;
+}
+
+.sliderContent h5 {
+  margin: 0;
+}
+
+.subcontainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 16px;
+}
+
+.searchBar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 51px;
+}
+
+.searchBar input {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  margin: 0;
+  flex: 1;
+  background: #eaebef;
+  border: 1px solid #dde0e4;
+  box-sizing: border-box;
+  border-radius: 10px 0px 0px 10px;
+}
+
+.searchBar button {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  margin: 0;
+  padding: 24px 66px;
+}

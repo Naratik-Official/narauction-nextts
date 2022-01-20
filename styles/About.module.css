@@ -1,0 +1,94 @@
+.header {
+  background: linear-gradient(to bottom, #eaebef 60%, white 40%);
+  padding: 150px 0 215px 0;
+}
+
+.header p {
+  font-size: 20px;
+}
+
+.benefitContainer h3 {
+  margin: 16px 0;
+}
+
+.benefits ul {
+  list-style: url('/benefit.svg');
+}
+
+.benefits li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.benefits li::before {
+  content: '';
+  background-image: url('/benefit.svg');
+  margin-right: 16px;
+  height: 21px;
+  width: 21px;
+  background-size: 21px 21px;
+}
+
+.video {
+  display: flex;
+  flex-direction: row;
+  width: 376px;
+  align-items: center;
+  margin-bottom: 86px;
+}
+
+.video p {
+  margin-left: 24px;
+}
+
+.video a {
+  color: #feb528;
+  font-weight: bold;
+}
+
+.imageHeader {
+  width: 100%;
+}
+
+.main {
+  background: #dde0e4;
+  padding: 105px 0;
+}
+
+.main h3 {
+  margin: 16px 0;
+}
+
+.buttonBar {
+  display: flex;
+  flex-direction: row;
+  width: 124px;
+  justify-content: space-between;
+}
+.slider {
+  padding-left: 108px;
+}
+.sliderItem {
+  border-radius: 20px;
+  padding: 60px 42px;
+  margin-right: 16px;
+  background-color: white;
+}
+.sliderItem img {
+  display: block;
+  margin-bottom: 18px;
+}
+
+.more {
+  margin: 198px 0;
+}
+
+.register {
+  text-align: right;
+}
+
+.register button {
+  float: right;
+}

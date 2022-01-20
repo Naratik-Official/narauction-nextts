@@ -1,0 +1,9 @@
+.palette {
+  border: 1px solid white;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  width: 56px;
+  border-radius: 56px;
+}

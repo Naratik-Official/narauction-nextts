@@ -1,0 +1,100 @@
+.root {
+  padding: 40px;
+  margin: 64px;
+  background: white;
+  max-height: 80%;
+  display: flex;
+  flex-direction: column;
+  /* overflow: scroll; */
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 36px;
+  border-bottom: 1px solid #dde0e4;
+  /* position: absolute; */
+  /* width: 100%; */
+  background-color: white;
+}
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 36px;
+  border-top: 1px solid #dde0e4;
+  /* position: fixed; */
+  /* width: 100%; */
+  background-color: white;
+}
+
+.main {
+  margin: 24px 0;
+  overflow: auto;
+  flex: 1;
+}
+
+.imagesPreview {
+  padding-right: 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.currentImage {
+  width: 100%;
+}
+
+.otherGrid {
+  height: 81px;
+}
+
+.otherImage {
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+}
+
+.buttonBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 24px;
+}
+
+.root table {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #dde0e4;
+  border-bottom: 1px solid #dde0e4;
+  margin: 32px 0;
+  padding: 16px 0;
+}
+
+.root td {
+  padding: 8px 12px;
+}
+
+.eventDetail {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.eventDetail img {
+  width: 33%;
+  object-fit: contain;
+  margin-right: 24px;
+  border-radius: 10px;
+}
+
+.subcontainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon {
+  width: 18px !important;
+  margin-right: 8px !important;
+}
