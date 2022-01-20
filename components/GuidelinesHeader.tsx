@@ -1,28 +1,28 @@
-import React from 'react';
+import React from "react";
 
-import { useRouter } from 'next/router';
-import Grid from '@material-ui/core/Grid';
-import styles from 'styles/GuidelinesLinks.module.css';
-import ActiveLink from './ActiveLink';
+import { useRouter } from "next/router";
+import Grid from "@mui/material/Grid";
+import styles from "styles/GuidelinesLinks.module.css";
+import ActiveLink from "./ActiveLink";
 
 const items = [
   {
-    href: '/guidelines/messages',
-    label: 'Messages',
+    href: "/guidelines/messages",
+    label: "Messages",
   },
   {
-    href: '/guidelines/auctioneers',
-    label: 'Guideline For Auctioneers',
+    href: "/guidelines/auctioneers",
+    label: "Guideline For Auctioneers",
     segmented: true,
   },
   {
-    href: '/guidelines/bidders',
-    label: 'Guidelines For Bidders',
+    href: "/guidelines/bidders",
+    label: "Guidelines For Bidders",
     segmented: true,
   },
   {
-    href: '/guidelines/buyers',
-    label: 'Guidelines For Buyers',
+    href: "/guidelines/buyers",
+    label: "Guidelines For Buyers",
     segmented: true,
   },
 ];

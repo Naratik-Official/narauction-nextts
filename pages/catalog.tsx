@@ -1,6 +1,6 @@
 import React from "react";
 
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import LotCard from "components/LotCard";
 import TextInput from "components/TextInput";
 import Button from "components/Button";

@@ -1,7 +1,7 @@
 import React from "react";
 
 import Modal from "react-modal";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 
 import styles from "styles/LotDetailModal.module.css";
 import { useRouter } from "next/router";

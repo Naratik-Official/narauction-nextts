@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import Link from 'next/link';
-import Grid from '@material-ui/core/Grid';
-import styles from 'styles/Navbar.module.css';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Button from './Button';
+import Link from "next/link";
+import Grid from "@mui/material/Grid";
+import styles from "styles/Navbar.module.css";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Button from "./Button";
 
-import ActiveLink from './ActiveLink';
+import ActiveLink from "./ActiveLink";
 
 export default function Navbar() {
   return (

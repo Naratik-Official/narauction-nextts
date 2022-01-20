@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import Grid from '@material-ui/core/Grid';
+import Grid from "@mui/material/Grid";
 
-import styles from 'styles/Footer.module.css';
-import Link from 'next/link';
-import IconButton from './IconButton';
-import Button from './Button';
-import TextInput from './TextInput';
+import styles from "styles/Footer.module.css";
+import Link from "next/link";
+import IconButton from "./IconButton";
+import Button from "./Button";
+import TextInput from "./TextInput";
 
 export default function Footer() {
   return (

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import IconButton from "components/IconButton";
 import Button from "components/Button";
 import styles from "styles/About.module.css";

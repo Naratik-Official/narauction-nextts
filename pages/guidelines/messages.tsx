@@ -1,7 +1,7 @@
 import React from "react";
 
 import GuidelinesHeader from "components/GuidelinesHeader";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 
 import styles from "styles/Guidelines.module.css";
 import Layout from "components/Layout";
