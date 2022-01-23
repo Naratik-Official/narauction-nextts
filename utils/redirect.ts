@@ -1,12 +1,15 @@
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default (url: string, scroll?: boolean) =>
   function Redirect() {
     const router = useRouter();
 
-    router.replace(url, undefined, {
-      scroll: scroll ?? false,
-    });
+    useEffect(() => {
+      router.replace(url, undefined, {
+        scroll: scroll ?? false,
+      });
+    }, []);
 
     return null;
   };

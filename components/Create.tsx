@@ -14,13 +14,17 @@ import FileInput, { FileInputField } from "components/inputs/FileInput";
 import moment from "moment";
 import RadioInput, { RadioInputField } from "components/inputs/RadioInput";
 import ArrayInput, { ArrayInputField } from "./inputs/ArrayInput";
+import SelectInput, { SelectInputField } from "./inputs/SelectInput";
+import Snackbar from "@mui/material/Snackbar";
+import Alert, { AlertColor } from "@mui/material/Alert";
 
 export type InputField =
   | TextInputField
   | DateTimeInputField
   | FileInputField
   | RadioInputField
-  | ArrayInputField;
+  | ArrayInputField
+  | SelectInputField;
 
 type FieldValue =
   | string
@@ -34,14 +38,20 @@ export type Fields = {
   [key: string]: FieldValue;
 };
 
+export interface SubmitMessage {
+  type: AlertColor;
+  message: string;
+}
+
 interface CreateProps {
   fields: InputField[];
-  onSubmit: (fields: Fields) => Promise<void>;
+  onSubmit: (fields: Fields) => Promise<SubmitMessage | undefined>;
+  isLoading?: boolean;
   children?: JSX.Element;
 }
 
 export default function Create(props: CreateProps) {
-  const { fields, onSubmit, children } = props;
+  const { fields, onSubmit, children, isLoading: isLoadingProps } = props;
 
   const [states, setStates] = useState<
     { name: string; value: FieldValue; error?: string }[]
@@ -58,14 +68,17 @@ export default function Create(props: CreateProps) {
           Array.from({ length: (field as ArrayInputField).min ?? 1 }).map(
             () => ""
           ),
+        select: (field as SelectInputField).initialValue ?? "",
       }[field.type],
       error: undefined,
     }))
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [alertMessage, setAlertMessage] = useState<SubmitMessage | undefined>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setAlertMessage(undefined);
     let isError = false;
     let newStates = states;
     setStates((state) => {
@@ -84,10 +97,11 @@ export default function Create(props: CreateProps) {
 
     if (isError) return;
     setIsLoading(true);
-    await onSubmit(
+    const response = await onSubmit(
       Object.fromEntries(newStates.map((state) => [state.name, state.value]))
     );
     setIsLoading(false);
+    setAlertMessage(response);
   };
 
   const handleChange = (name: string, value: FieldValue) => {
@@ -99,9 +113,33 @@ export default function Create(props: CreateProps) {
     });
   };
 
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setAlertMessage(undefined);
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ mb: 4 }}>
+        <Snackbar
+          open={alertMessage !== undefined}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert
+            onClose={handleClose}
+            severity={alertMessage?.type}
+            sx={{ width: "100%" }}
+          >
+            {alertMessage?.message}
+          </Alert>
+        </Snackbar>
         {children}
         <form
           onSubmit={handleSubmit}
@@ -120,7 +158,7 @@ export default function Create(props: CreateProps) {
                     onChange={handleChange}
                     error={state.error}
                     key={field.name}
-                    disabled={isLoading}
+                    disabled={isLoading || isLoadingProps}
                     autoFocus={autoFocus}
                   />
                 );
@@ -132,7 +170,7 @@ export default function Create(props: CreateProps) {
                     onChange={handleChange}
                     error={state.error}
                     key={field.name}
-                    disabled={isLoading}
+                    disabled={isLoading || isLoadingProps}
                     autoFocus={autoFocus}
                   />
                 );
@@ -144,7 +182,7 @@ export default function Create(props: CreateProps) {
                     onChange={handleChange}
                     error={state.error}
                     key={field.name}
-                    disabled={isLoading}
+                    disabled={isLoading || isLoadingProps}
                   />
                 );
               case "file":
@@ -155,7 +193,7 @@ export default function Create(props: CreateProps) {
                     onChange={handleChange}
                     error={state.error}
                     key={field.name}
-                    disabled={isLoading}
+                    disabled={isLoading || isLoadingProps}
                   />
                 );
               case "array":
@@ -166,13 +204,29 @@ export default function Create(props: CreateProps) {
                     onChange={handleChange}
                     error={state.error}
                     key={field.name}
-                    disabled={isLoading}
+                    disabled={isLoading || isLoadingProps}
+                    autoFocus={autoFocus}
+                  />
+                );
+              case "select":
+                return (
+                  <SelectInput
+                    field={field}
+                    value={state.value as string}
+                    onChange={handleChange}
+                    error={state.error}
+                    key={field.name}
+                    disabled={isLoading || isLoadingProps}
                     autoFocus={autoFocus}
                   />
                 );
             }
           })}
-          <Button type="submit" variant="contained" disabled={isLoading}>
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={isLoading || isLoadingProps}
+          >
             Submit
           </Button>
         </form>

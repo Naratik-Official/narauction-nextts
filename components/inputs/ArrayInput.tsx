@@ -13,8 +13,10 @@ export interface ArrayInputField {
   validator?: (value: string[]) => string | undefined;
   label?: string;
   initialValue?: string[];
+  hideButtons?: boolean;
   min?: number;
   max?: number;
+  direction?: "row" | "row-reverse" | "column" | "column-reverse";
 }
 
 interface ArrayInputProps {
@@ -54,39 +56,51 @@ const ArrayInput = (props: ArrayInputProps) => {
       <Typography color={error ? "error" : "inherit"}>
         {field.label ?? capitalizeCamelCase(field.name)}
       </Typography>
-      {value.map((val, index) => (
-        <TextField
-          key={index}
-          value={val}
-          autoFocus={index == 0 ? autoFocus : index === value.length - 1}
-          fullWidth
-          placeholder={
-            field.labels
-              ? field.labels[index]
-              : `${field.label ?? capitalizeCamelCase(field.name)} #${
-                  index + 1
-                }`
-          }
-          onChange={(e) => handleChange(e.target.value, index)}
-          error={error !== undefined}
-          disabled={disabled}
-          type={type ?? "text"}
-        />
-      ))}
-      <Box>
-        <IconButton
-          onClick={handleAdd}
-          disabled={disabled || field.max ? value.length >= field.max! : false}
-        >
-          <Add />
-        </IconButton>
-        <IconButton
-          onClick={handleRemove}
-          disabled={disabled || value.length <= (field.min ?? 1)}
-        >
-          <Remove />
-        </IconButton>
+      <Box sx={{ display: "flex", flexDirection: field.direction ?? "column" }}>
+        {value.map((val, index) => (
+          <TextField
+            key={index}
+            value={val}
+            autoFocus={
+              !!!autoFocus
+                ? false
+                : index == 0
+                ? autoFocus
+                : index === value.length - 1
+            }
+            fullWidth
+            placeholder={
+              field.labels
+                ? field.labels[index]
+                : `${field.label ?? capitalizeCamelCase(field.name)} #${
+                    index + 1
+                  }`
+            }
+            onChange={(e) => handleChange(e.target.value, index)}
+            error={error !== undefined}
+            disabled={disabled}
+            type={type ?? "text"}
+          />
+        ))}
       </Box>
+      {!!!field.hideButtons && (
+        <Box>
+          <IconButton
+            onClick={handleAdd}
+            disabled={
+              disabled || field.max ? value.length >= field.max! : false
+            }
+          >
+            <Add />
+          </IconButton>
+          <IconButton
+            onClick={handleRemove}
+            disabled={disabled || value.length <= (field.min ?? 1)}
+          >
+            <Remove />
+          </IconButton>
+        </Box>
+      )}
       <Typography variant="caption" color="error" sx={{ mt: 1, mb: 2 }}>
         {error}
       </Typography>

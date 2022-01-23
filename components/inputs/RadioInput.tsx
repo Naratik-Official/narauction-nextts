@@ -11,12 +11,12 @@ export interface RadioInputField {
   type: "radio";
   name: string;
   validator?: (value: string | undefined) => string | undefined;
-  items: RadioItems[];
+  items: ChoiceItems[];
   label?: string;
   initialValue?: string;
 }
 
-export interface RadioItems {
+export interface ChoiceItems {
   name: string;
   value: string;
 }
