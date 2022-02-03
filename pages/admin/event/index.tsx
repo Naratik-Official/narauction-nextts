@@ -28,6 +28,17 @@ const columns: GridColumns = [
     valueGetter: (params) => moment(params.row.date).format("DD/MM/yyyy"),
   },
   {
+    field: "foto",
+    headerName: "Foto",
+    renderCell: (params) => (
+      <img
+        src={params.row.foto[0]}
+        alt={params.row.id}
+        style={{ objectFit: "cover", width: "100%" }}
+      />
+    ),
+  },
+  {
     field: "description",
     headerName: "Description",
     minWidth: 200,

@@ -1,4 +1,4 @@
-import { Typography, Box, Button, IconButton, Menu } from "@mui/material";
+import { Typography, Box, Button } from "@mui/material";
 import { useState, useCallback, useMemo } from "react";
 import capitalizeCamelCase from "utils/capitalizeCamelCase";
 
@@ -46,7 +46,7 @@ export const useImageUpload = (
     }))
   );
   const imagesToShow = useMemo(() => {
-    const img = [];
+    const img: Image[] = [];
 
     for (let i = 0; i < images.length; i++) {
       img.push(images[i]);

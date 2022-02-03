@@ -10,6 +10,22 @@ const eventField: InputField[] = [
     validator: (v) => (v ? undefined : "Wajib Diisi"),
   },
   {
+    type: "array",
+    name: "foto",
+    label: "URL Foto",
+    min: 1,
+    max: 5,
+    validator: (v) => {
+      let isError = false;
+      v.forEach((value) => {
+        if (isError) return;
+
+        isError = value.length === 0 || value === "";
+      });
+      return isError ? "Ada yang kosong" : undefined;
+    },
+  },
+  {
     type: "text",
     name: "description",
     validator: (v) => (v ? undefined : "Wajib Diisi"),

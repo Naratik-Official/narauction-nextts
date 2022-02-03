@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Grid from "@mui/material/Grid";
 import LotCard from "components/LotCard";
@@ -14,10 +14,71 @@ import Modal from "react-modal";
 import Link from "next/link";
 import Layout from "components/Layout";
 
+import axios from "axios";
+import { BarangEvent, Event } from "utils/types";
+import moment from "moment";
+
 Modal.setAppElement("#__next");
 
 export default function Catalog() {
   const { lotId } = useRouter().query;
+  const [barangEvents, setBarangEvents] = useState<BarangEvent>({});
+  const [activeEventId, setActiveEventId] = useState<string | undefined>();
+  const [fetchingBarang, setFetchingBarang] = useState(true);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const { data: events } = await axios.get(
+        "https://narauction.et.r.appspot.com/event"
+      );
+      setBarangEvents(() => ({
+        ...Object.fromEntries(
+          events.map((e: Event) => [
+            e.id,
+            {
+              ...e,
+              barang: [],
+            },
+          ])
+        ),
+      }));
+      if (events.length > 0) setActiveEventId(events[0].id);
+    };
+    fetch();
+  }, []);
+
+  useEffect(() => {
+    const fetch = async () => {
+      setFetchingBarang(true);
+      try {
+        const { data: barang } = await axios.get(
+          `https://narauction.et.r.appspot.com/barang/event/${activeEventId}`
+        );
+        setBarangEvents((state) => ({
+          ...state,
+          [activeEventId!]: {
+            ...state[activeEventId!],
+            barang: [...barang],
+          },
+        }));
+      } catch {
+        setBarangEvents((state) => ({
+          ...state,
+          [activeEventId!]: {
+            ...state[activeEventId!],
+            barang: [],
+          },
+        }));
+      }
+      setFetchingBarang(false);
+    };
+
+    if (activeEventId) fetch();
+  }, [activeEventId]);
+
+  const handleSlideChange = (index: number) => {
+    setActiveEventId(Object.entries(barangEvents)[index][0]);
+  };
 
   return (
     <Layout>
@@ -40,22 +101,26 @@ export default function Catalog() {
               <b>Look All Events</b>
             </Button>
           </header>
-          <CustomSlider className={styles.slider}>
-            {Array.from({ length: 5 }).map((_, e) => (
-              <div key={e}>
+          <CustomSlider
+            className={styles.slider}
+            autoplay={false}
+            afterChange={handleSlideChange}
+          >
+            {Object.entries(barangEvents).map(([id, e]) => (
+              <div key={id}>
                 <div
                   className={styles.sliderItem}
                   style={{
                     background: `
                   linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%),
-                  url("/catalog_slider_example.png")`,
+                  url(${e.foto[0]})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                   }}
                 >
                   <div className={styles.sliderContent}>
-                    <h5>Lelang Event Name {e}</h5>
+                    <h5>{e.description}</h5>
                     <div className={styles.subcontainer}>
                       <img
                         src="/broadcast.svg"
@@ -63,7 +128,8 @@ export default function Catalog() {
                         className={`${styles.icon} icon`}
                       />
                       <p className="extra-small">
-                        LIVE auction Saturday, 11 December 2021 at 2:30 PM
+                        LIVE auction {moment(e.date).format("dddd, D MMMM y")}{" "}
+                        at {moment(e.date).format("h:m A")}
                       </p>
                     </div>
                     <Button size="small" color="disabled" outline>
@@ -79,38 +145,52 @@ export default function Catalog() {
               </div>
             ))}
           </CustomSlider>
-          <div className={styles.searchBar}>
-            <TextInput type="text" placeholder="Search Lots..." />
-            <Button color="secondary">
-              <b>Search</b>
-            </Button>
-          </div>
-          <Grid container spacing={3}>
-            {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((id) => (
-              <Grid item xs={4} key={id}>
-                <Link
-                  passHref
-                  href={`/catalog?lotId=${id}`}
-                  as={`/catalog/${id}`}
-                  scroll={false}
-                >
-                  <a style={{ border: "none" }}>
-                    <LotCard
-                      lot={{
-                        id,
-                        name: "Molestie sit phasellus neque varius nisl.",
-                        number: 904,
-                        price: "Rp. 5.000.000",
-                        src: "/lotsample.png",
-                        date: "02 March 2021",
-                      }}
-                    />
-                  </a>
-                </Link>
-              </Grid>
-            ))}
-          </Grid>
-          <Paginator />
+          {activeEventId && barangEvents[activeEventId].barang.length > 0 && (
+            <div className={styles.searchBar}>
+              <TextInput type="text" placeholder="Search Lots..." />
+              <Button color="secondary">
+                <b>Search</b>
+              </Button>
+            </div>
+          )}
+          {activeEventId && (
+            <Grid container spacing={3}>
+              {barangEvents[activeEventId].barang.length > 0 &&
+              !fetchingBarang ? (
+                barangEvents[activeEventId].barang.map((b) => (
+                  <Grid item xs={4} key={b.id}>
+                    <Link
+                      passHref
+                      href={`/catalog?lotId=${b.id}`}
+                      as={`/catalog/${b.id}`}
+                      scroll={false}
+                    >
+                      <a style={{ border: "none" }}>
+                        <LotCard
+                          lot={{
+                            id: b.id,
+                            name: b.namaBarang,
+                            number: b.tahunPembuatan,
+                            price: `Rp. ${b.priceRange[0].toLocaleString()}`,
+                            src: b.foto[0],
+                            date: b.tahunPembuatan.toString(),
+                          }}
+                        />
+                      </a>
+                    </Link>
+                  </Grid>
+                ))
+              ) : (
+                <Grid item xs={12}>
+                  <p className={styles.barangStatusText}>
+                    {fetchingBarang ? "Mohon tunggu..." : "Belum ada barang"}
+                  </p>
+                </Grid>
+              )}
+            </Grid>
+          )}
+          <div className={styles.spacer} />
+          {/* <Paginator /> */}
         </Grid>
         <Grid item xs={1} />
         <div className={styles.background} />

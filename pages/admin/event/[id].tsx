@@ -49,6 +49,23 @@ const AdminEvent = () => {
             validator: (v) => (v ? undefined : "Wajib Diisi"),
           },
           {
+            type: "array",
+            name: "foto",
+            label: "URL Foto",
+            initialValue: event.foto,
+            min: 1,
+            max: 5,
+            validator: (v) => {
+              let isError = false;
+              v.forEach((value) => {
+                if (isError) return;
+
+                isError = value.length === 0 || value === "";
+              });
+              return isError ? "Ada yang kosong" : undefined;
+            },
+          },
+          {
             type: "text",
             name: "description",
             initialValue: event.description,
@@ -72,7 +89,10 @@ const AdminEvent = () => {
 
   const handleSubmit = async (fields: Fields) => {
     try {
-      await axios.put(`https://narauction.et.r.appspot.com/event/${id}`, fields);
+      await axios.put(
+        `https://narauction.et.r.appspot.com/event/${id}`,
+        fields
+      );
       return {
         message: "Event berhasil diupdate",
         type: "success",
