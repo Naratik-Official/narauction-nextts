@@ -1,35 +1,27 @@
 import React from "react";
 
 import styles from "styles/LotCard.module.css";
-
-export interface Lot {
-  id: string;
-  src: string;
-  name: string;
-  number: number;
-  date: string;
-  price: string;
-}
+import { Barang } from "utils/types";
 
 interface LotCardProps {
-  lot: Lot;
+  barang: Barang;
 }
 
-function LotCard({ lot }: LotCardProps) {
-  const { src, name, number, date, price } = lot;
+function LotCard({ barang }: LotCardProps) {
+  const { id, foto, namaBarang, tahunPembuatan, priceRange } = barang;
 
   return (
     <div className={styles.card}>
-      <img src={src} alt="" />
+      <img src={foto[0]} alt="" />
       <div className={styles.content}>
-        <b className="medium">{name}</b>
+        <b className="medium">{namaBarang}</b>
         <p className="small">
-          #{number} - {date}
+          #{id} - {tahunPembuatan}
         </p>
         <div className={styles.footer}>
           <p>
             Start From
-            <b>{price}</b>
+            <b>Rp. {priceRange[0].toLocaleString()}</b>
           </p>
         </div>
       </div>

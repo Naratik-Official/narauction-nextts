@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import Grid from "@mui/material/Grid";
 import LotCard from "components/LotCard";
@@ -25,6 +25,28 @@ export default function Catalog() {
   const [barangEvents, setBarangEvents] = useState<BarangEvent>({});
   const [activeEventId, setActiveEventId] = useState<string | undefined>();
   const [fetchingBarang, setFetchingBarang] = useState(true);
+  const [previousLotId, nextLotId] = useMemo(() => {
+    if (!lotId) return [undefined, undefined];
+
+    const currentEvent = Object.entries(barangEvents)
+      .map((e) => e[1])
+      .find((value) => {
+        return value.barang.find((b) => b.id === lotId) ? true : false;
+      });
+    if (!currentEvent) return [undefined, undefined];
+
+    const { barang } = currentEvent;
+    const { length } = barang;
+
+    if (length === 1) return [undefined, undefined];
+
+    const lotIndex = barang.findIndex((b) => b.id === lotId);
+
+    const prevIndex = (lotIndex + length - 1) % length;
+    const nextIndex = (lotIndex + 1) % length;
+
+    return [barang[prevIndex].id, barang[nextIndex].id];
+  }, [lotId, barangEvents]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -82,7 +104,11 @@ export default function Catalog() {
 
   return (
     <Layout>
-      <LotDetailModal lotId={lotId as string | undefined} />
+      <LotDetailModal
+        lotId={lotId as string | undefined}
+        nextLotId={nextLotId}
+        previousLotId={previousLotId}
+      />
       <Grid container className={styles.root}>
         <Grid item xs={1} />
         <Grid item xs={10}>
@@ -166,16 +192,7 @@ export default function Catalog() {
                       scroll={false}
                     >
                       <a style={{ border: "none" }}>
-                        <LotCard
-                          lot={{
-                            id: b.id,
-                            name: b.namaBarang,
-                            number: b.tahunPembuatan,
-                            price: `Rp. ${b.priceRange[0].toLocaleString()}`,
-                            src: b.foto[0],
-                            date: b.tahunPembuatan.toString(),
-                          }}
-                        />
+                        <LotCard barang={b} />
                       </a>
                     </Link>
                   </Grid>

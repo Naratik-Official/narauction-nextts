@@ -43,6 +43,9 @@
 
 .currentImage {
   width: 100%;
+  height: 240px;
+  object-fit: contain;
+  border: 1px solid #dde0e448;
 }
 
 .otherGrid {
@@ -51,8 +54,9 @@
 
 .otherImage {
   width: 100%;
-  height: 50%;
+  height: 90px;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .buttonBar {
@@ -81,12 +85,21 @@
   align-items: flex-start;
 }
 
+.eventImage {
+  width: 33%;
+  height: 150px;
+  object-fit: cover !important;
+  margin-right: 24px;
+  border-radius: 10px;
+}
+
 .eventDetail img {
   width: 33%;
   object-fit: contain;
   margin-right: 24px;
   border-radius: 10px;
 }
+
 
 .subcontainer {
   display: flex;

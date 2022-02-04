@@ -20,6 +20,7 @@ interface ButtonProps {
   round?: boolean;
   children?: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 }
 
 function Button(props: ButtonProps) {
@@ -31,6 +32,7 @@ function Button(props: ButtonProps) {
     round,
     children,
     onClick,
+    disabled,
   } = props;
 
   const stylesToUse = outline ? outlineStyles : styles;
@@ -38,6 +40,7 @@ function Button(props: ButtonProps) {
   return (
     <button
       onClick={onClick}
+      disabled={disabled}
       className={`${stylesToUse.button} ${stylesToUse[color]} ${
         stylesToUse[size]
       } ${outline ? stylesToUse.outline : ""} ${
