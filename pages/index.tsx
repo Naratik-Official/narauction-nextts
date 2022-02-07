@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Grid from "@mui/material/Grid";
 import Button from "components/Button";
@@ -11,30 +11,82 @@ import styles from "styles/Home.module.css";
 import IconButton from "components/IconButton";
 import RatingStars, { RatingOptions } from "components/RatingStars";
 import Layout from "components/Layout";
+import axios from "axios";
+import { UpcomingEvent } from "utils/types";
+import moment from "moment";
 
 export default function Home() {
+  const [event, setEvent] = useState<UpcomingEvent | undefined>();
+  const [eta, setEta] = useState("");
+
+  useEffect(() => {
+    const fetch = async () => {
+      const { data } = await axios.get<UpcomingEvent>(
+        "https://narauction.et.r.appspot.com/event/upcoming"
+      );
+
+      setEvent(data);
+      setInterval(() => {
+        const eta = moment.duration(moment(data.date).diff(moment())).asDays();
+
+        let day = eta;
+        let hour = (day % 1) * 24;
+        day = Math.floor(day);
+        let minute = (hour % 1) * 60;
+        hour = Math.floor(hour);
+        let second = Math.floor((minute % 1) * 60);
+        minute = Math.floor(minute);
+
+        setEta(`${day}d : ${hour}h : ${minute}m : ${second}s`);
+      }, 1000);
+    };
+
+    fetch();
+  }, []);
+
+  if (!event) return null;
+
   return (
     <Layout>
       <div className={styles.root}>
         <Grid container>
           <Grid item xs={1} />
           <Grid item xs={10}>
-            <header className={styles.header}>
-              <h1>Lelang Event Name</h1>
+            <header
+              className={styles.header}
+              style={{
+                background: `linear-gradient(
+                  90deg,
+                  rgba(53, 46, 31, 0.8) 0%,
+                  rgba(53, 46, 31, 0) 100%
+                ),
+                url(${event.foto[0] ?? "/bg_home_header.png"}) center/cover`,
+              }}
+            >
+              <h1>{event.description}</h1>
               <div className={styles.subtitleBar}>
-                <p className={styles.subtitle}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit
-                  integer nunc vitae a. Aliquet eget malesuada est etiam.
-                </p>
+                <p className={styles.subtitle}>{event.openingMessage}</p>
                 <div className={styles.paletteContainer}>
                   <BatikPalette
                     className={styles.palette5}
                     src="/icon_others.svg"
                   />
-                  <BatikPalette className={styles.palette4} src="/icon_4.png" />
+                  {event.fotoItem
+                    .filter((_, i) => i < 4)
+                    .map((src, index, arr) => {
+                      const i = 4 - index;
+                      return (
+                        <BatikPalette
+                          key={src}
+                          className={styles[`palette${i}`]}
+                          src={src}
+                        />
+                      );
+                    })}
+                  {/* <BatikPalette className={styles.palette4} src="/icon_4.png" />
                   <BatikPalette className={styles.palette3} src="/icon_3.png" />
                   <BatikPalette className={styles.palette2} src="/icon_2.png" />
-                  <BatikPalette className={styles.palette1} src="/icon_1.png" />
+                  <BatikPalette className={styles.palette1} src="/icon_1.png" /> */}
                 </div>
               </div>
               <div className={styles.buttonBar}>
@@ -46,12 +98,6 @@ export default function Home() {
                   <img src="/list.svg" alt="" className={styles.icon} />
                   View All Lots
                 </Button>
-                {/* <IconButton
-                src="/goggle.svg"
-                color="white"
-                backgroundColor="transparent"
-                outline
-              /> */}
               </div>
               <div className={styles.countdown}>
                 <div className={styles.subcontainer}>
@@ -60,10 +106,10 @@ export default function Home() {
                     alt=""
                     className={`${styles.icon} icon`}
                   />
-                  <b>06d : 22h : 36m : 42s</b>
+                  <b>{eta}</b>
                 </div>
                 <div className={styles.divider} />
-                <p>36 Lots</p>
+                <p>{event.itemCount} Lots</p>
                 <div className={styles.divider} />
                 <div className={styles.subcontainer}>
                   <img
@@ -71,7 +117,10 @@ export default function Home() {
                     alt=""
                     className={`${styles.icon} icon`}
                   />
-                  <p>LIVE auction Saturday, 11 December 2021 at 2:30 PM</p>
+                  <p>
+                    LIVE auction {moment(event.date).format("dddd, D MMMM y")}{" "}
+                    at {moment(event.date).format("h:m A")}
+                  </p>
                 </div>
               </div>
             </header>

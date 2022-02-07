@@ -46,6 +46,7 @@
   height: 240px;
   object-fit: contain;
   border: 1px solid #dde0e448;
+  border-radius: 8px;
 }
 
 .otherGrid {
@@ -57,6 +58,7 @@
   height: 90px;
   object-fit: cover;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .buttonBar {

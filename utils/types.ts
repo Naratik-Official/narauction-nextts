@@ -6,6 +6,16 @@ export interface Event {
   foto: string[];
 }
 
+export interface UpcomingEvent {
+  id: string;
+  date: string;
+  description: string;
+  openingMessage: string;
+  foto: string[];
+  itemCount: number;
+  fotoItem: string[];
+}
+
 export interface Barang {
   id: string;
   namaBarang: string;

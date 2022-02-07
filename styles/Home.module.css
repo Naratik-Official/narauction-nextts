@@ -5,12 +5,12 @@
 .header {
   border-radius: 20px;
   color: white;
-  background: linear-gradient(
+  /* background: linear-gradient(
       90deg,
       rgba(53, 46, 31, 0.8) 0%,
       rgba(53, 46, 31, 0) 100%
     ),
-    url('/bg_home_header.png') center/cover;
+    url('/bg_home_header.png') center/cover; */
   background-repeat: no-repeat;
   border-radius: 20px;
   padding: 65px 82px;
