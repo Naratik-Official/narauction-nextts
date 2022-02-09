@@ -3,6 +3,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import styles from "styles/TabLinks.module.css";
 import ActiveLink from "./ActiveLink";
+import useTranslation from "utils/useTranslation";
 
 export interface TabLinkItem {
   label: string;
@@ -16,6 +17,7 @@ interface TabLinksProps {
 
 function TabLinks({ items, className }: TabLinksProps) {
   const router = useRouter();
+  const [_, currentLang] = useTranslation();
 
   return (
     <div className={`${className} ${styles.root}`}>
@@ -29,7 +31,7 @@ function TabLinks({ items, className }: TabLinksProps) {
             className={styles.navLink}
             onClick={(e) => {
               e.preventDefault();
-              router.push(item.href, undefined, {
+              router.push(`${item.href}?lang=${currentLang}`, undefined, {
                 scroll: false,
               });
             }}

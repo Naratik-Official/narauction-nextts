@@ -7,14 +7,22 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "./Button";
 
 import ActiveLink from "./ActiveLink";
+import useTranslation from "utils/useTranslation";
+import { LanguageSwitcher } from "next-export-i18n";
 
 export default function Navbar() {
+  const [t, currentLang] = useTranslation();
+
+  const handleChangeLanguage = (language: "en" | "id") => {
+    localStorage.setItem("lang", language);
+  };
+
   return (
     <nav>
       <Grid container>
         <Grid item xs={1} />
         <Grid item xs={10} className={styles.listContainer}>
-          <Link href="/" passHref>
+          <Link href={`/?lang=${currentLang}`} passHref>
             <a>
               <img src="/logo_brand.svg" alt="Home" />
             </a>
@@ -22,12 +30,12 @@ export default function Navbar() {
           <ul className={styles.list}>
             <li>
               <ActiveLink activeClassName={styles.navActive} href="/">
-                <a className={styles.navLink}>Home</a>
+                <a className={styles.navLink}>{t("home")}</a>
               </ActiveLink>
             </li>
             <li>
               <ActiveLink activeClassName={styles.navActive} href="/catalog">
-                <a className={styles.navLink}>Catalog</a>
+                <a className={styles.navLink}>{t("catalog")}</a>
               </ActiveLink>
             </li>
             <li>
@@ -36,32 +44,43 @@ export default function Navbar() {
                 href="/guidelines"
                 segmented
               >
-                <a className={styles.navLink}>Guidelines</a>
+                <a className={styles.navLink}>{t("guidelines")}</a>
               </ActiveLink>
             </li>
             <li>
               <ActiveLink activeClassName={styles.navActive} href="/about">
-                <a className={styles.navLink}>About</a>
+                <a className={styles.navLink}>{t("about")}</a>
               </ActiveLink>
             </li>
             <li>
-              {/* <div className={styles.languageSelector}> */}
-              {/* <img src="/language.svg" alt="" /> */}
               <NavDropdown
-                title="EN"
+                title={currentLang.toUpperCase()}
                 id="collasible-nav-dropdown"
                 className={styles.languageSelector}
               >
-                <NavDropdown.Item>
-                  <ActiveLink activeClassName={styles.navActive} href="#">
-                    <a className={styles.navLink}>EN</a>
-                  </ActiveLink>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <ActiveLink activeClassName={styles.navActive} href="#">
+                <div onClick={() => handleChangeLanguage("en")}>
+                  <LanguageSwitcher lang="en">
+                    <NavDropdown.Item>
+                      <a className={styles.navLink}>EN</a>
+                    </NavDropdown.Item>
+                  </LanguageSwitcher>
+                </div>
+                <div onClick={() => handleChangeLanguage("id")}>
+                  <LanguageSwitcher lang="id">
+                    <NavDropdown.Item>
+                      <a className={styles.navLink}>ID</a>
+                    </NavDropdown.Item>
+                  </LanguageSwitcher>
+                </div>
+                {/* <NavDropdown.Item>
+                  <ActiveLink
+                    activeClassName={styles.navActive}
+                    href={route}
+                    lang="id"
+                  >
                     <a className={styles.navLink}>ID</a>
                   </ActiveLink>
-                </NavDropdown.Item>
+                </NavDropdown.Item> */}
               </NavDropdown>
             </li>
             <li className={styles.buttonContainer}>

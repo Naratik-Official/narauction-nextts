@@ -71,6 +71,7 @@
   font-weight: 500;
   height: 100%;
   margin: 0 16px;
+  cursor: pointer;
 }
 
 .languageSelector:hover {

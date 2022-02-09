@@ -2,10 +2,12 @@ import React, { Children } from "react";
 
 import { useRouter } from "next/router";
 import Link from "next/link";
+import useTranslation from "utils/useTranslation";
 
 interface ActiveLinkProps {
   activeClassName: string;
   href: string;
+  lang?: "en" | "id";
   as?: string;
   segmented?: boolean;
   children: React.ReactNode;
@@ -17,6 +19,7 @@ const ActiveLink = ({
   segmented,
   href,
   as,
+  lang,
   ...props
 }: ActiveLinkProps) => {
   const { pathname } = useRouter();
@@ -31,7 +34,7 @@ const ActiveLink = ({
   const targetPaths = href.split("/").filter((_, i) => i !== 0);
   const targetLength = targetPaths.length;
   const samePath =
-    currentLength > targetLength
+    currentLength > 0 && targetLength > 0 && currentLength > targetLength
       ? (targetPaths as any).reduce(
           (prev, next, index) => prev && next === currentPaths[index]
         )
@@ -43,8 +46,10 @@ const ActiveLink = ({
     ? `${childClassName} ${activeClassName}`.trim()
     : childClassName;
 
+  const [_, currentLang] = useTranslation();
+
   return (
-    <Link href={href} {...props}>
+    <Link href={`${href}?lang=${lang ?? currentLang}`} {...props}>
       {React.cloneElement(child as any, {
         className: className || null,
       })}

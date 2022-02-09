@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import type { AppProps } from "next/app";
 import { GoogleFonts } from "nextjs-google-fonts/GoogleFonts";
 
@@ -13,6 +13,12 @@ import "slick-carousel/slick/slick-theme.css";
 import "react-slideshow-image/dist/styles.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    const lang = localStorage.getItem("lang");
+
+    if (!lang) localStorage.setItem("lang", "en");
+  }, []);
+
   return (
     <>
       <Head>

@@ -14,10 +14,12 @@ import Layout from "components/Layout";
 import axios from "axios";
 import { UpcomingEvent } from "utils/types";
 import moment from "moment";
+import useTranslation from "utils/useTranslation";
 
 export default function Home() {
   const [event, setEvent] = useState<UpcomingEvent | undefined>();
   const [eta, setEta] = useState("");
+  const [t] = useTranslation();
 
   useEffect(() => {
     const fetch = async () => {
@@ -92,7 +94,7 @@ export default function Home() {
               <div className={styles.buttonBar}>
                 <Button outline className={styles.button}>
                   <img src="/bid.svg" alt="" className={styles.icon} />
-                  Lets Bidding Now
+                  Lets Bidding Now test translasi {t("home")}
                 </Button>
                 <Button outline color="transparent" className={styles.button}>
                   <img src="/list.svg" alt="" className={styles.icon} />

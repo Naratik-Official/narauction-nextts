@@ -1825,6 +1825,11 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
+mustache@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/mustache/-/mustache-4.2.0.tgz#e5892324d60a12ec9c2a73359edca52972bf6f64"
+  integrity sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==
+
 nanoid@^3.1.23:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.2.0.tgz#62667522da6673971cca916a6d3eff3f415ff80c"
@@ -1834,6 +1839,13 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
+
+next-export-i18n@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/next-export-i18n/-/next-export-i18n-1.4.1.tgz#b3113d42d27620fc9d4ed30cfb4599eac9548db0"
+  integrity sha512-1Hmr08Qi0plt8M7yvvLGLl/O2AyC8qRT8lH3OTgj/tvw/H8cmlibjQ3ZpzSkoggNv1n4e6XhAdT7YYrP08jM8A==
+  dependencies:
+    mustache "^4.2.0"
 
 next-images@^1.8.4:
   version "1.8.4"

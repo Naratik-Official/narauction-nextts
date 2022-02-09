@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Grid from "@mui/material/Grid";
 import styles from "styles/GuidelinesLinks.module.css";
 import ActiveLink from "./ActiveLink";
+import useTranslation from "utils/useTranslation";
 
 const items = [
   {
@@ -29,14 +30,15 @@ const items = [
 
 export default function GuidelinesHeader() {
   const router = useRouter();
+  const [_, currentLang] = useTranslation();
+
   return (
     <Grid container className={styles.header}>
       <Grid item xs={1} />
       <Grid item xs={10} className={styles.links}>
         {items.map((item, index) => (
-          <>
+          <React.Fragment key={item.href}>
             <ActiveLink
-              key={item.href}
               activeClassName={styles.navActive}
               href={item.href}
               segmented={item.segmented}
@@ -45,7 +47,7 @@ export default function GuidelinesHeader() {
                 className={styles.navLink}
                 onClick={(e) => {
                   e.preventDefault();
-                  router.push(item.href, undefined, {
+                  router.push(`${item.href}?lang=${currentLang}`, undefined, {
                     scroll: false,
                   });
                 }}
@@ -54,7 +56,7 @@ export default function GuidelinesHeader() {
               </a>
             </ActiveLink>
             {index < items.length - 1 && <div className={styles.divider} />}
-          </>
+          </React.Fragment>
         ))}
         {/* <ActiveLink
           activeClassName={styles.navActive}
