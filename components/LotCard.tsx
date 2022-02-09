@@ -9,7 +9,7 @@ interface LotCardProps {
 }
 
 function LotCard({ barang }: LotCardProps) {
-  const { id, foto, namaBarang, tahunPembuatan, priceRange } = barang;
+  const { lot, foto, namaBarang, tahunPembuatan, priceRange } = barang;
   const [t] = useTranslation();
 
   return (
@@ -18,7 +18,7 @@ function LotCard({ barang }: LotCardProps) {
       <div className={styles.content}>
         <b className="medium">{namaBarang}</b>
         <p className="small">
-          #{id} - {tahunPembuatan}
+          #{lot} - {tahunPembuatan}
         </p>
         <div className={styles.footer}>
           <p>
