@@ -6,6 +6,9 @@ import Create, { Fields, InputField, SubmitMessage } from "components/Create";
 import moment from "moment";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Event } from "utils/types";
+import withAdminAuth from "utils/withAdminAuth";
+import { adminRequestConfig } from "..";
 
 // const eventField: InputField[] = [
 //   {
@@ -37,7 +40,7 @@ const AdminEvent = () => {
       setIsLoading(true);
       console.log(id);
       try {
-        const { data: event } = await axios.get(
+        const { data: event } = await axios.get<Event>(
           `https://narauction.et.r.appspot.com/event/${id}`
         );
         setBarangField([
@@ -65,17 +68,59 @@ const AdminEvent = () => {
               return isError ? "Ada yang kosong" : undefined;
             },
           },
+          // {
+          //   type: "text",
+          //   name: "description",
+          //   initialValue: event.description,
+          //   validator: (v) => (v ? undefined : "Wajib Diisi"),
+          // },
+          // {
+          //   type: "text",
+          //   name: "openingMessage",
+          //   initialValue: event.openingMessage,
+          //   validator: (v) => (v ? undefined : "Wajib Diisi"),
+          // },
           {
             type: "text",
-            name: "description",
-            initialValue: event.description,
-            validator: (v) => (v ? undefined : "Wajib Diisi"),
+            name: "name",
+            label: "Nama Event",
+            initialValue: event.name,
+            validator: (v) =>
+              v.length === 0 || v === "" ? "Wajib Diisi" : undefined,
           },
           {
             type: "text",
-            name: "openingMessage",
-            initialValue: event.openingMessage,
-            validator: (v) => (v ? undefined : "Wajib Diisi"),
+            name: "descId",
+            label: "Deskripsi (Indonesia)",
+            initialValue: event.descId,
+            multiline: true,
+            validator: (v) =>
+              v.length === 0 || v === "" ? "Wajib Diisi" : undefined,
+          },
+          {
+            type: "text",
+            name: "descEn",
+            label: "Deskripsi (English)",
+            initialValue: event.descEn,
+            multiline: true,
+            validator: (v) =>
+              v.length === 0 || v === "" ? "Wajib Diisi" : undefined,
+          },
+          {
+            type: "text",
+            name: "openingId",
+            label: "Opening Message (Indonesia)",
+            initialValue: event.openingId,
+            validator: (v) =>
+              v.length === 0 || v === "" ? "Wajib Diisi" : undefined,
+          },
+          {
+            type: "text",
+            name: "openingEn",
+            label: "Opening Message (English)",
+            initialValue: event.openingEn,
+            validator: (v) =>
+              v.length === 0 || v === "" ? "Wajib Diisi" : undefined,
           },
         ]);
         setIsLoading(false);
@@ -91,7 +136,8 @@ const AdminEvent = () => {
     try {
       await axios.put(
         `https://narauction.et.r.appspot.com/event/${id}`,
-        fields
+        fields,
+        adminRequestConfig()
       );
       return {
         message: "Event berhasil diupdate",
@@ -104,7 +150,10 @@ const AdminEvent = () => {
 
   const handleDelete = async () => {
     setIsLoading(true);
-    await axios.delete(`https://narauction.et.r.appspot.com/event/${id}`);
+    await axios.delete(
+      `https://narauction.et.r.appspot.com/event/${id}`,
+      adminRequestConfig()
+    );
     router.push("/admin/event");
   };
 
@@ -137,4 +186,4 @@ const AdminEvent = () => {
   );
 };
 
-export default AdminEvent;
+export default withAdminAuth(AdminEvent);

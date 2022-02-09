@@ -1,7 +1,5 @@
-import { useLanguageQuery } from "next-export-i18n";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import useTranslation from "./useTranslation";
 
 export default (url: string, scroll?: boolean) =>
   function Redirect() {

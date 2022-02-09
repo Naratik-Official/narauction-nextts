@@ -9,12 +9,14 @@ import Button from "./Button";
 import ActiveLink from "./ActiveLink";
 import useTranslation from "utils/useTranslation";
 import { LanguageSwitcher } from "next-export-i18n";
+import moment from "moment";
 
 export default function Navbar() {
   const [t, currentLang] = useTranslation();
 
   const handleChangeLanguage = (language: "en" | "id") => {
     localStorage.setItem("lang", language);
+    moment.locale(language);
   };
 
   return (
@@ -90,7 +92,7 @@ export default function Navbar() {
                   color="primary"
                   className={styles.buttonLink}
                 >
-                  Register
+                  {t("register")}
                 </Button>
               </Link>
             </li>

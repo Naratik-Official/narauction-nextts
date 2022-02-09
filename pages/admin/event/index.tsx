@@ -11,6 +11,8 @@ import { useRouter } from "next/router";
 import moment from "moment";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import withAdminAuth from "utils/withAdminAuth";
+import { adminRequestConfig } from "..";
 
 const columns: GridColumns = [
   {
@@ -39,18 +41,28 @@ const columns: GridColumns = [
     ),
   },
   {
-    field: "description",
-    headerName: "Description",
+    field: "descId",
+    headerName: "Description ID",
     minWidth: 200,
   },
   {
-    field: "openingMessage",
-    headerName: "Message",
+    field: "descEn",
+    headerName: "Description EN",
+    minWidth: 200,
+  },
+  {
+    field: "openingId",
+    headerName: "Message ID",
+    minWidth: 200,
+  },
+  {
+    field: "openingEn",
+    headerName: "Message EN",
     minWidth: 200,
   },
 ];
 
-export default function AdminEventList() {
+function AdminEventList() {
   const router = useRouter();
   const [selected, setSelected] = useState<GridSelectionModel>([]);
   const [rows, setRows] = useState<any[]>([]);
@@ -76,7 +88,10 @@ export default function AdminEventList() {
     try {
       await Promise.all(
         selected.map((id) =>
-          axios.delete(`https://narauction.et.r.appspot.com/event/${id}`)
+          axios.delete(
+            `https://narauction.et.r.appspot.com/event/${id}`,
+            adminRequestConfig()
+          )
         )
       );
       router.reload();
@@ -151,3 +166,5 @@ export default function AdminEventList() {
     </AdminLayout>
   );
 }
+
+export default withAdminAuth(AdminEventList);

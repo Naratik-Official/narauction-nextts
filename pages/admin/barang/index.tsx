@@ -10,6 +10,8 @@ import AdminLayout from "components/AdminLayout";
 import { useRouter } from "next/router";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import withAdminAuth from "utils/withAdminAuth";
+import { adminRequestConfig } from "..";
 
 const columns: GridColumns = [
   {
@@ -19,6 +21,10 @@ const columns: GridColumns = [
     renderCell: (params) => (
       <Link href={`/admin/barang/${params.row.id}`}>{params.row.id}</Link>
     ),
+  },
+  {
+    field: "lot",
+    minWidth: 200,
   },
   {
     field: "namaBarang",
@@ -47,8 +53,13 @@ const columns: GridColumns = [
     minWidth: 200,
   },
   {
-    field: "description",
-    headerName: "Description",
+    field: "descId",
+    headerName: "Desc ID",
+    minWidth: 200,
+  },
+  {
+    field: "descEn",
+    headerName: "Desc ID",
     minWidth: 200,
   },
   {
@@ -82,7 +93,7 @@ const columns: GridColumns = [
   },
 ];
 
-export default function AdminBarangList() {
+function AdminBarangList() {
   const router = useRouter();
   const [selected, setSelected] = useState<GridSelectionModel>([]);
   const [rows, setRows] = useState<any[]>([]);
@@ -108,7 +119,10 @@ export default function AdminBarangList() {
     try {
       await Promise.all(
         selected.map((id) =>
-          axios.delete(`https://narauction.et.r.appspot.com/barang/${id}`)
+          axios.delete(
+            `https://narauction.et.r.appspot.com/barang/${id}`,
+            adminRequestConfig()
+          )
         )
       );
       router.reload();
@@ -183,3 +197,5 @@ export default function AdminBarangList() {
     </AdminLayout>
   );
 }
+
+export default withAdminAuth(AdminBarangList);

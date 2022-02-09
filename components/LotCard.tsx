@@ -2,6 +2,7 @@ import React from "react";
 
 import styles from "styles/LotCard.module.css";
 import { Barang } from "utils/types";
+import useTranslation from "utils/useTranslation";
 
 interface LotCardProps {
   barang: Barang;
@@ -9,6 +10,7 @@ interface LotCardProps {
 
 function LotCard({ barang }: LotCardProps) {
   const { id, foto, namaBarang, tahunPembuatan, priceRange } = barang;
+  const [t] = useTranslation();
 
   return (
     <div className={styles.card}>
@@ -20,7 +22,7 @@ function LotCard({ barang }: LotCardProps) {
         </p>
         <div className={styles.footer}>
           <p>
-            Start From
+            {t("startfrom")}
             <b>Rp. {priceRange[0].toLocaleString()}</b>
           </p>
         </div>

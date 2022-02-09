@@ -1,16 +1,26 @@
 export interface Event {
   id: string;
   date: string;
-  description: string;
-  openingMessage: string;
+  // description: string;
+  // openingMessage: string;
+  descId: string;
+  descEn: string;
+  name: string;
+  openingId: string;
+  openingEn: string;
   foto: string[];
 }
 
 export interface UpcomingEvent {
   id: string;
   date: string;
-  description: string;
-  openingMessage: string;
+  // description: string;
+  // openingMessage: string;
+  descId: string;
+  descEn: string;
+  name: string;
+  openingId: string;
+  openingEn: string;
   foto: string[];
   itemCount: number;
   fotoItem: string[];
@@ -18,11 +28,14 @@ export interface UpcomingEvent {
 
 export interface Barang {
   id: string;
+  lot: string;
   namaBarang: string;
   foto: string[];
   tahunPembuatan: number;
   namaPembuat: string;
-  description: string;
+  // description: string;
+  descId: string;
+  descEn: string;
   priceRange: [number, number];
   size: [number, number];
   tipe: string;
@@ -32,8 +45,13 @@ export interface Barang {
 export interface BarangEvent {
   [key: string]: {
     date: string;
-    description: string;
-    openingMessage: string;
+    // description: string;
+    // openingMessage: string;
+    descId: string;
+    descEn: string;
+    name: string;
+    openingId: string;
+    openingEn: string;
     foto: string[];
     barang: Barang[];
   };

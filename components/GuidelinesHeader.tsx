@@ -9,32 +9,41 @@ import useTranslation from "utils/useTranslation";
 const items = [
   {
     href: "/guidelines/messages",
-    label: "Messages",
+    labelEn: "Messages",
+    labelId: "Pesan",
   },
   {
     href: "/guidelines/auctioneers",
-    label: "Guideline For Auctioneers",
+    labelEn: "Guideline For Auctioneers",
+    labelId: "Peraturan Untuk Auctioneers",
     segmented: true,
   },
   {
     href: "/guidelines/bidders",
-    label: "Guidelines For Bidders",
+    labelEn: "Guidelines For Bidders",
+    labelId: "Peraturan Untuk Bidders",
     segmented: true,
   },
   {
     href: "/guidelines/buyers",
-    label: "Guidelines For Buyers",
+    labelEn: "Guidelines For Buyers",
+    labelId: "Peraturan Untuk Buyers",
     segmented: true,
   },
 ];
 
 export default function GuidelinesHeader() {
   const router = useRouter();
-  const [_, currentLang] = useTranslation();
+  const [t, currentLang] = useTranslation();
+  const section = router.route.split("/")[2];
 
   return (
     <Grid container className={styles.header}>
       <Grid item xs={1} />
+      <div className={styles.titles}>
+        <h3>{t(section)}</h3>
+        <p>{t(`guidelines_${section}_subtitle`)}</p>
+      </div>
       <Grid item xs={10} className={styles.links}>
         {items.map((item, index) => (
           <React.Fragment key={item.href}>
@@ -52,7 +61,7 @@ export default function GuidelinesHeader() {
                   });
                 }}
               >
-                {item.label}
+                {currentLang === "en" ? item.labelEn : item.labelId}
               </a>
             </ActiveLink>
             {index < items.length - 1 && <div className={styles.divider} />}

@@ -45,16 +45,21 @@ const slideSettings = {
   ],
 };
 
-function CustomSlider({ children, ...props }) {
-  return (
-    <Slider {...slideSettings} {...props}>
-      {children}
-    </Slider>
-  );
-}
+const CustomSlider = React.forwardRef<any, any>(
+  ({ children, ...props }, ref) => {
+    return (
+      <Slider {...slideSettings} {...props} ref={ref}>
+        {children}
+      </Slider>
+    );
+  }
+);
 
-CustomSlider.propTypes = {
-  children: PropTypes.node,
-};
-
+// function CustomSlider({ children, ...props }) {
+//   return (
+//     <Slider {...slideSettings} {...props}>
+//       {children}
+//     </Slider>
+//   );
+// }
 export default CustomSlider;

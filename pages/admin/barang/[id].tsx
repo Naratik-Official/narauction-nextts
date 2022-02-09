@@ -5,6 +5,9 @@ import AdminLayout from "components/AdminLayout";
 import Create, { Fields, InputField, SubmitMessage } from "components/Create";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Barang, Event } from "utils/types";
+import withAdminAuth from "utils/withAdminAuth";
+import { adminRequestConfig } from "..";
 
 const AdminBarangEdit = () => {
   const router = useRouter();
@@ -17,16 +20,16 @@ const AdminBarangEdit = () => {
       setIsLoading(true);
       console.log(id);
 
-      const { data: events } = await axios.get(
+      const { data: events } = await axios.get<Event[]>(
         "https://narauction.et.r.appspot.com/event"
       );
       const eventIds = events.map((d) => ({
-        name: `${d.id} - ${d.description}`,
+        name: `${d.id} - ${d.name}`,
         value: d.id,
       }));
 
       try {
-        const { data: barang } = await axios.get(
+        const { data: barang } = await axios.get<Barang>(
           `https://narauction.et.r.appspot.com/barang/${id}`
         );
         setBarangField([
@@ -36,6 +39,13 @@ const AdminBarangEdit = () => {
             initialValue: barang.namaBarang,
             validator: (v) =>
               v.length === 0 || v === "" ? "Wajib Diisi" : undefined,
+          },
+          {
+            type: "text",
+            name: "lot",
+            validator: (v) =>
+              v.length === 0 || v === "" ? "Wajib Diisi" : undefined,
+            initialValue: barang.lot,
           },
           {
             type: "array",
@@ -58,7 +68,7 @@ const AdminBarangEdit = () => {
             type: "text",
             name: "tahunPembuatan",
             label: "Tahun Pembuatan",
-            initialValue: barang.tahunPembuatan,
+            initialValue: barang.tahunPembuatan.toString(),
             validator: (v) =>
               v
                 ? isNaN(Number(v))
@@ -74,9 +84,19 @@ const AdminBarangEdit = () => {
           },
           {
             type: "text",
-            name: "description",
+            name: "descId",
+            label: "Deskripsi (Indonesia)",
+            initialValue: barang.descId,
             multiline: true,
-            initialValue: barang.description,
+            validator: (v) =>
+              v.length === 0 || v === "" ? "Wajib Diisi" : undefined,
+          },
+          {
+            type: "text",
+            name: "descEn",
+            label: "Deskripsi (English)",
+            initialValue: barang.descId,
+            multiline: true,
             validator: (v) =>
               v.length === 0 || v === "" ? "Wajib Diisi" : undefined,
           },
@@ -84,7 +104,7 @@ const AdminBarangEdit = () => {
             type: "array",
             name: "priceRange",
             label: "Price Range",
-            initialValue: barang.priceRange,
+            initialValue: barang.priceRange.map((e) => e.toString()),
             min: 2,
             max: 2,
             hideButtons: true,
@@ -109,7 +129,7 @@ const AdminBarangEdit = () => {
             type: "array",
             name: "size",
             label: "Size",
-            initialValue: barang.size,
+            initialValue: barang.size.map((e) => e.toString()),
             min: 2,
             max: 2,
             hideButtons: true,
@@ -155,13 +175,17 @@ const AdminBarangEdit = () => {
     if (fields.namaPembuat === "") delete fields.namaPembuat;
 
     try {
-      await axios.put(`https://narauction.et.r.appspot.com/barang/${id}`, {
-        ...fields,
-        id,
-        tahunPembuatan: Number(fields.tahunPembuatan),
-        priceRange: (fields.priceRange! as string[]).map((p) => Number(p)),
-        size: (fields.size! as string[]).map((p) => Number(p)),
-      });
+      await axios.put(
+        `https://narauction.et.r.appspot.com/barang/${id}`,
+        {
+          ...fields,
+          id,
+          tahunPembuatan: Number(fields.tahunPembuatan),
+          priceRange: (fields.priceRange! as string[]).map((p) => Number(p)),
+          size: (fields.size! as string[]).map((p) => Number(p)),
+        },
+        adminRequestConfig()
+      );
       return {
         message: "Barang berhasil diupdate",
         type: "success",
@@ -173,7 +197,10 @@ const AdminBarangEdit = () => {
 
   const handleDelete = async () => {
     setIsLoading(true);
-    await axios.delete(`https://narauction.et.r.appspot.com/barang/${id}`);
+    await axios.delete(
+      `https://narauction.et.r.appspot.com/barang/${id}`,
+      adminRequestConfig()
+    );
     router.push("/admin/barang");
   };
 
@@ -206,4 +233,4 @@ const AdminBarangEdit = () => {
   );
 };
 
-export default AdminBarangEdit;
+export default withAdminAuth(AdminBarangEdit);

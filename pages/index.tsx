@@ -1,25 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Grid from "@mui/material/Grid";
 import Button from "components/Button";
-// import IconButton from 'components/IconButton';
 import BatikPalette from "components/BatikPalette";
-import CustomSlider from "components/CustomSlider";
-// import LotCard from 'components/LotCard';
 
 import styles from "styles/Home.module.css";
 import IconButton from "components/IconButton";
-import RatingStars, { RatingOptions } from "components/RatingStars";
 import Layout from "components/Layout";
 import axios from "axios";
 import { UpcomingEvent } from "utils/types";
 import moment from "moment";
 import useTranslation from "utils/useTranslation";
+import { Slide } from "react-slideshow-image";
+
+const slides = [
+  {
+    src: "/about_friendly.svg",
+    titleEn: "Friendly Environment",
+    titleId: "Ramah Lingkungan",
+    descEn: "Description En friendly",
+    descId: "Description Id friendly",
+  },
+  {
+    src: "/about_support.svg",
+    titleEn: "Support Team",
+    titleId: "Tim Dukungan",
+    descEn: "Description En support",
+    descId: "Description Id support",
+  },
+  {
+    src: "/about_misc.svg",
+    titleEn: "Misc",
+    titleId: "Lainnya",
+    descEn: "Description En misc",
+    descId: "Description Id misc",
+  },
+];
 
 export default function Home() {
   const [event, setEvent] = useState<UpcomingEvent | undefined>();
   const [eta, setEta] = useState("");
-  const [t] = useTranslation();
+  const [t, currentLang] = useTranslation();
+  const sliderRef = useRef<any>(null);
+
+  const handleNext = () => sliderRef.current.goNext();
+  const handlePrev = () => sliderRef.current.goBack();
 
   useEffect(() => {
     const fetch = async () => {
@@ -65,40 +90,45 @@ export default function Home() {
                 url(${event.foto[0] ?? "/bg_home_header.png"}) center/cover`,
               }}
             >
-              <h1>{event.description}</h1>
+              <h1>{event.name}</h1>
               <div className={styles.subtitleBar}>
-                <p className={styles.subtitle}>{event.openingMessage}</p>
-                <div className={styles.paletteContainer}>
-                  <BatikPalette
-                    className={styles.palette5}
-                    src="/icon_others.svg"
-                  />
-                  {event.fotoItem
-                    .filter((_, i) => i < 4)
-                    .map((src, index, arr) => {
-                      const i = 4 - index;
-                      return (
-                        <BatikPalette
-                          key={src}
-                          className={styles[`palette${i}`]}
-                          src={src}
-                        />
-                      );
-                    })}
-                  {/* <BatikPalette className={styles.palette4} src="/icon_4.png" />
-                  <BatikPalette className={styles.palette3} src="/icon_3.png" />
-                  <BatikPalette className={styles.palette2} src="/icon_2.png" />
-                  <BatikPalette className={styles.palette1} src="/icon_1.png" /> */}
-                </div>
+                <p className={styles.subtitle}>
+                  {
+                    {
+                      id: event.descId,
+                      en: event.descEn,
+                    }[currentLang]
+                  }
+                </p>
+                {event.fotoItem && (
+                  <div className={styles.paletteContainer}>
+                    <BatikPalette
+                      className={styles.palette5}
+                      src="/icon_others.svg"
+                    />
+                    {event.fotoItem
+                      .filter((_, i) => i < 4)
+                      .map((src, index, arr) => {
+                        const i = 4 - index;
+                        return (
+                          <BatikPalette
+                            key={src}
+                            className={styles[`palette${i}`]}
+                            src={src}
+                          />
+                        );
+                      })}
+                  </div>
+                )}
               </div>
               <div className={styles.buttonBar}>
                 <Button outline className={styles.button}>
                   <img src="/bid.svg" alt="" className={styles.icon} />
-                  Lets Bidding Now test translasi {t("home")}
+                  {t("bidnow")}
                 </Button>
                 <Button outline color="transparent" className={styles.button}>
                   <img src="/list.svg" alt="" className={styles.icon} />
-                  View All Lots
+                  {t("alllots")}
                 </Button>
               </div>
               <div className={styles.countdown}>
@@ -130,11 +160,7 @@ export default function Home() {
           <Grid item xs={1} />
         </Grid>
         <main>
-          <div className={styles.collab}>
-            <img src="/logo_dark.svg" alt="" className={styles.collab1} />
-            <img src="/close.svg" alt="" className={styles.collabIcon} />
-            <img src="/lawasanbatik.svg" alt="" className={styles.collab2} />
-          </div>
+          <div className={styles.collab} />
           <Grid container component="section" className={styles.videoSection}>
             <Grid item xs={1} />
             <Grid item xs={10}>
@@ -144,42 +170,73 @@ export default function Home() {
                     <img src="/star.svg" />
                     Online Lelang Batik No. 1
                   </div>
-                  <h3>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Etiam nascetur.
-                  </h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Ultrices pulvinar scelerisque a, rutrum quisque sollicitudin
-                    elit placerat ullamcorper.{" "}
-                  </p>
+                  <h3>{t("home_main_header")}</h3>
+                  <p>{t("home_main_desc")}</p>
                 </div>
                 <div className={styles.videoPreview}>
                   <IconButton src="/play_circle.svg" />
                 </div>
               </div>
               <div className={styles.statistics}>
-                <div className={styles.statistics1}>
-                  <h2>1.5 M</h2>
-                  <p className="large">Revenue Stream</p>
-                </div>
-                <div className={styles.statistics2}>
-                  <h2>100+</h2>
-                  <p className="large">Batik Product</p>
-                </div>
-                <div className={styles.statistics3}>
-                  <h2>3.000</h2>
-                  <p className="large">Client Worldwide</p>
-                </div>
-                <div className={styles.statistics4}>
-                  <h2>1.5</h2>
-                  <p className="large">Growth Rate</p>
-                </div>
+                <h2>1.5 M</h2>
+                <p className="large">{t("revenue_stream")}</p>
               </div>
             </Grid>
             <Grid item xs={1} />
           </Grid>
-          <Grid container component="section" className={styles.testimonials}>
+          <Grid container item xs={12} className={styles.slides}>
+            <Grid item xs={1} />
+            <Grid item xs={3}>
+              <p>{t("home_slider_caption")}</p>
+              <h3>{t("home_slider_title")}</h3>
+              <div className={styles.buttonBar}>
+                <IconButton
+                  onClick={handlePrev}
+                  src="/about_prev.svg"
+                  backgroundColor="transparent"
+                />
+                <IconButton
+                  onClick={handleNext}
+                  src="/about_next.svg"
+                  backgroundColor="transparent"
+                />
+              </div>
+            </Grid>
+            <Grid item xs={8} className={styles.slider}>
+              <div className="slide-container">
+                <Slide
+                  ref={sliderRef}
+                  easing="ease-out"
+                  slidesToShow={2}
+                  arrows={false}
+                  transitionDuration={600}
+                >
+                  {slides.map((slide, index) => (
+                    <div className={styles.sliderItem} key={index}>
+                      <img src={slide.src} />
+                      <b className="large">
+                        {currentLang === "en" ? slide.titleEn : slide.titleId}
+                      </b>
+                      <p>
+                        {currentLang === "en" ? slide.descEn : slide.descId}
+                      </p>
+                    </div>
+                  ))}
+                </Slide>
+              </div>
+            </Grid>
+          </Grid>
+          <Grid container className={styles.registerContainer}>
+            <Grid item xs={1} />
+            <Grid item xs={10} className={styles.register}>
+              <h4 className="white">{t("home_footer_header")}</h4>
+              <Button outline round size="large" color="disabled">
+                <b className="large">{t("register").toUpperCase()}</b>
+              </Button>
+            </Grid>
+            <Grid item xs={1} />
+          </Grid>
+          {/* <Grid container component="section" className={styles.testimonials}>
             <Grid item xs={1} />
             <Grid item xs={10}>
               <h3 className="center">Testimonials</h3>
@@ -199,42 +256,10 @@ export default function Home() {
                   </div>
                 ))}
               </CustomSlider>
-              {/* <h2 className={styles.eventLots}>Event Lots</h2>
-            <p className="large center">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu purus
-              et.
-            </p>
-            <Grid container spacing={3}>
-              {['1', '2', '3', '4', '5', '6'].map((id) => (
-                <Grid item xs={4} key={id}>
-                  <LotCard
-                    lot={{
-                      name: 'Molestie sit phasellus neque varius nisl.',
-                      number: 904,
-                      price: 'Rp. 5.000.000',
-                      src: '/lotsample.png',
-                      date: '02 March 2021',
-                    }}
-                  />
-                </Grid>
-              ))}
-            </Grid>
-            <div className={styles.buttonCenter}>
-              <Button outline size="large">
-                <b className="large">Show More Lots</b>
-              </Button>
-            </div> */}
-              <div className={styles.register}>
-                <h4 className="white">
-                  Register For Free & Start Bidding Now!
-                </h4>
-                <Button outline round size="large" color="disabled">
-                  <b className="large">REGISTER</b>
-                </Button>
-              </div>
+              
             </Grid>
             <Grid item xs={1} />
-          </Grid>
+          </Grid> */}
         </main>
       </div>
     </Layout>

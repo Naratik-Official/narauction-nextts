@@ -41,11 +41,13 @@
 
 .video p {
   margin-left: 24px;
+  font-size: 20px;
 }
 
 .video a {
   color: #feb528;
   font-weight: bold;
+  font-size: 20px;
 }
 
 .imageHeader {
@@ -82,7 +84,8 @@
 }
 
 .more {
-  margin: 198px 0;
+  padding: 198px 0;
+  background: #FFF5E1;
 }
 
 .register {
@@ -91,4 +94,5 @@
 
 .register button {
   float: right;
+  filter: invert();
 }

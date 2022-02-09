@@ -12,11 +12,19 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-slideshow-image/dist/styles.css";
 
+import "moment/locale/id.js";
+import moment from "moment";
+
 export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const lang = localStorage.getItem("lang");
 
-    if (!lang) localStorage.setItem("lang", "en");
+    if (!lang) {
+      localStorage.setItem("lang", "en");
+      moment.locale("en");
+    } else {
+      moment.locale(lang);
+    }
   }, []);
 
   return (

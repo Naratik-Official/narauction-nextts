@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 import Grid from "@mui/material/Grid";
 import LotCard from "components/LotCard";
@@ -17,6 +17,7 @@ import Layout from "components/Layout";
 import axios from "axios";
 import { BarangEvent, Event } from "utils/types";
 import moment from "moment";
+import useTranslation from "utils/useTranslation";
 
 Modal.setAppElement("#__next");
 
@@ -47,12 +48,15 @@ export default function Catalog() {
 
     return [barang[prevIndex].id, barang[nextIndex].id];
   }, [lotId, barangEvents]);
+  const [t] = useTranslation();
+  const sliderRef = useRef<any>(null);
 
   useEffect(() => {
     const fetch = async () => {
       const { data: events } = await axios.get(
         "https://narauction.et.r.appspot.com/event"
       );
+
       setBarangEvents(() => ({
         ...Object.fromEntries(
           events.map((e: Event) => [
@@ -76,6 +80,7 @@ export default function Catalog() {
         const { data: barang } = await axios.get(
           `https://narauction.et.r.appspot.com/barang/event/${activeEventId}`
         );
+
         setBarangEvents((state) => ({
           ...state,
           [activeEventId!]: {
@@ -83,7 +88,9 @@ export default function Catalog() {
             barang: [...barang],
           },
         }));
-      } catch {
+      } catch (e) {
+        console.log(e);
+
         setBarangEvents((state) => ({
           ...state,
           [activeEventId!]: {
@@ -114,26 +121,28 @@ export default function Catalog() {
         <Grid item xs={10}>
           <header>
             <h3>
-              Leo vulputate{" "}
+              {t("catalog_header_title")}
               <span>
-                <h3 className="no-bold">dolor rhoncus sed velit id.</h3>
+                <h3 className="no-bold">{t("catalog_header_subtitle")}</h3>
               </span>{" "}
             </h3>
-            <p className="medium">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis
-              morbi dolor habitasse.
-            </p>
+            <p className="medium">{t("catalog_header_caption")}</p>
             <Button>
-              <b>Look All Events</b>
+              <b>{t("look_all_events")}</b>
             </Button>
           </header>
           <CustomSlider
             className={styles.slider}
             autoplay={false}
             afterChange={handleSlideChange}
+            slidesToShow={Math.min(
+              Math.max(Object.entries(barangEvents).length, 1),
+              3
+            )}
+            ref={sliderRef}
           >
-            {Object.entries(barangEvents).map(([id, e]) => (
-              <div key={id}>
+            {Object.entries(barangEvents).map(([id, e], index) => (
+              <div key={id} onClick={() => sliderRef.current.slickGoTo(index)}>
                 <div
                   className={styles.sliderItem}
                   style={{
@@ -146,7 +155,7 @@ export default function Catalog() {
                   }}
                 >
                   <div className={styles.sliderContent}>
-                    <h5>{e.description}</h5>
+                    <h5>{e.name}</h5>
                     <div className={styles.subcontainer}>
                       <img
                         src="/broadcast.svg"
@@ -164,7 +173,7 @@ export default function Catalog() {
                         alt=""
                         className={`${styles.icon} icon`}
                       />
-                      <p className="small">Lets Bidding Now</p>
+                      <p className="small">{t("bidnow")}</p>
                     </Button>
                   </div>
                 </div>
@@ -173,9 +182,9 @@ export default function Catalog() {
           </CustomSlider>
           {activeEventId && barangEvents[activeEventId].barang.length > 0 && (
             <div className={styles.searchBar}>
-              <TextInput type="text" placeholder="Search Lots..." />
+              <TextInput type="text" placeholder={t("search_lots")} />
               <Button color="secondary">
-                <b>Search</b>
+                <b>{t("search")}</b>
               </Button>
             </div>
           )}
@@ -200,7 +209,7 @@ export default function Catalog() {
               ) : (
                 <Grid item xs={12}>
                   <p className={styles.barangStatusText}>
-                    {fetchingBarang ? "Mohon tunggu..." : "Belum ada barang"}
+                    {fetchingBarang ? t("pleasewait") : t("nolots")}
                   </p>
                 </Grid>
               )}

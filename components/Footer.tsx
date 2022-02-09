@@ -9,9 +9,13 @@ import Button from "./Button";
 import TextInput from "./TextInput";
 
 export default function Footer() {
+  const handleScrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <footer className={styles.footer}>
-      <button className={styles.scrollToTop}>
+      <button className={styles.scrollToTop} onClick={handleScrollToTop}>
         <img src="/up.svg" />
       </button>
       {/* <IconButton src="/up.svg" size="small"  className={styles.scrollToTop} /> */}

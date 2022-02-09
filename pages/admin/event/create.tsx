@@ -1,6 +1,8 @@
 import axios from "axios";
 import AdminLayout from "components/AdminLayout";
 import Create, { Fields, InputField, SubmitMessage } from "components/Create";
+import withAdminAuth from "utils/withAdminAuth";
+import { adminRequestConfig } from "..";
 
 const eventField: InputField[] = [
   {
@@ -27,20 +29,48 @@ const eventField: InputField[] = [
   },
   {
     type: "text",
-    name: "description",
-    validator: (v) => (v ? undefined : "Wajib Diisi"),
+    name: "name",
+    label: "Nama Event",
+    validator: (v) => (v.length === 0 || v === "" ? "Wajib Diisi" : undefined),
   },
   {
     type: "text",
-    name: "openingMessage",
-    validator: (v) => (v ? undefined : "Wajib Diisi"),
+    name: "descId",
+    label: "Deskripsi (Indonesia)",
+    multiline: true,
+    validator: (v) => (v.length === 0 || v === "" ? "Wajib Diisi" : undefined),
+  },
+  {
+    type: "text",
+    name: "descEn",
+    label: "Deskripsi (English)",
+    multiline: true,
+    validator: (v) => (v.length === 0 || v === "" ? "Wajib Diisi" : undefined),
+  },
+  {
+    type: "text",
+    name: "openingId",
+    label: "Opening Message (Indonesia)",
+    multiline: true,
+    validator: (v) => (v.length === 0 || v === "" ? "Wajib Diisi" : undefined),
+  },
+  {
+    type: "text",
+    name: "openingEn",
+    label: "Opening Message (English)",
+    multiline: true,
+    validator: (v) => (v.length === 0 || v === "" ? "Wajib Diisi" : undefined),
   },
 ];
 
 const AdminEvent = () => {
   const handleSubmit = async (fields: Fields) => {
     try {
-      await axios.post("https://narauction.et.r.appspot.com/event", fields);
+      await axios.post(
+        "https://narauction.et.r.appspot.com/event",
+        fields,
+        adminRequestConfig()
+      );
       return {
         message: "Event berhasil ditambah",
         type: "success",
@@ -59,4 +89,4 @@ const AdminEvent = () => {
   );
 };
 
-export default AdminEvent;
+export default withAdminAuth(AdminEvent);

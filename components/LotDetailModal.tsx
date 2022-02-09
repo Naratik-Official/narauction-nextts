@@ -11,6 +11,7 @@ import { Barang, Event } from "utils/types";
 import axios from "axios";
 import moment from "moment";
 import Link from "next/link";
+import useTranslation from "utils/useTranslation";
 
 interface LotDetailModalProps {
   previousLotId?: string;
@@ -28,6 +29,8 @@ function LotDetailModal({
   const [barang, setBarang] = useState<Barang | undefined>();
   const [event, setEvent] = useState<Event | undefined>();
   const [foto, setFoto] = useState<string | undefined>();
+
+  const [t, currentLang] = useTranslation();
 
   useEffect(() => {
     if (!lotId) return;
@@ -60,12 +63,12 @@ function LotDetailModal({
       className={styles.root}
     >
       {isFetching || !barang || !event ? (
-        <p>Mohon Tunggu</p>
+        <p>{t("pleasewait")}</p>
       ) : (
         <>
           <div className={styles.header}>
-            <b className="large secondary">#{lotId}</b>
-            <b className="large success">Available</b>
+            <b className="large secondary">#{barang.lot}</b>
+            <b className="large success">{t("available")}</b>
           </div>
           <Grid container className={styles.main}>
             <Grid item container xs={4} className={styles.imagesPreview}>
@@ -108,29 +111,29 @@ function LotDetailModal({
             <Grid item xs={8}>
               <h4 className="no-margin">{barang.namaBarang}</h4>
               <p>
-                by <b>Lawasan Batik</b>
+                {t("by")} <b>Lawasan Batik</b>
               </p>
-              <p>{barang.description}</p>
+              <p>{currentLang == "en" ? barang.descEn : barang.descId}</p>
               <table>
                 <tr>
                   <td>
-                    <b>Type</b>
+                    <b>{t("type")}</b>
                   </td>
                   <td>{barang.tipe}</td>
                   <td>
-                    <b>Creator</b>
+                    <b>{t("creator")}</b>
                   </td>
                   <td>{barang.namaPembuat}</td>
                 </tr>
                 <tr>
                   <td>
-                    <b>Size</b>
+                    <b>{t("size")}</b>
                   </td>
                   <td>
                     {barang.size[0]}cm x {barang.size[1]}cm
                   </td>
                   <td>
-                    <b>Price Range</b>
+                    <b>{t("pricerange")}</b>
                   </td>
                   <td>
                     Rp. {barang.priceRange[0].toLocaleString()} - Rp.{" "}
@@ -141,7 +144,7 @@ function LotDetailModal({
               <div className={styles.eventDetail}>
                 <img src={event.foto[0]} alt="" className={styles.eventImage} />
                 <div>
-                  <b>{event.description}</b>
+                  <b>{event.name}</b>
                   <div className={styles.subcontainer}>
                     <img src="/broadcast.svg" alt="" className={styles.icon} />
                     <p className="small">
@@ -155,7 +158,7 @@ function LotDetailModal({
                       alt=""
                       className={`${styles.icon} icon`}
                     />
-                    <p className="small">Lets Bidding Now</p>
+                    <p className="small">{t("bidnow")}</p>
                   </Button>
                 </div>
               </div>
@@ -171,7 +174,10 @@ function LotDetailModal({
               >
                 <a style={{ border: "none" }}>
                   <Button color="disabled" disabled={!previousLotId}>
-                    <b> {"< <"} Previous Lot</b>
+                    <b>
+                      {" "}
+                      {"< <"} {t("previouslot")}
+                    </b>
                   </Button>
                 </a>
               </Link>
@@ -185,7 +191,10 @@ function LotDetailModal({
               >
                 <a style={{ border: "none" }}>
                   <Button color="disabled" disabled={!nextLotId}>
-                    <b> Next Lot {"> >"}</b>
+                    <b>
+                      {" "}
+                      {t("nextlot")} {"> >"}
+                    </b>
                   </Button>
                 </a>
               </Link>

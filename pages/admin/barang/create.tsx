@@ -3,11 +3,19 @@ import AdminLayout from "components/AdminLayout";
 import Create, { Fields, InputField, SubmitMessage } from "components/Create";
 import { ChoiceItems } from "components/inputs/RadioInput";
 import { useEffect, useState } from "react";
+import { Event } from "utils/types";
+import withAdminAuth from "utils/withAdminAuth";
+import { adminRequestConfig } from "..";
 
 const barangField: InputField[] = [
   {
     type: "text",
     name: "namaBarang",
+    validator: (v) => (v.length === 0 || v === "" ? "Wajib Diisi" : undefined),
+  },
+  {
+    type: "text",
+    name: "lot",
     validator: (v) => (v.length === 0 || v === "" ? "Wajib Diisi" : undefined),
   },
   {
@@ -40,7 +48,15 @@ const barangField: InputField[] = [
   },
   {
     type: "text",
-    name: "description",
+    name: "descId",
+    label: "Deskripsi (Indonesia)",
+    multiline: true,
+    validator: (v) => (v.length === 0 || v === "" ? "Wajib Diisi" : undefined),
+  },
+  {
+    type: "text",
+    name: "descEn",
+    label: "Deskripsi (English)",
     multiline: true,
     validator: (v) => (v.length === 0 || v === "" ? "Wajib Diisi" : undefined),
   },
@@ -102,12 +118,12 @@ const AdminBarangCreate = () => {
   useEffect(() => {
     const fetch = async () => {
       setIsLoading(true);
-      const { data } = await axios.get(
+      const { data } = await axios.get<Event[]>(
         "https://narauction.et.r.appspot.com/event"
       );
       setEventIds([
         ...data.map((d) => ({
-          name: `${d.id} - ${d.description}`,
+          name: `${d.id} - ${d.name}`,
           value: d.id,
         })),
       ]);
@@ -121,12 +137,16 @@ const AdminBarangCreate = () => {
     if (fields.namaPembuat === "") delete fields.namaPembuat;
 
     try {
-      await axios.post("https://narauction.et.r.appspot.com/barang", {
-        ...fields,
-        tahunPembuatan: Number(fields.tahunPembuatan),
-        priceRange: (fields.priceRange! as string[]).map((p) => Number(p)),
-        size: (fields.size! as string[]).map((p) => Number(p)),
-      });
+      await axios.post(
+        "https://narauction.et.r.appspot.com/barang",
+        {
+          ...fields,
+          tahunPembuatan: Number(fields.tahunPembuatan),
+          priceRange: (fields.priceRange! as string[]).map((p) => Number(p)),
+          size: (fields.size! as string[]).map((p) => Number(p)),
+        },
+        adminRequestConfig()
+      );
       return {
         message: "Barang berhasil ditambah",
         type: "success",
@@ -162,4 +182,4 @@ const AdminBarangCreate = () => {
   );
 };
 
-export default AdminBarangCreate;
+export default withAdminAuth(AdminBarangCreate);

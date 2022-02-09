@@ -1,6 +1,7 @@
 import {
   AppBar,
   Box,
+  Button,
   List,
   ListItem,
   ListItemButton,
@@ -12,16 +13,29 @@ import React from "react";
 
 import Barang from "@mui/icons-material/Filter";
 import Event from "@mui/icons-material/Book";
+import { useRouter } from "next/router";
 
 interface AdminLayoutProps {
   children?: React.ReactNode;
 }
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.replace("/admin/login");
+  };
+
   return (
     <div>
       <AppBar position="static">
-        <Toolbar>Narauction Admin</Toolbar>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          Narauction Admin
+          <Button variant="contained" color="error" onClick={handleLogout}>
+            Log Out
+          </Button>
+        </Toolbar>
       </AppBar>
       <Box sx={{ display: "flex", height: "100%" }}>
         <Box

@@ -1,6 +1,6 @@
 .header {
   height: 615px;
-  background: #eaebef;
+  background: url('/bg_guidelines.png');
 }
 
 .header a {
@@ -8,6 +8,14 @@
   font-size: 20px;
   text-align: center;
   margin: 0 16px;
+}
+
+.titles {
+  position: absolute;
+  text-align: center;
+  left: 0;
+  right: 0;
+  top: 240px;
 }
 
 .links {
