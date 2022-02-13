@@ -7,67 +7,67 @@ import ActiveLink from "./ActiveLink";
 import useTranslation from "utils/useTranslation";
 
 const items = [
-  {
-    href: "/guidelines/messages",
-    labelEn: "Messages",
-    labelId: "Pesan",
-  },
-  {
-    href: "/guidelines/auctioneers",
-    labelEn: "Guideline For Auctioneers",
-    labelId: "Peraturan Untuk Auctioneers",
-    segmented: true,
-  },
-  {
-    href: "/guidelines/bidders",
-    labelEn: "Guidelines For Bidders",
-    labelId: "Peraturan Untuk Bidders",
-    segmented: true,
-  },
-  {
-    href: "/guidelines/buyers",
-    labelEn: "Guidelines For Buyers",
-    labelId: "Peraturan Untuk Buyers",
-    segmented: true,
-  },
+    {
+        href: "/guidelines/messages",
+        labelEn: "Messages",
+        labelId: "Pesan",
+    },
+    {
+        href: "/guidelines/auctioneers",
+        labelEn: "Term & Condition",
+        labelId: "Syarat & Ketentuan",
+        segmented: true,
+    },
+    {
+        href: "/guidelines/bidders",
+        labelEn: "Auction Guidelines",
+        labelId: "Petunjuk Lelang",
+        segmented: true,
+    },
+    // {
+    //     href: "/guidelines/buyers",
+    //     labelEn: "Guidelines For Buyers",
+    //     labelId: "Peraturan Untuk Buyers",
+    //     segmented: true,
+    // },
 ];
 
 export default function GuidelinesHeader() {
-  const router = useRouter();
-  const [t, currentLang] = useTranslation();
-  const section = router.route.split("/")[2];
+    const router = useRouter();
+    const [t, currentLang] = useTranslation();
+    const section = router.route.split("/")[2];
 
-  return (
-    <Grid container className={styles.header}>
-      <Grid item xs={1} />
-      <div className={styles.titles}>
-        <h3>{t(section)}</h3>
-        <p>{t(`guidelines_${section}_subtitle`)}</p>
-      </div>
-      <Grid item xs={10} className={styles.links}>
-        {items.map((item, index) => (
-          <React.Fragment key={item.href}>
-            <ActiveLink
-              activeClassName={styles.navActive}
-              href={item.href}
-              segmented={item.segmented}
-            >
-              <a
-                className={styles.navLink}
-                onClick={(e) => {
-                  e.preventDefault();
-                  router.push(`${item.href}?lang=${currentLang}`, undefined, {
-                    scroll: false,
-                  });
-                }}
-              >
-                {currentLang === "en" ? item.labelEn : item.labelId}
-              </a>
-            </ActiveLink>
-            {index < items.length - 1 && <div className={styles.divider} />}
-          </React.Fragment>
-        ))}
-        {/* <ActiveLink
+    return (
+        <Grid container className={styles.header}>
+            <Grid item xs={1} />
+            <div className={styles.titles}>
+                <h3>{t(section)}</h3>
+                <p>{t(`guidelines_${section}_subtitle`)}</p>
+            </div>
+            <Grid item xs={10} className={styles.links}>
+                {items.map((item, index) => (
+                    <React.Fragment key={item.href}>
+                        <ActiveLink
+                            activeClassName={styles.navActive}
+                            href={item.href}
+                            segmented={item.segmented}
+                        >
+                            <a
+                                className={styles.navLink}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    router.push(`${item.href}?lang=${currentLang}`, undefined, {
+                                        scroll: false,
+                                    });
+                                }}
+                            >
+                                {currentLang === "en" ? item.labelEn : item.labelId}
+                            </a>
+                        </ActiveLink>
+                        {index < items.length - 1 && <div className={styles.divider} />}
+                    </React.Fragment>
+                ))}
+                {/* <ActiveLink
           activeClassName={styles.navActive}
           href="/guidelines/messages"
         >
@@ -98,8 +98,8 @@ export default function GuidelinesHeader() {
         >
           <a className={styles.navLink}>Guideline For Buyers</a>
         </ActiveLink> */}
-      </Grid>
-      <Grid item xs={1} />
-    </Grid>
-  );
+            </Grid>
+            <Grid item xs={1} />
+        </Grid>
+    );
 }
