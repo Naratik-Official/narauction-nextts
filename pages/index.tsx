@@ -16,24 +16,31 @@ import { Slide } from "react-slideshow-image";
 const slides = [
     {
         src: "/about_friendly.svg",
-        titleEn: "Friendly Environment",
-        titleId: "Ramah Lingkungan",
-        descEn: "Description En friendly",
-        descId: "Description Id friendly",
+        titleEn: "Live online auction",
+        titleId: "Live online auction",
+        descEn: "The auction is conducted LIVE online, which bidder can access anytime and anywhere",
+        descId: "Lelang dilakukan secara LIVE online yang dapat diakses kapanpun dan dimanapun",
     },
     {
         src: "/about_support.svg",
-        titleEn: "Support Team",
-        titleId: "Tim Dukungan",
-        descEn: "Description En support",
-        descId: "Description Id support",
+        titleEn: "Validated by curator",
+        titleId: "Tervalidasi kurator",
+        descEn: "Ancient batik that will be auctioned has been curated and guaranteed 100% authenticity",
+        descId: "Batik kuno yang akan dilelang telah terkurasi dan dijamin 100% keaslian nya.",
     },
     {
         src: "/about_misc.svg",
-        titleEn: "Misc",
-        titleId: "Lainnya",
-        descEn: "Description En misc",
-        descId: "Description Id misc",
+        titleEn: "Exclusive and rare artwork",
+        titleId: "Eksklusif dan langka",
+        descEn: "Get an exclusive, rare, and limited collection of ancient batik only at Narauction",
+        descId: "Dapatkan segera koleksi batik kuno yang eksklusif, langka, dan terbatas hanya di Narauction",
+    },
+    {
+        src: "/about_misc.svg",
+        titleEn: "Meaningful",
+        titleId: "Penuh makna",
+        descEn: "Each batik has a story and a deep meaning poured by the batik artisan",
+        descId: "Tiap batik memiliki kisah dan makna yang mendalam yang dituangkan oleh pengrajin batiknya",
     },
 ];
 
