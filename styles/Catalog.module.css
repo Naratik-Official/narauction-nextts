@@ -50,14 +50,14 @@
 }
 
 .searchBar input {
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
+  /* border-bottom-right-radius: 0;
+  border-top-right-radius: 0; */
   margin: 0;
   flex: 1;
   background: #eaebef;
   border: 1px solid #dde0e4;
   box-sizing: border-box;
-  border-radius: 10px 0px 0px 10px;
+  border-radius: 10px ;
 }
 
 .searchBar button {

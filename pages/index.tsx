@@ -12,6 +12,7 @@ import { UpcomingEvent } from "utils/types";
 import moment from "moment";
 import useTranslation from "utils/useTranslation";
 import { Slide } from "react-slideshow-image";
+import Link from "next/link";
 
 const slides = [
   {
@@ -141,10 +142,12 @@ export default function Home() {
                   <img src="/bid.svg" alt="" className={styles.icon} />
                   {t("bidnow")}
                 </Button>
-                <Button outline color="transparent" className={styles.button}>
-                  <img src="/list.svg" alt="" className={styles.icon} />
-                  {t("alllots")}
-                </Button>
+                <Link href="/catalog#lots" passHref>
+                  <Button outline color="transparent" className={styles.button}>
+                    <img src="/list.svg" alt="" className={styles.icon} />
+                    {t("alllots")}
+                  </Button>
+                </Link>
               </div>
               <div className={styles.countdown}>
                 <div className={styles.subcontainer}>

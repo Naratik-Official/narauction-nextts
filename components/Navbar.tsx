@@ -86,7 +86,10 @@ export default function Navbar() {
               </NavDropdown>
             </li>
             <li className={styles.buttonContainer}>
-              <Link href="/register/buyer" passHref>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSea3I_LFGfG47G0bZY0UxFHmQVMMn7NpwQ-c8tmj26BsBnFRw/viewform"
+                target="_blank"
+              >
                 <Button
                   size="nav"
                   color="primary"
@@ -94,7 +97,7 @@ export default function Navbar() {
                 >
                   {t("register")}
                 </Button>
-              </Link>
+              </a>
             </li>
           </ul>
         </Grid>
