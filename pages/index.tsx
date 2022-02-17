@@ -248,9 +248,14 @@ export default function Home() {
             <Grid item xs={1} />
             <Grid item xs={10} className={styles.register}>
               <h4 className="white">{t("home_footer_header")}</h4>
-              <Button outline round size="large" color="disabled">
-                <b className="large">{t("register").toUpperCase()}</b>
-              </Button>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSea3I_LFGfG47G0bZY0UxFHmQVMMn7NpwQ-c8tmj26BsBnFRw/viewform"
+                target="_blank"
+              >
+                <Button outline round size="large" color="disabled">
+                  <b className="large">{t("register").toUpperCase()}</b>
+                </Button>
+              </a>
             </Grid>
             <Grid item xs={1} />
           </Grid>

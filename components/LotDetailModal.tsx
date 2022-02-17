@@ -90,22 +90,34 @@ function LotDetailModal({
                 }
               </div>
               <div className={styles.buttonBar}>
-                <IconButton
-                  src="/lot_facebook.svg"
-                  backgroundColor="transparent"
-                />
-                <IconButton
-                  src="/lot_instagram.svg"
-                  backgroundColor="transparent"
-                />
-                <IconButton
+                <a
+                  href="https://www.facebook.com/naratik.official"
+                  target="_blank"
+                >
+                  <IconButton
+                    src="/lot_facebook.svg"
+                    backgroundColor="transparent"
+                  />
+                </a>
+                <a href="https://www.instagram.com/naratik.id/" target="_blank">
+                  <IconButton
+                    src="/lot_instagram.svg"
+                    backgroundColor="transparent"
+                  />
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/naratik"
+                  target="_blank"
+                >
+                  <IconButton
+                    src="/lot_linkedin.svg"
+                    backgroundColor="transparent"
+                  />
+                </a>
+                {/* <IconButton
                   src="/lot_twitter.svg"
                   backgroundColor="transparent"
-                />
-                <IconButton
-                  src="/lot_linkedin.svg"
-                  backgroundColor="transparent"
-                />
+                /> */}
               </div>
             </Grid>
             <Grid item xs={8}>
