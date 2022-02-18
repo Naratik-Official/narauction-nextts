@@ -185,8 +185,9 @@ export default function Catalog() {
                           className={`${styles.icon} icon`}
                         />
                         <p className="extra-small">
-                          LIVE auction {moment(e.date).format("dddd, D MMMM y")}{" "}
-                          {t("at")} {moment(e.date).format("hh:mm A")}
+                          LIVE auction {moment(e.date).format("dddd, D MMMM y")}
+                          {/* {" "}
+                          {t("at")} {moment(e.date).format("hh:mm A")} */}
                         </p>
                       </div>
                       <a

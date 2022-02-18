@@ -170,8 +170,9 @@ export default function Home() {
                     className={`${styles.icon} icon`}
                   />
                   <p>
-                    LIVE auction {moment(event.date).format("dddd, D MMMM y")}{" "}
-                    {t("at")} {moment(event.date).format("h:m A")}
+                    LIVE auction {moment(event.date).format("dddd, D MMMM y")}
+                    {/* {" "}
+                    {t("at")} {moment(event.date).local().format("hh:mm A")} */}
                   </p>
                 </div>
               </div>
