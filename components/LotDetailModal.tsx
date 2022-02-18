@@ -161,7 +161,7 @@ function LotDetailModal({
                     <img src="/broadcast.svg" alt="" className={styles.icon} />
                     <p className="small">
                       LIVE auction {moment(event.date).format("dddd, D MMMM y")}{" "}
-                      at {moment(event.date).format("h:m A")}
+                      {t("at")} {moment(event.date).format("h:m A")}
                     </p>
                   </div>
                   <Button size="small" color="disabled" outline>

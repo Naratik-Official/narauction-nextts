@@ -138,10 +138,12 @@ export default function Home() {
                 )}
               </div>
               <div className={styles.buttonBar}>
-                <Button outline className={styles.button}>
-                  <img src="/bid.svg" alt="" className={styles.icon} />
-                  {t("bidnow")}
-                </Button>
+                <a href="http://bit.ly/RegistrasiNarauction" target="_blank">
+                  <Button outline className={styles.button}>
+                    <img src="/bid.svg" alt="" className={styles.icon} />
+                    {t("bidnow")}
+                  </Button>
+                </a>
                 <Link href="/catalog#lots" passHref>
                   <Button outline color="transparent" className={styles.button}>
                     <img src="/list.svg" alt="" className={styles.icon} />
@@ -169,7 +171,7 @@ export default function Home() {
                   />
                   <p>
                     LIVE auction {moment(event.date).format("dddd, D MMMM y")}{" "}
-                    at {moment(event.date).format("h:m A")}
+                    {t("at")} {moment(event.date).format("h:m A")}
                   </p>
                 </div>
               </div>
@@ -248,10 +250,7 @@ export default function Home() {
             <Grid item xs={1} />
             <Grid item xs={10} className={styles.register}>
               <h4 className="white">{t("home_footer_header")}</h4>
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSea3I_LFGfG47G0bZY0UxFHmQVMMn7NpwQ-c8tmj26BsBnFRw/viewform"
-                target="_blank"
-              >
+              <a href="http://bit.ly/RegistrasiNarauction" target="_blank">
                 <Button outline round size="large" color="disabled">
                   <b className="large">{t("register").toUpperCase()}</b>
                 </Button>

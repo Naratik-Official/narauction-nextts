@@ -186,17 +186,22 @@ export default function Catalog() {
                         />
                         <p className="extra-small">
                           LIVE auction {moment(e.date).format("dddd, D MMMM y")}{" "}
-                          at {moment(e.date).format("h:m A")}
+                          {t("at")} {moment(e.date).format("hh:mm A")}
                         </p>
                       </div>
-                      <Button size="small" color="disabled" outline>
-                        <img
-                          src="/bid.svg"
-                          alt=""
-                          className={`${styles.icon} icon`}
-                        />
-                        <p className="small">{t("bidnow")}</p>
-                      </Button>
+                      <a
+                        href="http://bit.ly/RegistrasiNarauction"
+                        target="_blank"
+                      >
+                        <Button size="small" color="disabled" outline>
+                          <img
+                            src="/bid.svg"
+                            alt=""
+                            className={`${styles.icon} icon`}
+                          />
+                          <p className="small">{t("bidnow")}</p>
+                        </Button>
+                      </a>
                     </div>
                   </div>
                 </div>
