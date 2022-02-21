@@ -89,41 +89,11 @@ function LotDetailModal({
                   </Grid>
                 }
               </div>
-              <div className={styles.buttonBar}>
-                <a
-                  href="https://www.facebook.com/naratik.official"
-                  target="_blank"
-                >
-                  <IconButton
-                    src="/lot_facebook.svg"
-                    backgroundColor="transparent"
-                  />
-                </a>
-                <a href="https://www.instagram.com/naratik.id/" target="_blank">
-                  <IconButton
-                    src="/lot_instagram.svg"
-                    backgroundColor="transparent"
-                  />
-                </a>
-                <a
-                  href="https://www.linkedin.com/company/naratik"
-                  target="_blank"
-                >
-                  <IconButton
-                    src="/lot_linkedin.svg"
-                    backgroundColor="transparent"
-                  />
-                </a>
-                {/* <IconButton
-                  src="/lot_twitter.svg"
-                  backgroundColor="transparent"
-                /> */}
-              </div>
             </Grid>
             <Grid item xs={8}>
               <h4 className="no-margin">{barang.namaBarang}</h4>
               <p>
-                {t("by")} <b>Lawasan Batik</b>
+                Circa <b>{barang.tahunPembuatan}</b>
               </p>
               <p>{currentLang == "en" ? barang.descEn : barang.descId}</p>
               <table>

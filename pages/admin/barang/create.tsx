@@ -79,7 +79,7 @@ const barangField: InputField[] = [
       });
       if (isNotNumber) return "Masukkan Angka";
 
-      return v[1] <= v[0]
+      return Number(v[1]) <= Number(v[0])
         ? "Harga maximum harus lebih dari minimum"
         : undefined;
     },

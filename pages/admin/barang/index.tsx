@@ -59,7 +59,7 @@ const columns: GridColumns = [
   },
   {
     field: "descEn",
-    headerName: "Desc ID",
+    headerName: "Desc EN",
     minWidth: 200,
   },
   {
