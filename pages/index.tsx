@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import Button from "components/Button";
 import BatikPalette from "components/BatikPalette";
 
@@ -75,12 +76,8 @@ export default function Home() {
         let day = eta;
         let hour = (day % 1) * 24;
         day = Math.floor(day);
-        let minute = (hour % 1) * 60;
-        hour = Math.floor(hour);
-        let second = Math.floor((minute % 1) * 60);
-        minute = Math.floor(minute);
 
-        setEta(`${day}d : ${hour}h : ${minute}m : ${second}s`);
+        setEta(`${day}`);
       }, 1000);
     };
 
@@ -107,50 +104,66 @@ export default function Home() {
               }}
             >
               <h1>{event.name}</h1>
-              <div className={styles.subtitleBar}>
-                <p className={styles.subtitle}>
-                  {
-                    {
-                      id: event.descId,
-                      en: event.descEn,
-                    }[currentLang]
-                  }
-                </p>
-                {event.fotoItem && (
-                  <div className={styles.paletteContainer}>
-                    <BatikPalette
-                      className={styles.palette5}
-                      src="/icon_others.svg"
-                    />
-                    {event.fotoItem
-                      .filter((_, i) => i < 4)
-                      .map((src, index, arr) => {
-                        const i = 4 - index;
-                        return (
-                          <BatikPalette
-                            key={src}
-                            className={styles[`palette${i}`]}
-                            src={src}
-                          />
-                        );
-                      })}
-                  </div>
-                )}
-              </div>
-              <div className={styles.buttonBar}>
-                <a href="http://bit.ly/RegistrasiNarauction" target="_blank">
-                  <Button outline className={styles.button}>
-                    <img src="/bid.svg" alt="" className={styles.icon} />
-                    {t("bidnow")}
-                  </Button>
-                </a>
-                <Link href="/catalog#lots" passHref>
-                  <Button outline color="transparent" className={styles.button}>
-                    <img src="/list.svg" alt="" className={styles.icon} />
-                    {t("alllots")}
-                  </Button>
-                </Link>
-              </div>
+              <Grid container className={styles.subtitleBar}>
+                <Grid container item xs={12} md={7} lg={8} xl={9}>
+                  <Grid item xs={12}>
+                    <p className={styles.subtitle}>
+                      {
+                        {
+                          id: event.descId,
+                          en: event.descEn,
+                        }[currentLang]
+                      }
+                    </p>
+                  </Grid>
+                  <Grid container item xs={12}>
+                    <div className={styles.buttonBar}>
+                      <a
+                        href="http://bit.ly/RegistrasiNarauction"
+                        target="_blank"
+                      >
+                        <Button outline className={styles.button}>
+                          <img src="/bid.svg" alt="" className={styles.icon} />
+                          {t("bidnow")}
+                        </Button>
+                      </a>
+                      <Link href="/catalog#lots" passHref>
+                        <Button
+                          outline
+                          color="transparent"
+                          className={styles.button}
+                        >
+                          <img src="/list.svg" alt="" className={styles.icon} />
+                          {t("alllots")}
+                        </Button>
+                      </Link>
+                    </div>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} md={5} lg={4} xl={3}>
+                  {event.fotoItem && (
+                    <div className={styles.paletteContainer}>
+                      <BatikPalette
+                        className={styles.palette5}
+                        src="/icon_others.svg"
+                      />
+                      {event.fotoItem
+                        .filter((_, i) => i < 4)
+                        .map((src, index, arr) => {
+                          const i = 4 - index;
+                          return (
+                            <BatikPalette
+                              key={src}
+                              className={styles[`palette${i}`]}
+                              src={src}
+                            />
+                          );
+                        })}
+                    </div>
+                  )}
+                </Grid>
+              </Grid>
+
               <div className={styles.countdown}>
                 <div className={styles.subcontainer}>
                   <img
@@ -158,11 +171,13 @@ export default function Home() {
                     alt=""
                     className={`${styles.icon} icon`}
                   />
-                  <b>{eta}</b>
+                  <b>
+                    {eta} {t("day(s)")}
+                  </b>
                 </div>
-                <div className={styles.divider} />
-                <p>{event.itemCount} Lots</p>
-                <div className={styles.divider} />
+                <div className={`${styles.divider} ${styles.left}`} />
+                <p className={styles.lotCount}>{event.itemCount} Lots</p>
+                <div className={`${styles.divider} ${styles.right}`} />
                 <div className={styles.subcontainer}>
                   <img
                     src="/broadcast.svg"
@@ -171,8 +186,6 @@ export default function Home() {
                   />
                   <p>
                     LIVE auction {moment(event.date).format("dddd, D MMMM y")}
-                    {/* {" "}
-                    {t("at")} {moment(event.date).local().format("hh:mm A")} */}
                   </p>
                 </div>
               </div>
@@ -184,30 +197,40 @@ export default function Home() {
           <div className={styles.collab} />
           <Grid container component="section" className={styles.videoSection}>
             <Grid item xs={1} />
-            <Grid item xs={10}>
-              <div className={styles.videoContainer}>
-                <div className={styles.feature}>
-                  <div className={styles.no1}>
-                    <img src="/star.svg" />
-                    {t("home_main_sub")}
-                  </div>
-                  <h3>{t("home_main_header")}</h3>
-                  <p>{t("home_main_desc")}</p>
+            <Grid item container xs={10} spacing={0}>
+              {/* <div className={styles.videoContainer}> */}
+              <Grid
+                item
+                xs={12}
+                sm={0}
+                className={`${styles.videoPreview} ${styles.left}`}
+              >
+                <IconButton src="/play_circle.svg" />
+              </Grid>
+              <Grid item xs={12} sm={12} md={6} className={styles.feature}>
+                <div className={styles.no1}>
+                  <img src="/star.svg" />
+                  {t("home_main_sub")}
                 </div>
-                <div className={styles.videoPreview}>
-                  <IconButton src="/play_circle.svg" />
-                </div>
-              </div>
-              {/* <div className={styles.statistics}>
-                                <h2>1.5 M</h2>
-                                <p className="large">{t("revenue_stream")}</p>
-                            </div> */}
+                <h3>{t("home_main_header")}</h3>
+                <p>{t("home_main_desc")}</p>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={0}
+                md={6}
+                className={`${styles.videoPreview} ${styles.right}`}
+              >
+                <IconButton src="/play_circle.svg" />
+              </Grid>
+              {/* </div> */}
             </Grid>
             <Grid item xs={1} />
           </Grid>
           <Grid container item xs={12} className={styles.slides}>
             <Grid item xs={1} />
-            <Grid item xs={3}>
+            <Grid item xs={10} md={3} lg={2}>
               <p>{t("home_slider_caption")}</p>
               <h3>{t("home_slider_title")}</h3>
               <div className={styles.buttonBar}>
@@ -223,7 +246,14 @@ export default function Home() {
                 />
               </div>
             </Grid>
-            <Grid item xs={8} className={styles.slider}>
+            <Grid item xs={1} />
+            <Grid
+              item
+              xs={1}
+              component={Box}
+              display={{ xs: "block", md: "none" }}
+            />
+            <Grid item xs={10} md={7} lg={8} className={styles.slider}>
               <div className="slide-container">
                 <Slide
                   ref={sliderRef}
@@ -246,43 +276,29 @@ export default function Home() {
                 </Slide>
               </div>
             </Grid>
+            <Grid
+              item
+              xs={1}
+              component={Box}
+              display={{ xs: "block", sm: "none" }}
+            />
           </Grid>
           <Grid container className={styles.registerContainer}>
             <Grid item xs={1} />
-            <Grid item xs={10} className={styles.register}>
-              <h4 className="white">{t("home_footer_header")}</h4>
-              <a href="http://bit.ly/RegistrasiNarauction" target="_blank">
-                <Button outline round size="large" color="disabled">
-                  <b className="large">{t("register").toUpperCase()}</b>
-                </Button>
-              </a>
+            <Grid item container xs={10} className={styles.register}>
+              <Grid item xs={12} md={8}>
+                <h4 className="white">{t("home_footer_header")}</h4>
+              </Grid>
+              <Grid item xs={12} md={4} className={styles.buttonContainer}>
+                <a href="http://bit.ly/RegistrasiNarauction" target="_blank">
+                  <Button outline round size="large" color="disabled">
+                    <b className="large">{t("register").toUpperCase()}</b>
+                  </Button>
+                </a>
+              </Grid>
             </Grid>
             <Grid item xs={1} />
           </Grid>
-          {/* <Grid container component="section" className={styles.testimonials}>
-            <Grid item xs={1} />
-            <Grid item xs={10}>
-              <h3 className="center">Testimonials</h3>
-              <CustomSlider className={styles.slider}>
-                {Array.from({ length: 6 }).map((_, e) => (
-                  <div key={e}>
-                    <img className={styles.quote} src="/quote.svg" alt="" />
-                    <div className={styles.sliderContent}>
-                      <RatingStars rating={(5 - e) as RatingOptions} />
-                      <p>
-                        “ Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Aliquam vestibulum, elementum nisi, quisque.
-                        Volutpat lacus donec dui ullamcorper fermentum quis.”
-                      </p>
-                      <h5>Name - City</h5>
-                    </div>
-                  </div>
-                ))}
-              </CustomSlider>
-              
-            </Grid>
-            <Grid item xs={1} />
-          </Grid> */}
         </main>
       </div>
     </Layout>
