@@ -88,6 +88,7 @@ export default function Footer() {
             // className={styles.centerContainer}
             xs={12}
             className={styles.iconBar}
+            sx={{ my: "24px" }}
           >
             <a href="https://www.linkedin.com/company/naratik" target="_blank">
               <IconButton
