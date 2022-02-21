@@ -32,7 +32,6 @@ export default function Navbar() {
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScrollY(window.scrollY);
-      console.log(window.scrollY);
     });
   }, []);
 
@@ -113,7 +112,8 @@ export default function Navbar() {
     </Box>
   );
 
-  const container = window ? () => window.document.body : undefined;
+  const container =
+    typeof window !== "undefined" ? () => window.document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>

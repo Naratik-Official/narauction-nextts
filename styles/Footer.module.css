@@ -1,3 +1,20 @@
+@media only screen and (max-width: 900px) {
+  .logoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .subscribe {
+    text-align: center;
+  }
+
+  .subscribe button {
+    margin-top: 24px;
+  }
+}
+
 .footer {
   background-color: #352e1f;
   padding: 84px 0;
@@ -6,9 +23,9 @@
 
 .centerContainer {
   display: flex;
-  justify-content: center;
-  align-items: stretch;
-  flex-direction: column;
+  justify-content: center !important;
+  align-items: stretch !important;
+  flex-direction: column !important;
 }
 
 .logoContainer {
@@ -88,21 +105,4 @@
 
 .scrollToTop:hover {
   background: #b39425;
-}
-
-@media only screen and (max-width: 900px) {
-  .logoContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .subscribe {
-    text-align: center;
-  }
-
-  .subscribe button {
-    margin-top: 24px;
-  }
 }
