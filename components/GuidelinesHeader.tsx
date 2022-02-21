@@ -41,8 +41,14 @@ export default function GuidelinesHeader() {
     <Grid container className={styles.header}>
       <Grid item xs={1} />
       <div className={styles.titles}>
-        <h3>{t(section)}</h3>
-        <p>{t(`guidelines_${section}_subtitle`)}</p>
+        <Grid container>
+          <Grid item xs={1} />
+          <Grid item xs={10}>
+            <h3>{t(section)}</h3>
+            <p>{t(`guidelines_${section}_subtitle`)}</p>
+          </Grid>
+          <Grid item xs={1} />
+        </Grid>
       </div>
       <Grid item xs={10} className={styles.links}>
         {items.map((item, index) => (

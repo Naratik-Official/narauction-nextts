@@ -1,6 +1,6 @@
 .header {
   background: linear-gradient(to bottom, #eaebef 60%, white 40%);
-  padding: 150px 0 215px 0;
+  padding: 150px 0 30px 0;
 }
 
 .header p {
@@ -51,7 +51,22 @@
 }
 
 .imageHeader {
+  height: 400px;
   width: 100%;
+  background: url('/about_header.png') no-repeat top/contain;
+}
+
+@media only screen and (max-width: 930px) {
+  .imageHeader {
+    background: url('/about_header_small.png') no-repeat top/contain;
+    max-height: 320px;
+    position: relative;
+    top: -64px;
+  }
+
+  .header {
+    padding-bottom: 0;
+  }
 }
 
 .main {
@@ -69,30 +84,46 @@
   width: 124px;
   justify-content: space-between;
 }
+
 .slider {
   padding-left: 108px;
 }
+
 .sliderItem {
   border-radius: 20px;
   padding: 60px 42px;
   margin-right: 16px;
   background-color: white;
 }
+
 .sliderItem img {
   display: block;
   margin-bottom: 18px;
 }
 
 .more {
-  padding: 198px 0;
+  padding: 80px 0;
   background: #FFF5E1;
 }
 
-.register {
+.register.bottom {
   text-align: right;
 }
 
-.register button {
+.register.top {
+  text-align: left;
+}
+
+.register.bottom button {
   float: right;
   filter: invert();
+}
+
+.register.top button {
+  float: left;
+  filter: invert();
+}
+
+.register.top h4 {
+  margin: 16px 0;
 }

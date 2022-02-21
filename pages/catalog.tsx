@@ -226,7 +226,7 @@ export default function Catalog() {
               <Grid container spacing={3}>
                 {lotsToShow.length > 0 && !fetchingBarang ? (
                   lotsToShow.map((b) => (
-                    <Grid item xs={4} key={b.id}>
+                    <Grid item xs={12} sm={6} md={4} key={b.id}>
                       <Link
                         passHref
                         href={`/catalog?lotId=${b.id}`}
