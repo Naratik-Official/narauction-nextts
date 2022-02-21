@@ -4,6 +4,37 @@
   color: white;
 }
 
+.centerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@media only screen and (max-width: 900px) {
+  .logoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .subscribe {
+    text-align: center;
+  }
+
+  .subscribe button {
+    margin-top: 24px;
+  }
+}
+
 .mainContainer {
   display: flex;
   flex-direction: row;
@@ -11,25 +42,36 @@
   align-items: center;
 }
 
-.mainContainer table {
+.contact {
   margin-top: 24px;
   border: none;
 }
 
+.subscribe {
+  text-align: left;
+}
+
+.subscribe h5 {
+  margin: 24px 0 0 0;
+}
+
+.subscribe button {
+  width: 100%;
+}
+
+.subscribe input {
+  width: 100%;
+}
+
 .iconBar {
-  display: flex;
-  flex-direction: row;
   margin-top: 24px;
-  width: 106px;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 42px 42px 42px;
+
 }
 
 .mainContainer h5 {
   color: #fde8cd;
-}
-
-.mainContainer input {
-  margin-right: 18px;
 }
 
 .bottomContainer {
