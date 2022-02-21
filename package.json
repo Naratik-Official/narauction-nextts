@@ -10,7 +10,7 @@
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
-    "@mui/icons-material": "^5.2.5",
+    "@mui/icons-material": "^5.4.2",
     "@mui/lab": "^5.0.0-alpha.63",
     "@mui/material": "^5.2.7",
     "@mui/x-data-grid": "^5.2.2",
@@ -23,7 +23,9 @@
     "nextjs-google-fonts": "^3.4.0",
     "react": "17.0.2",
     "react-bootstrap": "^2.1.1",
+    "react-country-flag": "^3.0.2",
     "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
     "react-modal": "^3.14.4",
     "react-pageflip": "^2.0.3",
     "react-slick": "^0.28.1",
