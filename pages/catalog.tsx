@@ -10,7 +10,7 @@ import CustomSlider from "components/CustomSlider";
 import styles from "styles/Catalog.module.css";
 import LotDetailModal from "components/LotDetailModal";
 import { useRouter } from "next/router";
-import Modal from "react-modal";
+// import Modal from "react-modal";
 import Link from "next/link";
 import Layout from "components/Layout";
 
@@ -19,7 +19,7 @@ import { BarangEvent, Event } from "utils/types";
 import moment from "moment";
 import useTranslation from "utils/useTranslation";
 
-Modal.setAppElement("#__next");
+// Modal.setAppElement("#__next");
 
 export default function Catalog() {
   const { lotId } = useRouter().query;

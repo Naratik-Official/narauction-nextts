@@ -149,7 +149,7 @@ export default function Home() {
                       />
                       {event.fotoItem
                         .filter((_, i) => i < 4)
-                        .map((src, index, arr) => {
+                        .map((src, index) => {
                           const i = 4 - index;
                           return (
                             <BatikPalette

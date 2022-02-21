@@ -16,6 +16,7 @@ interface IconButtonProps {
   color?: "black" | "white";
   size?: "normal" | "small";
   outline?: string;
+  noShadow?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -27,6 +28,7 @@ function IconButton(props: IconButtonProps) {
     size = "normal",
     outline,
     onClick,
+    noShadow,
   } = props;
 
   return (
@@ -34,7 +36,9 @@ function IconButton(props: IconButtonProps) {
       onClick={onClick}
       className={`${styles[backgroundColor]} ${styles.button} ${
         styles[size]
-      }  ${styles[color]} ${outline ? styles.outline : ""}`}
+      }  ${styles[color]} ${outline ? styles.outline : ""} ${
+        noShadow ? "" : styles.shadows
+      }`}
     >
       <img src={src} alt="" />
     </button>

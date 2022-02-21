@@ -22,8 +22,6 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 
-const drawerWidth = 240;
-
 export default function Navbar() {
   const [t, currentLang] = useTranslation();
   const [scrollY, setScrollY] = useState(0);
@@ -115,13 +113,15 @@ export default function Navbar() {
   const container =
     typeof window !== "undefined" ? () => window.document.body : undefined;
 
+  if (!container) return null;
+
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar
         position="fixed"
-        // elevation={scrollY === 0 ? 0 : 5}
         sx={{
           backgroundColor: scrollY === 0 ? "transparent" : "white",
+          zIndex: 1,
           boxShadow:
             scrollY === 0
               ? "none"
@@ -225,10 +225,7 @@ export default function Navbar() {
           </Grid>
         </Toolbar>
       </AppBar>
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-      >
+      <Box component="nav">
         <Drawer
           container={container}
           open={mobileOpen}
