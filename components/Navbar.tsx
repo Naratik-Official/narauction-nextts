@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Link from "next/link";
 import Grid from "@mui/material/Grid";
@@ -26,14 +26,20 @@ const drawerWidth = 240;
 
 export default function Navbar() {
   const [t, currentLang] = useTranslation();
+  const [scrollY, setScrollY] = useState(0);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      setScrollY(window.scrollY);
+      console.log(window.scrollY);
+    });
+  }, []);
 
   const handleChangeLanguage = (language: "en" | "id") => {
     localStorage.setItem("lang", language);
     moment.locale(language);
   };
-
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -113,8 +119,14 @@ export default function Navbar() {
     <Box sx={{ display: "flex" }}>
       <AppBar
         position="fixed"
-        elevation={0}
-        sx={{ backgroundColor: "transparent" }}
+        // elevation={scrollY === 0 ? 0 : 5}
+        sx={{
+          backgroundColor: scrollY === 0 ? "transparent" : "white",
+          boxShadow:
+            scrollY === 0
+              ? "none"
+              : "0px 16px 24px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04)",
+        }}
       >
         <Toolbar
           className={styles.listContainer}
