@@ -64,7 +64,7 @@ const columns: GridColumns = [
   },
   {
     field: "minPrice",
-    headerName: "Min Price",
+    headerName: "Open Bid",
     valueGetter: (params) =>
       (params.row.priceRange[0] as number).toLocaleString(),
   },

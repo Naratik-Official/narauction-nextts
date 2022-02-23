@@ -68,7 +68,7 @@ const barangField: InputField[] = [
     max: 2,
     hideButtons: true,
     direction: "row",
-    labels: ["Minimum Price (IDR)", "Maximum Price (IDR)"],
+    labels: ["Open Bid (IDR)", "Maximum Price (IDR)"],
     validator: (v) => {
       if (!v) return "Wajib Diisi";
 
