@@ -52,7 +52,7 @@
   "type": "Fabric Type",
   "creator": "Origin",
   "size": "Size",
-  "pricerange": "Price Range",
+  "pricerange": "Open Bid",
   "previouslot": "Previous Lot",
   "nextlot": "Next Lot",
   "term1_0": "The Narauction auction will take place live on the discord platform. Each auction participant must have a discord account and a discord application on their respective laptop, computer, or smartphone devices.",

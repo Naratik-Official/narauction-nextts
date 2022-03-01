@@ -22,7 +22,7 @@ function LotCard({ barang }: LotCardProps) {
         </p>
         <div className={styles.footer}>
           <p>
-            {t("startfrom")}
+            {t("pricerange")}
             <b>Rp. {priceRange[0].toLocaleString()}</b>
           </p>
         </div>

@@ -63,7 +63,9 @@ function LotDetailModal({
     >
       <div className={styles.root}>
         {isFetching || !barang || !event ? (
-          <p>{t("pleasewait")}</p>
+          <div className={styles.pleaseWait}>
+            <p>{t("pleasewait")}</p>
+          </div>
         ) : (
           <>
             <div className={styles.header}>
@@ -152,8 +154,9 @@ function LotDetailModal({
                     <b>{t("pricerange")}</b>
                   </Grid>
                   <Grid item xs={6} lg={3}>
-                    Rp. {barang.priceRange[0].toLocaleString()} - Rp.{" "}
-                    {barang.priceRange[1].toLocaleString()}
+                    Rp. {barang.priceRange[0].toLocaleString()}
+                    {/* - Rp.{" "}
+                    {barang.priceRange[1].toLocaleString()} */}
                   </Grid>
                 </Grid>
                 {/* <table>
@@ -204,14 +207,19 @@ function LotDetailModal({
                       {t("at")} {moment(event.date).format("h:m A")} */}
                       </p>
                     </div>
-                    <Button size="small" color="disabled" outline>
-                      <img
-                        src="/bid.svg"
-                        alt=""
-                        className={`${styles.icon} icon`}
-                      />
-                      <p className="small">{t("bidnow")}</p>
-                    </Button>
+                    <a
+                      href="http://bit.ly/RegistrasiNarauction"
+                      target="_blank"
+                    >
+                      <Button size="small" color="disabled" outline>
+                        <img
+                          src="/bid.svg"
+                          alt=""
+                          className={`${styles.icon} icon`}
+                        />
+                        <p className="small">{t("bidnow")}</p>
+                      </Button>
+                    </a>
                   </div>
                 </div>
               </Grid>

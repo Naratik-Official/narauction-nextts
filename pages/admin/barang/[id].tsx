@@ -95,7 +95,7 @@ const AdminBarangEdit = () => {
             type: "text",
             name: "descEn",
             label: "Deskripsi (English)",
-            initialValue: barang.descId,
+            initialValue: barang.descEn,
             multiline: true,
             validator: (v) =>
               v.length === 0 || v === "" ? "Wajib Diisi" : undefined,
