@@ -230,7 +230,6 @@ export default function Catalog() {
                       <Link
                         passHref
                         href={`/catalog?lotId=${b.id}`}
-                        as={`/catalog/${b.id}`}
                         scroll={false}
                       >
                         <a style={{ border: "none" }}>

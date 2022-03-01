@@ -140,7 +140,7 @@ function LotDetailModal({
                     <b>{t("creator")}</b>
                   </Grid>
                   <Grid item xs={6} lg={3}>
-                    {barang.namaPembuat}
+                    {barang.asal_daerah}
                   </Grid>
                   <Grid item xs={6} lg={3}>
                     <b>{t("size")}</b>
@@ -165,7 +165,7 @@ function LotDetailModal({
                     <td>
                       <b>{t("creator")}</b>
                     </td>
-                    <td>{barang.namaPembuat}</td>
+                    <td>{barang.asal_daerah}</td>
                   </tr>
                   <tr>
                     <td>

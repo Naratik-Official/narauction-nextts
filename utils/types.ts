@@ -32,7 +32,7 @@ export interface Barang {
   namaBarang: string;
   foto: string[];
   tahunPembuatan: number;
-  namaPembuat: string;
+  asal_daerah: string;
   // description: string;
   descId: string;
   descEn: string;

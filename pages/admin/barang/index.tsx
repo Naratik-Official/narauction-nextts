@@ -48,8 +48,8 @@ const columns: GridColumns = [
     minWidth: 50,
   },
   {
-    field: "namaPembuat",
-    headerName: "Pembuat",
+    field: "asal_daerah",
+    headerName: "Asal Daerah",
     minWidth: 200,
   },
   {

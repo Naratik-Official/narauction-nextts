@@ -43,8 +43,8 @@ const barangField: InputField[] = [
   },
   {
     type: "text",
-    name: "namaPembuat",
-    label: "Nama Pembuat",
+    name: "asal_daerah",
+    label: "Asal Daerah",
   },
   {
     type: "text",
@@ -134,7 +134,7 @@ const AdminBarangCreate = () => {
   }, []);
 
   const handleSubmit = async (fields: Fields) => {
-    if (fields.namaPembuat === "") delete fields.namaPembuat;
+    if (fields.asal_daerah === "") delete fields.asal_daerah;
 
     try {
       await axios.post(

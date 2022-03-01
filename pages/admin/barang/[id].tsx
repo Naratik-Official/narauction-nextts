@@ -78,9 +78,9 @@ const AdminBarangEdit = () => {
           },
           {
             type: "text",
-            name: "namaPembuat",
-            label: "Nama Pembuat",
-            initialValue: barang.namaPembuat,
+            name: "asal_daerah",
+            label: "Asal Daerah",
+            initialValue: barang.asal_daerah,
           },
           {
             type: "text",
@@ -172,7 +172,7 @@ const AdminBarangEdit = () => {
   }, [id]);
 
   const handleSubmit = async (fields: Fields) => {
-    if (fields.namaPembuat === "") delete fields.namaPembuat;
+    if (fields.asal_daerah === "") delete fields.asal_daerah;
 
     try {
       await axios.put(
