@@ -3,7 +3,7 @@ import React from "react";
 import useTranslation from "utils/useTranslation";
 import GuidelinesTabs from "components/GuidelinesTabs";
 
-const contents = [9, 2];
+const contents = [7, 4];
 
 export default function GuidelinesAuction3() {
   const [t] = useTranslation();

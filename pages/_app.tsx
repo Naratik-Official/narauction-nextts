@@ -20,8 +20,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     const lang = localStorage.getItem("lang");
 
     if (!lang) {
-      localStorage.setItem("lang", "en");
-      moment.locale("en");
+      localStorage.setItem("lang", "id");
+      moment.locale("id");
     } else {
       moment.locale(lang);
     }

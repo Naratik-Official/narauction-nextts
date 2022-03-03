@@ -31,10 +31,14 @@ export default function About() {
               </Grid>
             </Grid>
             <div className={styles.video}>
-              <IconButton src="/play_square.svg" />
+              <a href="https://youtu.be/bo9tjBGbXxQ" target="_blank">
+                <IconButton src="/play_square.svg" />
+              </a>
               <p>
                 {/* {t("about_video_text")} */}
-                <a href="#">{t("watchteaser")}</a>
+                <a href="https://youtu.be/bo9tjBGbXxQ" target="_blank">
+                  {t("watchteaser")}
+                </a>
               </p>
             </div>
             <div className={styles.imageHeader} />

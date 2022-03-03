@@ -205,7 +205,9 @@ export default function Home() {
                 sm={0}
                 className={`${styles.videoPreview} ${styles.left}`}
               >
-                <IconButton src="/play_circle.svg" />
+                <a href="https://youtu.be/bo9tjBGbXxQ" target="_blank">
+                  <IconButton src="/play_circle.svg" />
+                </a>
               </Grid>
               <Grid item xs={12} sm={12} md={6} className={styles.feature}>
                 <div className={styles.no1}>
@@ -222,7 +224,9 @@ export default function Home() {
                 md={6}
                 className={`${styles.videoPreview} ${styles.right}`}
               >
-                <IconButton src="/play_circle.svg" />
+                <a href="https://youtu.be/bo9tjBGbXxQ" target="_blank">
+                  <IconButton src="/play_circle.svg" />
+                </a>
               </Grid>
               {/* </div> */}
             </Grid>
