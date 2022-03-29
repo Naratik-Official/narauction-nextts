@@ -86,232 +86,235 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className={styles.root}>
-        {event && (
-          <Grid container>
-            <Grid item xs={1} />
-            <Grid item xs={10}>
-              <header
-                className={styles.header}
-                style={{
-                  background: `linear-gradient(
+      <div>
+        <div className={styles.root}>
+          {event && (
+            <Grid container>
+              <Grid item xs={1} />
+              <Grid item xs={10}>
+                <header
+                  className={styles.header}
+                  style={{
+                    background: `linear-gradient(
                   90deg,
                   rgba(53, 46, 31, 0.8) 0%,
                   rgba(53, 46, 31, 0) 100%
                 ),
                 url(${event.foto[0] ?? "/bg_home_header.png"}) center/cover`,
-                }}
-              >
-                <h1>{event.name}</h1>
-                <Grid container className={styles.subtitleBar}>
-                  <Grid container item xs={12} md={7} lg={8} xl={9}>
-                    <Grid item xs={12}>
-                      <p className={styles.subtitle}>
-                        {
-                          {
-                            id: event.descId,
-                            en: event.descEn,
-                          }[currentLang]
-                        }
-                      </p>
-                    </Grid>
-                    <Grid container item xs={12}>
-                      <div className={styles.buttonBar}>
-                        <a
-                          href="http://bit.ly/RegistrasiNarauction"
-                          target="_blank"
-                        >
-                          <Button outline className={styles.button}>
-                            <img
-                              src="/bid.svg"
-                              alt=""
-                              className={styles.icon}
-                            />
-                            {t("bidnow")}
-                          </Button>
-                        </a>
-                        <Link href="/catalog#lots" passHref>
-                          <Button
-                            outline
-                            color="transparent"
-                            className={styles.button}
-                          >
-                            <img
-                              src="/list.svg"
-                              alt=""
-                              className={styles.icon}
-                            />
-                            {t("alllots")}
-                          </Button>
-                        </Link>
-                      </div>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12} md={5} lg={4} xl={3}>
-                    {event.fotoItem && (
-                      <div className={styles.paletteContainer}>
-                        <BatikPalette
-                          className={styles.palette5}
-                          src="/icon_others.svg"
-                        />
-                        {event.fotoItem
-                          .filter((_, i) => i < 4)
-                          .map((src, index) => {
-                            const i = 4 - index;
-                            return (
-                              <BatikPalette
-                                key={src}
-                                className={styles[`palette${i}`]}
-                                src={src}
-                              />
-                            );
-                          })}
-                      </div>
-                    )}
-                  </Grid>
-                </Grid>
-
-                <div className={styles.countdown}>
-                  <div className={styles.subcontainer}>
-                    <img
-                      src="/stopwatch.svg"
-                      alt=""
-                      className={`${styles.icon} icon`}
-                    />
-                    <b>
-                      {eta} {t("day(s)")}
-                    </b>
-                  </div>
-                  <div className={`${styles.divider} ${styles.left}`} />
-                  <p className={styles.lotCount}>{event.itemCount} Lots</p>
-                  <div className={`${styles.divider} ${styles.right}`} />
-                  <div className={styles.subcontainer}>
-                    <img
-                      src="/broadcast.svg"
-                      alt=""
-                      className={`${styles.icon} icon`}
-                    />
-                    <p>
-                      LIVE auction {moment(event.date).format("dddd, D MMMM y")}
-                    </p>
-                  </div>
-                </div>
-              </header>
-            </Grid>
-            <Grid item xs={1} />
-          </Grid>
-        )}
-        <main>
-          <div className={styles.collab} />
-          <Grid container component="section" className={styles.videoSection}>
-            <Grid item xs={1} />
-            <Grid item container xs={10} spacing={0}>
-              {/* <div className={styles.videoContainer}> */}
-              <Grid
-                item
-                xs={12}
-                sm={0}
-                className={`${styles.videoPreview} ${styles.left}`}
-              >
-                <a href="https://youtu.be/bo9tjBGbXxQ" target="_blank">
-                  <IconButton src="/play_circle.svg" />
-                </a>
-              </Grid>
-              <Grid item xs={12} sm={12} md={6} className={styles.feature}>
-                <div className={styles.no1}>
-                  <img src="/star.svg" />
-                  {t("home_main_sub")}
-                </div>
-                <h3>{t("home_main_header")}</h3>
-                <p>{t("home_main_desc")}</p>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={0}
-                md={6}
-                className={`${styles.videoPreview} ${styles.right}`}
-              >
-                <a href="https://youtu.be/bo9tjBGbXxQ" target="_blank">
-                  <IconButton src="/play_circle.svg" />
-                </a>
-              </Grid>
-              {/* </div> */}
-            </Grid>
-            <Grid item xs={1} />
-          </Grid>
-          <Grid container item xs={12} className={styles.slides}>
-            <Grid item xs={1} />
-            <Grid item xs={10} md={3} lg={2}>
-              <p>{t("home_slider_caption")}</p>
-              <h3>{t("home_slider_title")}</h3>
-              <div className={styles.buttonBar}>
-                <IconButton
-                  onClick={handlePrev}
-                  src="/about_prev.svg"
-                  backgroundColor="transparent"
-                />
-                <IconButton
-                  onClick={handleNext}
-                  src="/about_next.svg"
-                  backgroundColor="transparent"
-                />
-              </div>
-            </Grid>
-            <Grid item xs={1} />
-            <Grid
-              item
-              xs={1}
-              component={Box}
-              display={{ xs: "block", md: "none" }}
-            />
-            <Grid item xs={10} md={7} lg={8} className={styles.slider}>
-              <div className="slide-container">
-                <Slide
-                  ref={sliderRef}
-                  easing="ease-out"
-                  slidesToShow={2}
-                  arrows={false}
-                  transitionDuration={600}
+                  }}
                 >
-                  {slides.map((slide, index) => (
-                    <div className={styles.sliderItem} key={index}>
-                      <img src={slide.src} />
-                      <b className="large">
-                        {currentLang === "en" ? slide.titleEn : slide.titleId}
+                  <h1>{event.name}</h1>
+                  <Grid container className={styles.subtitleBar}>
+                    <Grid container item xs={12} md={7} lg={8} xl={9}>
+                      <Grid item xs={12}>
+                        <p className={styles.subtitle}>
+                          {
+                            {
+                              id: event.descId,
+                              en: event.descEn,
+                            }[currentLang]
+                          }
+                        </p>
+                      </Grid>
+                      <Grid container item xs={12}>
+                        <div className={styles.buttonBar}>
+                          <a
+                            href="http://bit.ly/RegistrasiNarauction"
+                            target="_blank"
+                          >
+                            <Button outline className={styles.button}>
+                              <img
+                                src="/bid.svg"
+                                alt=""
+                                className={styles.icon}
+                              />
+                              {t("bidnow")}
+                            </Button>
+                          </a>
+                          <Link href="/catalog#lots" passHref>
+                            <Button
+                              outline
+                              color="transparent"
+                              className={styles.button}
+                            >
+                              <img
+                                src="/list.svg"
+                                alt=""
+                                className={styles.icon}
+                              />
+                              {t("alllots")}
+                            </Button>
+                          </Link>
+                        </div>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={12} md={5} lg={4} xl={3}>
+                      {event.fotoItem && (
+                        <div className={styles.paletteContainer}>
+                          <BatikPalette
+                            className={styles.palette5}
+                            src="/icon_others.svg"
+                          />
+                          {event.fotoItem
+                            .filter((_, i) => i < 4)
+                            .map((src, index) => {
+                              const i = 4 - index;
+                              return (
+                                <BatikPalette
+                                  key={src}
+                                  className={styles[`palette${i}`]}
+                                  src={src}
+                                />
+                              );
+                            })}
+                        </div>
+                      )}
+                    </Grid>
+                  </Grid>
+
+                  <div className={styles.countdown}>
+                    <div className={styles.subcontainer}>
+                      <img
+                        src="/stopwatch.svg"
+                        alt=""
+                        className={`${styles.icon} icon`}
+                      />
+                      <b>
+                        {eta} {t("day(s)")}
                       </b>
+                    </div>
+                    <div className={`${styles.divider} ${styles.left}`} />
+                    <p className={styles.lotCount}>{event.itemCount} Lots</p>
+                    <div className={`${styles.divider} ${styles.right}`} />
+                    <div className={styles.subcontainer}>
+                      <img
+                        src="/broadcast.svg"
+                        alt=""
+                        className={`${styles.icon} icon`}
+                      />
                       <p>
-                        {currentLang === "en" ? slide.descEn : slide.descId}
+                        LIVE auction{" "}
+                        {moment(event.date).format("dddd, D MMMM y")}
                       </p>
                     </div>
-                  ))}
-                </Slide>
-              </div>
-            </Grid>
-            <Grid
-              item
-              xs={1}
-              component={Box}
-              display={{ xs: "block", sm: "none" }}
-            />
-          </Grid>
-          <Grid container className={styles.registerContainer}>
-            <Grid item xs={1} />
-            <Grid item container xs={10} className={styles.register}>
-              <Grid item xs={12} md={8}>
-                <h4 className="white">{t("home_footer_header")}</h4>
+                  </div>
+                </header>
               </Grid>
-              <Grid item xs={12} md={4} className={styles.buttonContainer}>
-                <a href="http://bit.ly/RegistrasiNarauction" target="_blank">
-                  <Button outline round size="large" color="disabled">
-                    <b className="large">{t("register").toUpperCase()}</b>
-                  </Button>
-                </a>
-              </Grid>
+              <Grid item xs={1} />
             </Grid>
-            <Grid item xs={1} />
-          </Grid>
-        </main>
+          )}
+          <main>
+            <div className={styles.collab} />
+            <Grid container component="section" className={styles.videoSection}>
+              <Grid item xs={1} />
+              <Grid item container xs={10} spacing={0}>
+                {/* <div className={styles.videoContainer}> */}
+                <Grid
+                  item
+                  xs={12}
+                  sm={0}
+                  className={`${styles.videoPreview} ${styles.left}`}
+                >
+                  <a href="https://youtu.be/bo9tjBGbXxQ" target="_blank">
+                    <IconButton src="/play_circle.svg" />
+                  </a>
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} className={styles.feature}>
+                  <div className={styles.no1}>
+                    <img src="/star.svg" />
+                    {t("home_main_sub")}
+                  </div>
+                  <h3>{t("home_main_header")}</h3>
+                  <p>{t("home_main_desc")}</p>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sm={0}
+                  md={6}
+                  className={`${styles.videoPreview} ${styles.right}`}
+                >
+                  <a href="https://youtu.be/bo9tjBGbXxQ" target="_blank">
+                    <IconButton src="/play_circle.svg" />
+                  </a>
+                </Grid>
+                {/* </div> */}
+              </Grid>
+              <Grid item xs={1} />
+            </Grid>
+            <Grid container item xs={12} className={styles.slides}>
+              <Grid item xs={1} />
+              <Grid item xs={10} md={3} lg={2}>
+                <p>{t("home_slider_caption")}</p>
+                <h3>{t("home_slider_title")}</h3>
+                <div className={styles.buttonBar}>
+                  <IconButton
+                    onClick={handlePrev}
+                    src="/about_prev.svg"
+                    backgroundColor="transparent"
+                  />
+                  <IconButton
+                    onClick={handleNext}
+                    src="/about_next.svg"
+                    backgroundColor="transparent"
+                  />
+                </div>
+              </Grid>
+              <Grid item xs={1} />
+              <Grid
+                item
+                xs={1}
+                component={Box}
+                display={{ xs: "block", md: "none" }}
+              />
+              <Grid item xs={10} md={7} lg={8} className={styles.slider}>
+                <div className="slide-container">
+                  <Slide
+                    ref={sliderRef}
+                    easing="ease-out"
+                    slidesToShow={2}
+                    arrows={false}
+                    transitionDuration={600}
+                  >
+                    {slides.map((slide, index) => (
+                      <div className={styles.sliderItem} key={index}>
+                        <img src={slide.src} />
+                        <b className="large">
+                          {currentLang === "en" ? slide.titleEn : slide.titleId}
+                        </b>
+                        <p>
+                          {currentLang === "en" ? slide.descEn : slide.descId}
+                        </p>
+                      </div>
+                    ))}
+                  </Slide>
+                </div>
+              </Grid>
+              <Grid
+                item
+                xs={1}
+                component={Box}
+                display={{ xs: "block", sm: "none" }}
+              />
+            </Grid>
+            <Grid container className={styles.registerContainer}>
+              <Grid item xs={1} />
+              <Grid item container xs={10} className={styles.register}>
+                <Grid item xs={12} md={8}>
+                  <h4 className="white">{t("home_footer_header")}</h4>
+                </Grid>
+                <Grid item xs={12} md={4} className={styles.buttonContainer}>
+                  <a href="http://bit.ly/RegistrasiNarauction" target="_blank">
+                    <Button outline round size="large" color="disabled">
+                      <b className="large">{t("register").toUpperCase()}</b>
+                    </Button>
+                  </a>
+                </Grid>
+              </Grid>
+              <Grid item xs={1} />
+            </Grid>
+          </main>
+        </div>
       </div>
     </Layout>
   );
