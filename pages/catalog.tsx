@@ -132,132 +132,135 @@ export default function Catalog() {
         nextLotId={nextLotId}
         previousLotId={previousLotId}
       />
-      <Grid container className={styles.root}>
-        <Grid item xs={1} />
-        <Grid item xs={10}>
-          <header>
-            <h3>
-              {t("catalog_header_title")}
-              {/* <span>
+      <div>
+        <Grid container className={styles.root}>
+          <Grid item xs={1} />
+          <Grid item xs={10}>
+            <header>
+              <h3>
+                {t("catalog_header_title")}
+                {/* <span>
                 <h3 className="no-bold">{t("catalog_header_subtitle")}</h3>
               </span>{" "} */}
-            </h3>
-            <p className="medium">{t("catalog_header_caption")}</p>
-            <Link href="/catalog#events" passHref>
-              <Button>
-                <b>{t("look_all_events")}</b>
-              </Button>
-            </Link>
-          </header>
-          <div id="events">
-            <CustomSlider
-              className={styles.slider}
-              autoplay={false}
-              afterChange={handleSlideChange}
-              slidesToShow={Math.min(
-                Math.max(Object.entries(barangEvents).length, 1),
-                3
-              )}
-              ref={sliderRef}
-            >
-              {Object.entries(barangEvents).map(([id, e], index) => (
-                <div
-                  key={id}
-                  onClick={() => sliderRef.current.slickGoTo(index)}
-                >
+              </h3>
+              <p className="medium">{t("catalog_header_caption")}</p>
+              <Link href="/catalog#events" passHref>
+                <Button>
+                  <b>{t("look_all_events")}</b>
+                </Button>
+              </Link>
+            </header>
+            <div id="events">
+              <CustomSlider
+                className={styles.slider}
+                autoplay={false}
+                afterChange={handleSlideChange}
+                slidesToShow={Math.min(
+                  Math.max(Object.entries(barangEvents).length, 1),
+                  3
+                )}
+                ref={sliderRef}
+              >
+                {Object.entries(barangEvents).map(([id, e], index) => (
                   <div
-                    className={styles.sliderItem}
-                    style={{
-                      background: `
+                    key={id}
+                    onClick={() => sliderRef.current.slickGoTo(index)}
+                  >
+                    <div
+                      className={styles.sliderItem}
+                      style={{
+                        background: `
                   linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%),
                   url(${e.foto[0]})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      backgroundRepeat: "no-repeat",
-                    }}
-                  >
-                    <div className={styles.sliderContent}>
-                      <h5>{e.name}</h5>
-                      <div className={styles.subcontainer}>
-                        <img
-                          src="/broadcast.svg"
-                          alt=""
-                          className={`${styles.icon} icon`}
-                        />
-                        <p className="extra-small">
-                          LIVE auction {moment(e.date).format("dddd, D MMMM y")}
-                          {/* {" "}
-                          {t("at")} {moment(e.date).format("hh:mm A")} */}
-                        </p>
-                      </div>
-                      <a
-                        href="http://bit.ly/RegistrasiNarauction"
-                        target="_blank"
-                      >
-                        <Button size="small" color="disabled" outline>
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                      }}
+                    >
+                      <div className={styles.sliderContent}>
+                        <h5>{e.name}</h5>
+                        <div className={styles.subcontainer}>
                           <img
-                            src="/bid.svg"
+                            src="/broadcast.svg"
                             alt=""
                             className={`${styles.icon} icon`}
                           />
-                          <p className="small">{t("bidnow")}</p>
-                        </Button>
-                      </a>
+                          <p className="extra-small">
+                            LIVE auction{" "}
+                            {moment(e.date).format("dddd, D MMMM y")}
+                            {/* {" "}
+                          {t("at")} {moment(e.date).format("hh:mm A")} */}
+                          </p>
+                        </div>
+                        <a
+                          href="http://bit.ly/RegistrasiNarauction"
+                          target="_blank"
+                        >
+                          <Button size="small" color="disabled" outline>
+                            <img
+                              src="/bid.svg"
+                              alt=""
+                              className={`${styles.icon} icon`}
+                            />
+                            <p className="small">{t("bidnow")}</p>
+                          </Button>
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </CustomSlider>
-          </div>
-          <div id="lots">
-            {activeEventId && barangEvents[activeEventId].barang.length > 0 && (
-              <div className={styles.searchBar}>
-                <TextInput
-                  type="text"
-                  placeholder={t("search_lots")}
-                  onChange={handleSearch}
-                />
-                {/* <Button color="secondary">
+                ))}
+              </CustomSlider>
+            </div>
+            <div id="lots">
+              {activeEventId && barangEvents[activeEventId].barang.length > 0 && (
+                <div className={styles.searchBar}>
+                  <TextInput
+                    type="text"
+                    placeholder={t("search_lots")}
+                    onChange={handleSearch}
+                  />
+                  {/* <Button color="secondary">
                   <b>{t("search")}</b>
                 </Button> */}
-              </div>
-            )}
-            {activeEventId && (
-              <Grid container spacing={3}>
-                {lotsToShow.length > 0 && !fetchingBarang ? (
-                  lotsToShow.map((b) => (
-                    <Grid item xs={12} sm={6} md={4} key={b.id}>
-                      <Link
-                        passHref
-                        href={`/catalog?lotId=${b.id}`}
-                        scroll={false}
-                      >
-                        <a style={{ border: "none" }}>
-                          <LotCard barang={b} />
-                        </a>
-                      </Link>
+                </div>
+              )}
+              {activeEventId && (
+                <Grid container spacing={3}>
+                  {lotsToShow.length > 0 && !fetchingBarang ? (
+                    lotsToShow.map((b) => (
+                      <Grid item xs={12} sm={6} md={4} key={b.id}>
+                        <Link
+                          passHref
+                          href={`/catalog?lotId=${b.id}`}
+                          scroll={false}
+                        >
+                          <a style={{ border: "none" }}>
+                            <LotCard barang={b} />
+                          </a>
+                        </Link>
+                      </Grid>
+                    ))
+                  ) : (
+                    <Grid item xs={12}>
+                      <p className={styles.barangStatusText}>
+                        {search.length > 0
+                          ? `${t("noresult")}\n'${search}'`
+                          : fetchingBarang
+                          ? t("pleasewait")
+                          : t("nolots")}
+                      </p>
                     </Grid>
-                  ))
-                ) : (
-                  <Grid item xs={12}>
-                    <p className={styles.barangStatusText}>
-                      {search.length > 0
-                        ? `${t("noresult")}\n'${search}'`
-                        : fetchingBarang
-                        ? t("pleasewait")
-                        : t("nolots")}
-                    </p>
-                  </Grid>
-                )}
-              </Grid>
-            )}
-            <div className={styles.spacer} />
-          </div>
-          {/* <Paginator /> */}
+                  )}
+                </Grid>
+              )}
+              <div className={styles.spacer} />
+            </div>
+            {/* <Paginator /> */}
+          </Grid>
+          <Grid item xs={1} />
+          <div className={styles.background} />
         </Grid>
-        <Grid item xs={1} />
-        <div className={styles.background} />
-      </Grid>
+      </div>
     </Layout>
   );
 }
