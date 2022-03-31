@@ -4,6 +4,7 @@ const { withGoogleFonts } = require('nextjs-google-fonts');
 
 const nextConfig = {
   reactStrictMode: true,
+  trailingSlash: true,
   images: {
     disableStaticImages: true,
   },
