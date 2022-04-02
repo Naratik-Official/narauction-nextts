@@ -14,6 +14,8 @@ import moment from "moment";
 import useTranslation from "utils/useTranslation";
 import { Slide } from "react-slideshow-image";
 import Link from "next/link";
+import CustomSlider from "components/CustomSlider";
+import RatingStars, { RatingOptions } from "components/RatingStars";
 
 const slides = [
   {
@@ -214,11 +216,7 @@ export default function Home() {
                   xs={12}
                   sm={0}
                   className={`${styles.videoPreview} ${styles.left}`}
-                >
-                  <a href="https://youtu.be/bo9tjBGbXxQ" target="_blank">
-                    <IconButton src="/play_circle.svg" />
-                  </a>
-                </Grid>
+                />
                 <Grid item xs={12} sm={12} md={6} className={styles.feature}>
                   <div className={styles.no1}>
                     <img src="/star.svg" />
@@ -233,11 +231,7 @@ export default function Home() {
                   sm={0}
                   md={6}
                   className={`${styles.videoPreview} ${styles.right}`}
-                >
-                  <a href="https://youtu.be/bo9tjBGbXxQ" target="_blank">
-                    <IconButton src="/play_circle.svg" />
-                  </a>
-                </Grid>
+                />
                 {/* </div> */}
               </Grid>
               <Grid item xs={1} />
@@ -297,9 +291,43 @@ export default function Home() {
                 display={{ xs: "block", sm: "none" }}
               />
             </Grid>
-            <Grid container className={styles.registerContainer}>
+            <Grid container>
               <Grid item xs={1} />
-              <Grid item container xs={10} className={styles.register}>
+              <Grid item xs={10} className={styles.galleryGrid}>
+                <img src="/gk1.png" alt="" />
+                <div className={styles.galleryText}>
+                  <h3>{t("gallery")}</h3>
+                  <p>The Ancient Collection Vol. 1</p>
+                </div>
+              </Grid>
+              <Grid item xs={1} />
+            </Grid>
+            <Grid container component="section" className={styles.testimonials}>
+              <Grid item xs={1} />
+              <Grid item xs={10}>
+                <h3 className="center">Testimonials</h3>
+                <CustomSlider className={styles.slider}>
+                  {Array.from({ length: 6 }).map((_, e) => (
+                    <div key={e}>
+                      <img className={styles.quote} src="/quote.svg" alt="" />
+                      <div className={styles.sliderContent}>
+                        <RatingStars rating={(5 - e) as RatingOptions} />
+                        <p>
+                          “ Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Aliquam vestibulum, elementum nisi, quisque.
+                          Volutpat lacus donec dui ullamcorper fermentum quis.”
+                        </p>
+                        <h5>Name - City</h5>
+                      </div>
+                    </div>
+                  ))}
+                </CustomSlider>
+              </Grid>
+              <Grid item xs={1} />
+            </Grid>
+            <Grid container className={styles.registerContainer}>
+              <Grid item xs={2} />
+              <Grid item container xs={8} className={styles.register}>
                 <Grid item xs={12} md={8}>
                   <h4 className="white">{t("home_footer_header")}</h4>
                 </Grid>
@@ -311,7 +339,7 @@ export default function Home() {
                   </a>
                 </Grid>
               </Grid>
-              <Grid item xs={1} />
+              <Grid item xs={2} />
             </Grid>
           </main>
         </div>

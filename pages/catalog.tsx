@@ -206,6 +206,17 @@ export default function Catalog() {
                         backgroundRepeat: "no-repeat",
                       }}
                     >
+                      {moment(moment()).isAfter(e.date) ? (
+                        <div className={`${styles.tag} ${styles.open}`}>
+                          <img src="/open.svg" alt="" />
+                          <b>Open</b>
+                        </div>
+                      ) : (
+                        <div className={`${styles.tag} ${styles.closed}`}>
+                          <img src="/closed.svg" alt="" />
+                          <b>Closed</b>
+                        </div>
+                      )}
                       <div className={styles.sliderContent}>
                         <h5>{e.name}</h5>
                         <div className={styles.subcontainer}>
