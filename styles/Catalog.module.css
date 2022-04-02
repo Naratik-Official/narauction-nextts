@@ -1,5 +1,5 @@
 .root {
-  padding-top: 226px;
+  padding-top: 196px;
 }
 
 .background {
@@ -57,7 +57,7 @@
   background: #eaebef;
   border: 1px solid #dde0e4;
   box-sizing: border-box;
-  border-radius: 10px ;
+  border-radius: 10px;
 }
 
 .searchBar button {
@@ -74,4 +74,30 @@
 .barangStatusText {
   text-align: center;
   margin-bottom: 32px;
+}
+
+.videoResponsive {
+  overflow: hidden;
+  position: relative;
+  width: 10%;
+  margin: 0px 50px 0px 50px;
+}
+
+.videoResponsive::after {
+  padding-top: 56.25%;
+  display: block;
+  content: '';
+}
+.videoResponsive iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media only screen and (max-width: 899px) {
+  .videoResponsive {
+    margin: 0px;
+  }
 }

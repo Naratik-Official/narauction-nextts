@@ -1,23 +1,24 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-import Grid from "@mui/material/Grid";
-import LotCard from "components/LotCard";
-import TextInput from "components/TextInput";
-import Button from "components/Button";
-import Paginator from "components/Paginator";
-import CustomSlider from "components/CustomSlider";
+import Grid from '@mui/material/Grid';
+import { Box } from '@mui/material';
+import LotCard from 'components/LotCard';
+import TextInput from 'components/TextInput';
+import Button from 'components/Button';
+import Paginator from 'components/Paginator';
+import CustomSlider from 'components/CustomSlider';
 
-import styles from "styles/Catalog.module.css";
-import LotDetailModal from "components/LotDetailModal";
-import { useRouter } from "next/router";
+import styles from 'styles/Catalog.module.css';
+import LotDetailModal from 'components/LotDetailModal';
+import { useRouter } from 'next/router';
 // import Modal from "react-modal";
-import Link from "next/link";
-import Layout from "components/Layout";
+import Link from 'next/link';
+import Layout from 'components/Layout';
 
-import axios from "axios";
-import { BarangEvent, Event } from "utils/types";
-import moment from "moment";
-import useTranslation from "utils/useTranslation";
+import axios from 'axios';
+import { BarangEvent, Event } from 'utils/types';
+import moment from 'moment';
+import useTranslation from 'utils/useTranslation';
 
 // Modal.setAppElement("#__next");
 
@@ -26,7 +27,7 @@ export default function Catalog() {
   const [barangEvents, setBarangEvents] = useState<BarangEvent>({});
   const [activeEventId, setActiveEventId] = useState<string | undefined>();
   const [fetchingBarang, setFetchingBarang] = useState(true);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [t] = useTranslation();
   const sliderRef = useRef<any>(null);
   const [previousLotId, nextLotId] = useMemo(() => {
@@ -66,7 +67,7 @@ export default function Catalog() {
   useEffect(() => {
     const fetch = async () => {
       const { data: events } = await axios.get(
-        "https://narauction.et.r.appspot.com/event"
+        'https://narauction.et.r.appspot.com/event'
       );
 
       setBarangEvents(() => ({
@@ -137,18 +138,40 @@ export default function Catalog() {
           <Grid item xs={1} />
           <Grid item xs={10}>
             <header>
-              <h3>
-                {t("catalog_header_title")}
-                {/* <span>
-                <h3 className="no-bold">{t("catalog_header_subtitle")}</h3>
-              </span>{" "} */}
-              </h3>
-              <p className="medium">{t("catalog_header_caption")}</p>
-              <Link href="/catalog#events" passHref>
-                <Button>
-                  <b>{t("look_all_events")}</b>
-                </Button>
-              </Link>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                }}
+              >
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                  className={styles.videoResponsive}
+                >
+                  <iframe
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title="Embedded youtube"
+                    src="https://www.youtube.com/embed/bo9tjBGbXxQ"
+                  ></iframe>
+                </Box>
+                <Box>
+                  <h3>{t('catalog_header_title')}</h3>
+                  <p className="medium">{t('catalog_header_caption')}</p>
+                  <Link href="/catalog#events" passHref>
+                    <Button>
+                      <b>{t('look_all_events')}</b>
+                    </Button>
+                  </Link>
+                </Box>
+              </Box>
             </header>
             <div id="events">
               <CustomSlider
@@ -172,9 +195,9 @@ export default function Catalog() {
                         background: `
                   linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%),
                   url(${e.foto[0]})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
                       }}
                     >
                       <div className={styles.sliderContent}>
@@ -186,8 +209,8 @@ export default function Catalog() {
                             className={`${styles.icon} icon`}
                           />
                           <p className="extra-small">
-                            LIVE auction{" "}
-                            {moment(e.date).format("dddd, D MMMM y")}
+                            LIVE auction{' '}
+                            {moment(e.date).format('dddd, D MMMM y')}
                             {/* {" "}
                           {t("at")} {moment(e.date).format("hh:mm A")} */}
                           </p>
@@ -202,7 +225,7 @@ export default function Catalog() {
                               alt=""
                               className={`${styles.icon} icon`}
                             />
-                            <p className="small">{t("bidnow")}</p>
+                            <p className="small">{t('bidnow')}</p>
                           </Button>
                         </a>
                       </div>
@@ -216,7 +239,7 @@ export default function Catalog() {
                 <div className={styles.searchBar}>
                   <TextInput
                     type="text"
-                    placeholder={t("search_lots")}
+                    placeholder={t('search_lots')}
                     onChange={handleSearch}
                   />
                   {/* <Button color="secondary">
@@ -234,7 +257,7 @@ export default function Catalog() {
                           href={`/catalog?lotId=${b.id}`}
                           scroll={false}
                         >
-                          <a style={{ border: "none" }}>
+                          <a style={{ border: 'none' }}>
                             <LotCard barang={b} />
                           </a>
                         </Link>
@@ -244,10 +267,10 @@ export default function Catalog() {
                     <Grid item xs={12}>
                       <p className={styles.barangStatusText}>
                         {search.length > 0
-                          ? `${t("noresult")}\n'${search}'`
+                          ? `${t('noresult')}\n'${search}'`
                           : fetchingBarang
-                          ? t("pleasewait")
-                          : t("nolots")}
+                          ? t('pleasewait')
+                          : t('nolots')}
                       </p>
                     </Grid>
                   )}
