@@ -40,6 +40,10 @@ export interface Barang {
   size: [number, number];
   tipe: string;
   idEvent: string;
+  dyeType: string;
+  hargaAwal: number;
+  urlThumbnail: string[];
+  isAvailable: boolean;
 }
 
 export interface BarangEvent {

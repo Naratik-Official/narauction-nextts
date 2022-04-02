@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
@@ -34,6 +34,13 @@ function LotDetailModal({
   const [foto, setFoto] = useState<string | undefined>();
 
   const [t, currentLang] = useTranslation();
+  const isOngoing = useMemo(() => {
+    if (!event) return false;
+    const a = moment(moment()).isAfter(event.date);
+    console.log(event.date, moment(), a);
+
+    return a;
+  }, [event]);
 
   useEffect(() => {
     if (!lotId) return;
@@ -55,10 +62,13 @@ function LotDetailModal({
     fetch();
   }, [lotId]);
 
+  const handleClose = () =>
+    router.push("/catalog", undefined, { scroll: false });
+
   return (
     <Modal
       open={!!lotId}
-      onClose={() => router.push("/catalog", undefined, { scroll: false })}
+      onClose={handleClose}
       sx={{ display: "flex", alignItems: "center" }}
     >
       <div className={styles.root}>
@@ -68,17 +78,11 @@ function LotDetailModal({
           </div>
         ) : (
           <>
-            <div className={styles.header}>
-              <b className="large secondary">#{barang.lot}</b>
-              <b className="large success">{t("available")}</b>
+            <div className={styles.closeButton}>
               <IconButton
-                backgroundColor="transparent"
-                size="small"
                 src="/close_small.svg"
-                noShadow
-                onClick={() =>
-                  router.push("/catalog", undefined, { scroll: false })
-                }
+                backgroundColor="transparent"
+                onClick={handleClose}
               />
             </div>
             <Grid container className={styles.main}>
@@ -117,9 +121,25 @@ function LotDetailModal({
                 </div>
               </Grid>
               <Grid item xs={12} md={6} lg={8}>
+                <div className={styles.tagBar}>
+                  <div className={`${styles.tag} ${styles.lotTag}`}>
+                    #{barang.lot}
+                  </div>
+                  {!!barang.isAvailable ? (
+                    <div className={`${styles.tag} ${styles.availableTag}`}>
+                      <img src="/available.svg" alt="" />
+                      Available
+                    </div>
+                  ) : (
+                    <div className={`${styles.tag} ${styles.unavailableTag}`}>
+                      <img src="/unavailable.svg" alt="" />
+                      Unavailable
+                    </div>
+                  )}
+                </div>
                 <h4 className="no-margin">{barang.namaBarang}</h4>
                 <p>
-                  Circa <b>{barang.tahunPembuatan}</b>
+                  Circa : <b>{barang.tahunPembuatan}</b>
                 </p>
                 <p>{currentLang == "en" ? barang.descEn : barang.descId}</p>
                 <Grid
@@ -151,41 +171,12 @@ function LotDetailModal({
                     {barang.size[0]}cm x {barang.size[1]}cm
                   </Grid>
                   <Grid item xs={6} lg={3}>
-                    <b>{t("pricerange")}</b>
+                    <b>{t("dyetype")}</b>
                   </Grid>
                   <Grid item xs={6} lg={3}>
-                    Rp. {barang.priceRange[0].toLocaleString()}
-                    {/* - Rp.{" "}
-                    {barang.priceRange[1].toLocaleString()} */}
+                    {barang.dyeType}
                   </Grid>
                 </Grid>
-                {/* <table>
-                  <tr>
-                    <td>
-                      <b>{t("type")}</b>
-                    </td>
-                    <td>{barang.tipe}</td>
-                    <td>
-                      <b>{t("creator")}</b>
-                    </td>
-                    <td>{barang.asal_daerah}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <b>{t("size")}</b>
-                    </td>
-                    <td>
-                      {barang.size[0]}cm x {barang.size[1]}cm
-                    </td>
-                    <td>
-                      <b>{t("pricerange")}</b>
-                    </td>
-                    <td>
-                      Rp. {barang.priceRange[0].toLocaleString()} - Rp.{" "}
-                      {barang.priceRange[1].toLocaleString()}
-                    </td>
-                  </tr>
-                </table> */}
                 <div className={styles.eventDetail}>
                   <img
                     src={event.foto[0]}
@@ -203,23 +194,8 @@ function LotDetailModal({
                       <p className="small">
                         LIVE auction{" "}
                         {moment(event.date).format("dddd, D MMMM y")}
-                        {/* {" "}
-                      {t("at")} {moment(event.date).format("h:m A")} */}
                       </p>
                     </div>
-                    <a
-                      href="http://bit.ly/RegistrasiNarauction"
-                      target="_blank"
-                    >
-                      <Button size="small" color="disabled" outline>
-                        <img
-                          src="/bid.svg"
-                          alt=""
-                          className={`${styles.icon} icon`}
-                        />
-                        <p className="small">{t("bidnow")}</p>
-                      </Button>
-                    </a>
                   </div>
                 </div>
               </Grid>
@@ -233,7 +209,11 @@ function LotDetailModal({
                   scroll={false}
                 >
                   <a style={{ border: "none" }}>
-                    <Button color="disabled" disabled={!previousLotId}>
+                    <Button
+                      color="disabled"
+                      disabled={!previousLotId}
+                      className={styles.button}
+                    >
                       <b>
                         {" "}
                         {"< <"} {t("previouslot")}
@@ -242,6 +222,24 @@ function LotDetailModal({
                   </a>
                 </Link>
               )}
+              <div className={styles.priceBar}>
+                <div
+                  className={`${styles.openBid} ${
+                    !isOngoing ? styles.strikethrough : ""
+                  }`}
+                >
+                  <p>{t("pricerange")} : </p>
+                  <b>Rp. {barang.priceRange[0].toLocaleString()}</b>
+                </div>
+                <div
+                  className={`${styles.normalPrice} ${
+                    isOngoing ? styles.strikethrough : ""
+                  }`}
+                >
+                  <p>{t("normalprice")} : </p>
+                  <b>Rp. {barang.hargaAwal.toLocaleString()}</b>
+                </div>
+              </div>
               {nextLotId && (
                 <Link
                   passHref
@@ -250,7 +248,11 @@ function LotDetailModal({
                   scroll={false}
                 >
                   <a style={{ border: "none" }}>
-                    <Button color="disabled" disabled={!nextLotId}>
+                    <Button
+                      color="disabled"
+                      disabled={!nextLotId}
+                      className={styles.button}
+                    >
                       <b>
                         {" "}
                         {t("nextlot")} {"> >"}
@@ -259,6 +261,24 @@ function LotDetailModal({
                   </a>
                 </Link>
               )}
+            </div>
+            <div className={styles.priceBarSmall}>
+              <div
+                className={`${styles.openBid} ${
+                  !isOngoing ? styles.strikethrough : ""
+                }`}
+              >
+                <p>{t("pricerange")} : </p>
+                <b>Rp. {barang.priceRange[0].toLocaleString()}</b>
+              </div>
+              <div
+                className={`${styles.normalPrice} ${
+                  isOngoing ? styles.strikethrough : ""
+                }`}
+              >
+                <p>{t("normalprice")} : </p>
+                <b>Rp. {barang.hargaAwal.toLocaleString()}</b>
+              </div>
             </div>
           </>
         )}

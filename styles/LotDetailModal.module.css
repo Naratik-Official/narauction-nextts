@@ -7,8 +7,14 @@
   flex-direction: column;
   border-radius: 16px;
   height: 100vh;
-  width: 100%;
+  width: 85%;
   /* overflow: scroll; */
+}
+
+.closeButton {
+  position: fixed;
+  top: 76px;
+  right: 76px;
 }
 
 .pleaseWait {
@@ -34,6 +40,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   padding-top: 36px;
   border-top: 1px solid #dde0e4;
   /* position: fixed; */
@@ -42,9 +49,9 @@
 }
 
 .main {
-  margin: 24px 0;
   overflow: auto;
   flex: 1;
+  padding-bottom: 20px;
 }
 
 .imagesPreview {
@@ -77,10 +84,47 @@
   width: auto;
 }
 
+.tagBar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.tag {
+  margin-right: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 16px;
+  margin-bottom: 12px;
+}
+
+.tag img {
+  margin-right: 10px;
+}
+
+.lotTag {
+  background: #FFE0C9;
+  border-radius: 12px;
+}
+
+.availableTag {
+  background: #DBFFD8;
+  border-radius: 12px;
+  color: #01917D;
+}
+
+.unavailableTag {
+  background: #FFECEC;
+  border-radius: 12px;
+  color: #FF7D7D;
+}
+
 .buttonBar {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
   margin-top: 24px;
 }
 
@@ -100,22 +144,23 @@
 .eventDetail {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .eventImage {
   /* width: 20%; */
-  height: 120px;
+  height: 74px;
+  width: 74px;
   object-fit: cover !important;
   margin-right: 24px;
-  border-radius: 10px;
+  /* border-radius: 37px; */
 }
 
 .eventDetail img {
-  width: 33%;
+  /* width: 33%; */
   object-fit: contain;
   margin-right: 24px;
-  border-radius: 10px;
+  border-radius: 37px;
 }
 
 .subcontainer {
@@ -127,6 +172,42 @@
 .icon {
   width: 18px !important;
   margin-right: 8px !important;
+}
+
+.button {
+  border-radius: 52px;
+}
+
+.priceBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+.priceBarSmall {
+  display: none;
+}
+
+.openBid {
+  padding-right: 48px;
+  border-right: 2px solid #DDE0E4;
+}
+
+.normalPrice {
+  margin-left: 48px;
+}
+
+.openBid b {
+  color: #01917D;
+}
+
+.normalPrice b {
+  color: #FF7D7D;
+}
+
+.strikethrough {
+  text-decoration: line-through !important;
 }
 
 @media only screen and (max-width: 900px) {
@@ -141,5 +222,29 @@
 
   .imagesPreview {
     padding-right: 0;
+  }
+
+  .priceBar {
+    display: none;
+  }
+
+}
+
+@media only screen and (max-width: 882px) {
+  .priceBarSmall {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 1266px) {
+  .root {
+    width: 100%;
+  }
+
+  .closeButton {
+    display: none;
   }
 }

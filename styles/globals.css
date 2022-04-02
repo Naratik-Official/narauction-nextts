@@ -284,3 +284,7 @@ nav {
 .dropdown-toggle::after {
   margin-top: 0.5em;
 }
+
+.strikethrough {
+  text-decoration: line-through;
+}
