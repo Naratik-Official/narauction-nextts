@@ -6,15 +6,27 @@ import useTranslation from "utils/useTranslation";
 
 interface LotCardProps {
   barang: Barang;
+  isOngoing: boolean;
 }
 
-function LotCard({ barang }: LotCardProps) {
-  const { lot, foto, namaBarang, tahunPembuatan, priceRange, hargaAwal } =
-    barang;
+function LotCard({ barang, isOngoing }: LotCardProps) {
+  const {
+    lot,
+    foto,
+    namaBarang,
+    tahunPembuatan,
+    priceRange,
+    hargaAwal,
+    isAvailable,
+  } = barang;
   const [t] = useTranslation();
 
   return (
-    <div className={styles.card}>
+    <div
+      className={`${isAvailable ? styles.enabled : styles.disabled} ${
+        styles.card
+      }`}
+    >
       <div className={styles.lot}>#{lot}</div>
       <img src={foto[0]} alt="" />
       <div className={styles.content}>
@@ -23,14 +35,22 @@ function LotCard({ barang }: LotCardProps) {
           Circa : <b>{tahunPembuatan}</b>
         </p>
         <div className={styles.footer}>
-          <p className={styles.openBid}>
-            {t("pricerange")}
+          <div
+            className={`${styles.price} ${styles.openBid} ${
+              !isOngoing || !isAvailable ? styles.strikethrough : ""
+            }`}
+          >
+            <p>{t("pricerange")}</p>
             <b>Rp. {priceRange[0].toLocaleString()}</b>
-          </p>
-          <p className={styles.normalPrice}>
-            {t("normalprice")}
+          </div>
+          <div
+            className={`${styles.price} ${styles.normalPrice} ${
+              isOngoing || !isAvailable ? styles.strikethrough : ""
+            }`}
+          >
+            <p>{t("normalprice")}</p>
             <b>Rp. {hargaAwal.toLocaleString()}</b>
-          </p>
+          </div>
         </div>
       </div>
     </div>

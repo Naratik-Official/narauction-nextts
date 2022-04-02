@@ -13,7 +13,9 @@ interface ButtonProps {
     | "warning"
     | "error"
     | "disabled"
-    | "transparent";
+    | "transparent"
+    | "secondaryPale"
+    | "secondaryPaleDisabled";
   size?: "nav" | "small" | "normal" | "medium" | "large";
   className?: string;
   outline?: boolean;

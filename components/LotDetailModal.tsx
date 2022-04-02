@@ -36,10 +36,8 @@ function LotDetailModal({
   const [t, currentLang] = useTranslation();
   const isOngoing = useMemo(() => {
     if (!event) return false;
-    const a = moment(moment()).isAfter(event.date);
-    console.log(event.date, moment(), a);
 
-    return a;
+    return moment(moment()).isAfter(event.date);
   }, [event]);
 
   useEffect(() => {

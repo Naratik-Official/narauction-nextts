@@ -1,24 +1,24 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
-import Grid from '@mui/material/Grid';
-import { Box } from '@mui/material';
-import LotCard from 'components/LotCard';
-import TextInput from 'components/TextInput';
-import Button from 'components/Button';
-import Paginator from 'components/Paginator';
-import CustomSlider from 'components/CustomSlider';
+import Grid from "@mui/material/Grid";
+import { Box } from "@mui/material";
+import LotCard from "components/LotCard";
+import TextInput from "components/TextInput";
+import Button from "components/Button";
+import Paginator from "components/Paginator";
+import CustomSlider from "components/CustomSlider";
 
-import styles from 'styles/Catalog.module.css';
-import LotDetailModal from 'components/LotDetailModal';
-import { useRouter } from 'next/router';
+import styles from "styles/Catalog.module.css";
+import LotDetailModal from "components/LotDetailModal";
+import { useRouter } from "next/router";
 // import Modal from "react-modal";
-import Link from 'next/link';
-import Layout from 'components/Layout';
+import Link from "next/link";
+import Layout from "components/Layout";
 
-import axios from 'axios';
-import { BarangEvent, Event } from 'utils/types';
-import moment from 'moment';
-import useTranslation from 'utils/useTranslation';
+import axios from "axios";
+import { BarangEvent, Event } from "utils/types";
+import moment from "moment";
+import useTranslation from "utils/useTranslation";
 
 // Modal.setAppElement("#__next");
 
@@ -27,7 +27,7 @@ export default function Catalog() {
   const [barangEvents, setBarangEvents] = useState<BarangEvent>({});
   const [activeEventId, setActiveEventId] = useState<string | undefined>();
   const [fetchingBarang, setFetchingBarang] = useState(true);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [t] = useTranslation();
   const sliderRef = useRef<any>(null);
   const [previousLotId, nextLotId] = useMemo(() => {
@@ -54,7 +54,7 @@ export default function Catalog() {
   }, [lotId, barangEvents]);
 
   const lotsToShow = useMemo(() => {
-    if (activeEventId === undefined) return [];
+    if (!activeEventId) return [];
 
     return barangEvents[activeEventId].barang.filter((b) =>
       search.length > 0
@@ -64,10 +64,16 @@ export default function Catalog() {
     );
   }, [search, barangEvents, activeEventId]);
 
+  const isOngoing = useMemo(() => {
+    if (!activeEventId) return false;
+
+    return moment(moment()).isAfter(barangEvents[activeEventId].date);
+  }, [barangEvents, activeEventId]);
+
   useEffect(() => {
     const fetch = async () => {
       const { data: events } = await axios.get(
-        'https://narauction.et.r.appspot.com/event'
+        "https://narauction.et.r.appspot.com/event"
       );
 
       setBarangEvents(() => ({
@@ -140,17 +146,17 @@ export default function Catalog() {
             <header>
               <Box
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
                 }}
               >
                 <Box
                   sx={{
                     flexGrow: 1,
-                    display: 'flex',
-                    justifyContent: 'center',
+                    display: "flex",
+                    justifyContent: "center",
                   }}
                   className={styles.videoResponsive}
                 >
@@ -163,11 +169,11 @@ export default function Catalog() {
                   ></iframe>
                 </Box>
                 <Box>
-                  <h3>{t('catalog_header_title')}</h3>
-                  <p className="medium">{t('catalog_header_caption')}</p>
+                  <h3>{t("catalog_header_title")}</h3>
+                  <p className="medium">{t("catalog_header_caption")}</p>
                   <Link href="/catalog#events" passHref>
                     <Button>
-                      <b>{t('look_all_events')}</b>
+                      <b>{t("look_all_events")}</b>
                     </Button>
                   </Link>
                 </Box>
@@ -195,9 +201,9 @@ export default function Catalog() {
                         background: `
                   linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%),
                   url(${e.foto[0]})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
                       }}
                     >
                       <div className={styles.sliderContent}>
@@ -209,25 +215,40 @@ export default function Catalog() {
                             className={`${styles.icon} icon`}
                           />
                           <p className="extra-small">
-                            LIVE auction{' '}
-                            {moment(e.date).format('dddd, D MMMM y')}
+                            LIVE auction{" "}
+                            {moment(e.date).format("dddd, D MMMM y")}
                             {/* {" "}
                           {t("at")} {moment(e.date).format("hh:mm A")} */}
                           </p>
                         </div>
-                        <a
-                          href="http://bit.ly/RegistrasiNarauction"
-                          target="_blank"
-                        >
-                          <Button size="small" color="disabled" outline>
+                        {moment(moment()).isAfter(e.date) ? (
+                          <a
+                            href="http://bit.ly/RegistrasiNarauction"
+                            target="_blank"
+                          >
+                            <Button size="small" color="secondaryPale">
+                              <img
+                                src="/bid.svg"
+                                alt=""
+                                className={`${styles.icon} icon`}
+                              />
+                              <p className="small">{t("bidnow")}</p>
+                            </Button>
+                          </a>
+                        ) : (
+                          <Button
+                            size="small"
+                            color="secondaryPaleDisabled"
+                            disabled
+                          >
                             <img
                               src="/bid.svg"
                               alt=""
                               className={`${styles.icon} icon`}
                             />
-                            <p className="small">{t('bidnow')}</p>
+                            <p className="small">{t("bidnow")}</p>
                           </Button>
-                        </a>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -239,7 +260,7 @@ export default function Catalog() {
                 <div className={styles.searchBar}>
                   <TextInput
                     type="text"
-                    placeholder={t('search_lots')}
+                    placeholder={t("search_lots")}
                     onChange={handleSearch}
                   />
                   {/* <Button color="secondary">
@@ -252,25 +273,29 @@ export default function Catalog() {
                   {lotsToShow.length > 0 && !fetchingBarang ? (
                     lotsToShow.map((b) => (
                       <Grid item xs={12} sm={6} md={4} key={b.id}>
-                        <Link
-                          passHref
-                          href={`/catalog?lotId=${b.id}`}
-                          scroll={false}
-                        >
-                          <a style={{ border: 'none' }}>
-                            <LotCard barang={b} />
-                          </a>
-                        </Link>
+                        {b.isAvailable ? (
+                          <Link
+                            passHref
+                            href={`/catalog?lotId=${b.id}`}
+                            scroll={false}
+                          >
+                            <a style={{ border: "none" }}>
+                              <LotCard barang={b} isOngoing={isOngoing} />
+                            </a>
+                          </Link>
+                        ) : (
+                          <LotCard barang={b} isOngoing={isOngoing} />
+                        )}
                       </Grid>
                     ))
                   ) : (
                     <Grid item xs={12}>
                       <p className={styles.barangStatusText}>
                         {search.length > 0
-                          ? `${t('noresult')}\n'${search}'`
+                          ? `${t("noresult")}\n'${search}'`
                           : fetchingBarang
-                          ? t('pleasewait')
-                          : t('nolots')}
+                          ? t("pleasewait")
+                          : t("nolots")}
                       </p>
                     </Grid>
                   )}
