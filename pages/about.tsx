@@ -88,7 +88,7 @@ export default function About() {
               >
                 <b className="secondary">{t("moreabout")}</b>
                 <h4>{t("moreabout_title")}</h4>
-                <a href="http://bit.ly/RegistrasiNarauction" target="_blank">
+                <a href="https://bit.ly/RegNarauction_tac2" target="_blank">
                   <Button color="transparent" outline>
                     <p>{t("registernow").toUpperCase()}</p>
                   </Button>

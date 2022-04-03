@@ -262,8 +262,16 @@ justify-content: space-between; */
   margin: 24px 0;
 }
 
-.sliderContent h5 {
+.sliderContent h6 {
   margin: 0;
+  font-weight: 600;
+}
+
+.sliderContent img {
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  margin-bottom: 8px;
 }
 
 .registerContainer {

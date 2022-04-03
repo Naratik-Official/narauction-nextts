@@ -37,7 +37,7 @@ function LotDetailModal({
   const isOngoing = useMemo(() => {
     if (!event) return false;
 
-    return moment(moment()).isAfter(event.date);
+    return !moment(moment()).isAfter(event.date);
   }, [event]);
 
   useEffect(() => {

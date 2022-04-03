@@ -15,7 +15,7 @@ import useTranslation from "utils/useTranslation";
 import { Slide } from "react-slideshow-image";
 import Link from "next/link";
 import CustomSlider from "components/CustomSlider";
-import RatingStars, { RatingOptions } from "components/RatingStars";
+// import RatingStars, { RatingOptions } from "components/RatingStars";
 
 const slides = [
   {
@@ -53,6 +53,37 @@ const slides = [
       "Each batik has a story and a deep meaning poured by the batik artisan",
     descId:
       "Tiap batik memiliki kisah dan makna yang mendalam yang dituangkan oleh pengrajin batiknya",
+  },
+];
+
+const testimonials = [
+  {
+    name: "Nama 1",
+    city: "Semarang",
+    description: "Description 1",
+    imgUrl:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
+  },
+  {
+    name: "Nama 2",
+    city: "Jakarta",
+    description: "Description 2",
+    imgUrl:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
+  },
+  {
+    name: "Nama 3",
+    city: "Bandung",
+    description: "Description 3",
+    imgUrl:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
+  },
+  {
+    name: "Nama 4",
+    city: "Bekasi",
+    description: "Description 4",
+    imgUrl:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
   },
 ];
 
@@ -121,7 +152,7 @@ export default function Home() {
                       <Grid container item xs={12}>
                         <div className={styles.buttonBar}>
                           <a
-                            href="http://bit.ly/RegistrasiNarauction"
+                            href="https://bit.ly/RegNarauction_tac2"
                             target="_blank"
                           >
                             <Button outline className={styles.button}>
@@ -307,17 +338,16 @@ export default function Home() {
               <Grid item xs={10}>
                 <h3 className="center">Testimonials</h3>
                 <CustomSlider className={styles.slider}>
-                  {Array.from({ length: 6 }).map((_, e) => (
+                  {testimonials.map((testi, e) => (
                     <div key={e}>
                       <img className={styles.quote} src="/quote.svg" alt="" />
                       <div className={styles.sliderContent}>
-                        <RatingStars rating={(5 - e) as RatingOptions} />
-                        <p>
-                          “ Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Aliquam vestibulum, elementum nisi, quisque.
-                          Volutpat lacus donec dui ullamcorper fermentum quis.”
-                        </p>
-                        <h5>Name - City</h5>
+                        {/* <RatingStars rating={(5 - e) as RatingOptions} /> */}
+                        <img src={testi.imgUrl} alt="" />
+                        <h6>
+                          {testi.name} - {testi.city}
+                        </h6>
+                        <p>“{testi.description}”</p>
                       </div>
                     </div>
                   ))}
@@ -332,7 +362,7 @@ export default function Home() {
                   <h4 className="white">{t("home_footer_header")}</h4>
                 </Grid>
                 <Grid item xs={12} md={4} className={styles.buttonContainer}>
-                  <a href="http://bit.ly/RegistrasiNarauction" target="_blank">
+                  <a href="https://bit.ly/RegNarauction_tac2" target="_blank">
                     <Button outline round size="large" color="disabled">
                       <b className="large">{t("register").toUpperCase()}</b>
                     </Button>

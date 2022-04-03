@@ -67,7 +67,7 @@ export default function Catalog() {
   const isOngoing = useMemo(() => {
     if (!activeEventId) return false;
 
-    return moment(moment()).isAfter(barangEvents[activeEventId].date);
+    return !moment(moment()).isAfter(barangEvents[activeEventId].date);
   }, [barangEvents, activeEventId]);
 
   useEffect(() => {
@@ -206,7 +206,7 @@ export default function Catalog() {
                         backgroundRepeat: "no-repeat",
                       }}
                     >
-                      {moment(moment()).isAfter(e.date) ? (
+                      {!moment(moment()).isAfter(e.date) ? (
                         <div className={`${styles.tag} ${styles.open}`}>
                           <img src="/open.svg" alt="" />
                           <b>Open</b>
@@ -232,9 +232,9 @@ export default function Catalog() {
                           {t("at")} {moment(e.date).format("hh:mm A")} */}
                           </p>
                         </div>
-                        {moment(moment()).isAfter(e.date) ? (
+                        {!moment(moment()).isAfter(e.date) ? (
                           <a
-                            href="http://bit.ly/RegistrasiNarauction"
+                            href="https://bit.ly/RegNarauction_tac2"
                             target="_blank"
                           >
                             <Button size="small" color="secondaryPale">

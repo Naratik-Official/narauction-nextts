@@ -209,7 +209,7 @@ export default function Navbar() {
                   </NavDropdown>
                 </li>
                 <li className={styles.buttonContainer}>
-                  <a href="http://bit.ly/RegistrasiNarauction" target="_blank">
+                  <a href="https://bit.ly/RegNarauction_tac2" target="_blank">
                     <Button
                       size="nav"
                       color="primary"
@@ -309,7 +309,7 @@ export default function Navbar() {
 //         </NavDropdown>
 //       </li>
 //       <li className={styles.buttonContainer}>
-//         <a href="http://bit.ly/RegistrasiNarauction" target="_blank">
+//         <a href="https://bit.ly/RegNarauction_tac2" target="_blank">
 //           <Button
 //             size="nav"
 //             color="primary"
