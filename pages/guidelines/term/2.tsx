@@ -9,14 +9,17 @@ export default function GuidelinesTerm2() {
   return (
     <GuidelinesTabs type="term">
       <ol>
-        {Array.from({ length: 9 }).map((_, i) => (
+        {Array.from({ length: 8 }).map((_, i) => (
           <li key={i}>
             {t(`term2_${i}`)}
-            {i === 0 && (
-              <ol type="a">
-                <li>{t("term2_0_0")}</li>
-                <li>{t("term2_0_1")}</li>
-              </ol>
+            {i === 4 && (
+              <>
+                <ol type="a">
+                  <li>{t("term2_4_0")}</li>
+                  <li>{t("term2_4_1")}</li>
+                </ol>
+                {t("term2_4_footer")}
+              </>
             )}
           </li>
         ))}

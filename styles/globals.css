@@ -285,6 +285,7 @@ nav {
   margin-top: 0.5em;
 }
 
-.strikethrough {
-  text-decoration: line-through;
+.link a {
+  text-decoration: underline;
+  color: blue;
 }

@@ -2,8 +2,9 @@ import React from "react";
 
 import useTranslation from "utils/useTranslation";
 import GuidelinesTabs from "components/GuidelinesTabs";
+import Linkify from "react-linkify";
 
-const contents = [4, 3, 8];
+const contents = [4, 3];
 
 export default function GuidelinesAuction1() {
   const [t] = useTranslation();
@@ -17,14 +18,14 @@ export default function GuidelinesAuction1() {
             <ol>
               {Array.from({ length: i }).map((_, contentIndex) => (
                 <li key={index}>
-                  {t(`auction1_${index}_${contentIndex}`)}
-                  {index === 2 && contentIndex === 4 && (
-                    <ol type="a">
-                      <li>{t("auction1_2_4_0")}</li>
-                      <li>{t("auction1_2_4_1")}</li>
-                      <li>{t("auction1_2_4_2")}</li>
-                      <li>{t("auction1_2_4_3")}</li>
-                    </ol>
+                  {index === 1 && contentIndex === 0 ? (
+                    <div className="link">
+                      <Linkify>
+                        {t(`auction1_${index}_${contentIndex}`)}
+                      </Linkify>
+                    </div>
+                  ) : (
+                    t(`auction1_${index}_${contentIndex}`)
                   )}
                 </li>
               ))}

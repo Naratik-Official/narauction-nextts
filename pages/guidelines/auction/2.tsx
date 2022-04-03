@@ -3,7 +3,7 @@ import React from "react";
 import useTranslation from "utils/useTranslation";
 import GuidelinesTabs from "components/GuidelinesTabs";
 
-const contents = [1, 12, 1];
+const contents = [1, 13, 2];
 
 export default function GuidelinesAuction2() {
   const [t] = useTranslation();
@@ -19,12 +19,25 @@ export default function GuidelinesAuction2() {
                 {Array.from({ length: i }).map((_, contentIndex) => (
                   <li key={index}>
                     {t(`auction2_${index}_${contentIndex}`)}
-                    {index === 1 && contentIndex === 3 && (
+                    {/* {index === 1 && contentIndex === 3 && (
                       <div className="imgbox">
                         <img className="center-fit" src="/platform_4.png" />
                       </div>
+                    )} */}
+                    {/* auction2_1_2_x (no 3 platform) */}
+                    {index === 1 && contentIndex === 2 && (
+                      <ol type="a">
+                        <li>{t("auction2_1_2_0")}</li>
+                        <li>{t("auction2_1_2_1")}</li>
+                        <li>{t("auction2_1_2_2")}</li>
+                        <li>{t("auction2_1_2_3")}</li>
+                        <li>{t("auction2_1_2_4")}</li>
+                        <li>{t("auction2_1_2_5")}</li>
+                        <li>{t("auction2_1_2_6")}</li>
+                        <li>{t("auction2_1_2_7")}</li>
+                      </ol>
                     )}
-                    {index === 1 && contentIndex === 5 && (
+                    {/* {index === 1 && contentIndex === 5 && (
                       <ol type="a">
                         <li>
                           {t("auction2_1_5_0")}
@@ -60,7 +73,7 @@ export default function GuidelinesAuction2() {
                           }}
                         />
                       </div>
-                    )}
+                    )} */}
                   </li>
                 ))}
               </ol>
