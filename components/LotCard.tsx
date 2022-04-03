@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import styles from "styles/LotCard.module.css";
-import { Barang } from "utils/types";
-import useTranslation from "utils/useTranslation";
+import styles from 'styles/LotCard.module.css';
+import { Barang } from 'utils/types';
+import useTranslation from 'utils/useTranslation';
 
 interface LotCardProps {
   barang: Barang;
@@ -20,6 +20,7 @@ function LotCard({ barang, isOngoing }: LotCardProps) {
     isAvailable,
   } = barang;
   const [t] = useTranslation();
+  const normalPrice = priceRange[0] + (50 / 100) * priceRange[0];
 
   return (
     <div
@@ -37,19 +38,19 @@ function LotCard({ barang, isOngoing }: LotCardProps) {
         <div className={styles.footer}>
           <div
             className={`${styles.price} ${styles.openBid} ${
-              !isOngoing || !isAvailable ? styles.strikethrough : ""
+              !isOngoing || !isAvailable ? styles.strikethrough : ''
             }`}
           >
-            <p>{t("pricerange")}</p>
+            <p>{t('pricerange')}</p>
             <b>Rp. {priceRange[0].toLocaleString()}</b>
           </div>
           <div
             className={`${styles.price} ${styles.normalPrice} ${
-              isOngoing || !isAvailable ? styles.strikethrough : ""
+              isOngoing || !isAvailable ? styles.strikethrough : ''
             }`}
           >
-            <p>{t("normalprice")}</p>
-            <b>Rp. {hargaAwal.toLocaleString()}</b>
+            <p>{t('normalprice')}</p>
+            <b>Rp. {normalPrice.toLocaleString()}</b>
           </div>
         </div>
       </div>

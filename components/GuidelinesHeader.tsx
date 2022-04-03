@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import { useRouter } from "next/router";
-import Grid from "@mui/material/Grid";
-import styles from "styles/GuidelinesLinks.module.css";
-import ActiveLink from "./ActiveLink";
-import useTranslation from "utils/useTranslation";
+import { useRouter } from 'next/router';
+import Grid from '@mui/material/Grid';
+import styles from 'styles/GuidelinesLinks.module.css';
+import ActiveLink from './ActiveLink';
+import useTranslation from 'utils/useTranslation';
 
 const items = [
   // {
@@ -13,15 +13,15 @@ const items = [
   //   labelId: "Pesan",
   // },
   {
-    href: "/guidelines/term",
-    labelEn: "Term & Condition",
-    labelId: "Syarat & Ketentuan",
+    href: '/guidelines/term',
+    labelEn: 'Term & Condition',
+    labelId: 'Syarat & Ketentuan',
     segmented: true,
   },
   {
-    href: "/guidelines/auction",
-    labelEn: "Auction Guidelines",
-    labelId: "Petunjuk Lelang",
+    href: '/guidelines/auction',
+    labelEn: 'Auction Guidelines',
+    labelId: 'Petunjuk Lelang',
     segmented: true,
   },
   // {
@@ -35,7 +35,7 @@ const items = [
 export default function GuidelinesHeader() {
   const router = useRouter();
   const [t, currentLang] = useTranslation();
-  const section = router.route.split("/")[2];
+  const section = router.route.split('/')[2];
 
   return (
     <Grid container className={styles.header}>
@@ -67,7 +67,7 @@ export default function GuidelinesHeader() {
                   });
                 }}
               >
-                {currentLang === "en" ? item.labelEn : item.labelId}
+                {currentLang === 'en' ? item.labelEn : item.labelId}
               </a>
             </ActiveLink>
             {index < items.length - 1 && <div className={styles.divider} />}
