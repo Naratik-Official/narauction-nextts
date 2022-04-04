@@ -282,8 +282,8 @@ justify-content: space-between; */
   border-radius: 20px;
   background: url('/bg_home_register.png') center/cover;
   padding: 60px 54px;
-  margin-bottom: 177px;
-  margin-top: 97px;
+  /* margin-bottom: 177px;
+margin-top: 97px; */
   font-size: 24;
 }
 
@@ -307,7 +307,7 @@ justify-content: space-between; */
 
 .galleryGrid {
   position: relative;
-  margin: 120px 0;
+  /* margin: 120px 0; */
   /* display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(4, 1fr);

@@ -324,7 +324,12 @@ export default function Home() {
             </Grid>
             <Grid container>
               <Grid item xs={1} />
-              <Grid item xs={10} className={styles.galleryGrid}>
+              <Grid
+                item
+                xs={10}
+                className={styles.galleryGrid}
+                style={{ marginTop: "96px" }}
+              >
                 <img src="/gk1.png" alt="" />
                 <div className={styles.galleryText}>
                   <h3>{t("gallery")}</h3>
@@ -357,7 +362,16 @@ export default function Home() {
             {/*</Grid>*/}
             <Grid container className={styles.registerContainer}>
               <Grid item xs={2} />
-              <Grid item container xs={8} className={styles.register}>
+              <Grid
+                item
+                container
+                xs={8}
+                className={styles.register}
+                style={{
+                  marginBottom: "96px",
+                  marginTop: "96px",
+                }}
+              >
                 <Grid item xs={12} md={8}>
                   <h4 className="white">{t("home_footer_header")}</h4>
                 </Grid>
