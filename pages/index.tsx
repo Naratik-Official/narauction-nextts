@@ -333,28 +333,28 @@ export default function Home() {
               </Grid>
               <Grid item xs={1} />
             </Grid>
-            <Grid container component="section" className={styles.testimonials}>
-              <Grid item xs={1} />
-              <Grid item xs={10}>
-                <h3 className="center">Testimonials</h3>
-                <CustomSlider className={styles.slider}>
-                  {testimonials.map((testi, e) => (
-                    <div key={e}>
-                      <img className={styles.quote} src="/quote.svg" alt="" />
-                      <div className={styles.sliderContent}>
-                        {/* <RatingStars rating={(5 - e) as RatingOptions} /> */}
-                        <img src={testi.imgUrl} alt="" />
-                        <h6>
-                          {testi.name} - {testi.city}
-                        </h6>
-                        <p>“{testi.description}”</p>
-                      </div>
-                    </div>
-                  ))}
-                </CustomSlider>
-              </Grid>
-              <Grid item xs={1} />
-            </Grid>
+            {/*<Grid container component="section" className={styles.testimonials}>*/}
+            {/*  <Grid item xs={1} />*/}
+            {/*  <Grid item xs={10}>*/}
+            {/*    <h3 className="center">Testimonials</h3>*/}
+            {/*    <CustomSlider className={styles.slider}>*/}
+            {/*      {testimonials.map((testi, e) => (*/}
+            {/*        <div key={e}>*/}
+            {/*          <img className={styles.quote} src="/quote.svg" alt="" />*/}
+            {/*          <div className={styles.sliderContent}>*/}
+            {/*            /!* <RatingStars rating={(5 - e) as RatingOptions} /> *!/*/}
+            {/*            <img src={testi.imgUrl} alt="" />*/}
+            {/*            <h6>*/}
+            {/*              {testi.name} - {testi.city}*/}
+            {/*            </h6>*/}
+            {/*            <p>“{testi.description}”</p>*/}
+            {/*          </div>*/}
+            {/*        </div>*/}
+            {/*      ))}*/}
+            {/*    </CustomSlider>*/}
+            {/*  </Grid>*/}
+            {/*  <Grid item xs={1} />*/}
+            {/*</Grid>*/}
             <Grid container className={styles.registerContainer}>
               <Grid item xs={2} />
               <Grid item container xs={8} className={styles.register}>
