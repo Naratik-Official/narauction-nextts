@@ -31,7 +31,7 @@ function LotDetailModal({
   const [isFetching, setFetching] = useState(true);
   const [barang, setBarang] = useState<Barang | undefined>();
   const [event, setEvent] = useState<Event | undefined>();
-  const [foto, setFoto] = useState<string | undefined>();
+  const [fotoIndex, setFotoIndex] = useState<number>(0);
 
   const [t, currentLang] = useTranslation();
   const isOngoing = useMemo(() => {
@@ -53,7 +53,7 @@ function LotDetailModal({
       );
       setBarang(newBarang);
       setEvent(newEvent);
-      setFoto(newBarang.foto[0]);
+      setFotoIndex(0);
       setFetching(false);
     };
 
@@ -93,8 +93,12 @@ function LotDetailModal({
                 className={styles.imagesPreview}
               >
                 <div>
-                  <a href={foto} target="_blank">
-                    <img className={styles.currentImage} src={foto} alt="" />
+                  <a href={barang.foto[fotoIndex]} target="_blank">
+                    <img
+                      className={styles.currentImage}
+                      src={barang.urlThumbnail[fotoIndex]}
+                      alt=""
+                    />
                   </a>
                   <ImageList
                     // sx={{ width: 500, height: 450 }}
@@ -104,14 +108,14 @@ function LotDetailModal({
                     variant="quilted"
                     sx={{ overflow: "hidden" }}
                   >
-                    {barang.foto.map((item) => (
+                    {barang.urlThumbnail.map((item, index) => (
                       <ImageListItem key={item}>
                         <img
                           src={`${item}?w=164&h=164&fit=crop&auto=format`}
                           srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                           loading="lazy"
                           className={styles.otherImage}
-                          onClick={() => setFoto(item)}
+                          onClick={() => setFotoIndex(index)}
                         />
                       </ImageListItem>
                     ))}
