@@ -35,6 +35,22 @@ const barangField: InputField[] = [
     },
   },
   {
+    type: "array",
+    name: "urlThumbnail",
+    label: "URL Thumbnail",
+    min: 1,
+    max: 5,
+    validator: (v) => {
+      let isError = false;
+      v.forEach((value) => {
+        if (isError) return;
+
+        isError = value.length === 0 || value === "";
+      });
+      return isError ? "Ada yang kosong" : undefined;
+    },
+  },
+  {
     type: "text",
     name: "tahunPembuatan",
     label: "Tahun Pembuatan",
@@ -85,6 +101,15 @@ const barangField: InputField[] = [
     },
   },
   {
+    type: "text",
+    name: "hargaAwal",
+    label: "Normal Price",
+    inputType: "number",
+    validator: (v) => {
+      return isNaN(Number(v)) ? "Masukkan Angka" : undefined;
+    },
+  },
+  {
     type: "array",
     name: "size",
     label: "Size",
@@ -108,6 +133,25 @@ const barangField: InputField[] = [
     type: "text",
     name: "tipe",
     validator: (v) => (v ? undefined : "Wajib Diisi"),
+  },
+  {
+    type: "text",
+    name: "dyeType",
+    validator: (v) => (v ? undefined : "Wajib Diisi"),
+  },
+  {
+    type: "radio",
+    name: "isAvailable",
+    items: [
+      {
+        name: "Yes",
+        value: "true",
+      },
+      {
+        name: "No",
+        value: "false",
+      },
+    ],
   },
 ];
 
@@ -141,6 +185,7 @@ const AdminBarangCreate = () => {
         "https://narauction.et.r.appspot.com/barang",
         {
           ...fields,
+          isAvailable: fields.isAvailable === "true" ? true : false,
           tahunPembuatan: Number(fields.tahunPembuatan),
           priceRange: (fields.priceRange! as string[]).map((p) => Number(p)),
           size: (fields.size! as string[]).map((p) => Number(p)),

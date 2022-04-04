@@ -69,11 +69,16 @@ const columns: GridColumns = [
       (params.row.priceRange[0] as number).toLocaleString(),
   },
   {
-    field: "maxPrice",
-    headerName: "Max Price",
-    valueGetter: (params) =>
-      (params.row.priceRange[1] as number).toLocaleString(),
+    field: "hargaAwal",
+    headerName: "Normal Price",
+    valueGetter: (params) => (params.row.hargaAwal as number).toLocaleString(),
   },
+  // {
+  //   field: "maxPrice",
+  //   headerName: "Max Price",
+  //   valueGetter: (params) =>
+  //     (params.row.priceRange[1] as number).toLocaleString(),
+  // },
   {
     field: "size",
     headerName: "Size (cm)",
@@ -86,6 +91,15 @@ const columns: GridColumns = [
   {
     field: "tipe",
     headerName: "Tipe",
+  },
+  {
+    field: "isAvailable",
+    headerName: "Available",
+    valueGetter: (params) => (params.row.isAvailable ? "V" : "-"),
+  },
+  {
+    field: "dyeType",
+    headerName: "Dye Type",
   },
   {
     field: "idEvent",
