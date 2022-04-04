@@ -230,6 +230,7 @@ const AdminBarangEdit = () => {
           id,
           isAvailable: fields.isAvailable === "true" ? true : false,
           tahunPembuatan: Number(fields.tahunPembuatan),
+          hargaAwal: Number(fields.hargaAwal),
           priceRange: (fields.priceRange! as string[]).map((p) => Number(p)),
           size: (fields.size! as string[]).map((p) => Number(p)),
         },
