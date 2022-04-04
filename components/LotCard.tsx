@@ -20,8 +20,8 @@ function LotCard({ barang, isOngoing }: LotCardProps) {
     isAvailable,
   } = barang;
   const [t] = useTranslation();
-  const normalPrice = priceRange[0] + (50 / 100) * priceRange[0];
-
+  // const normalPrice = priceRange[0] + (50 / 100) * priceRange[0];
+  const normalPrice = hargaAwal;
   return (
     <div
       className={`${isAvailable ? styles.enabled : styles.disabled} ${
