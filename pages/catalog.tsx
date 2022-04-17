@@ -76,6 +76,8 @@ export default function Catalog() {
         "https://narauction.et.r.appspot.com/event"
       );
 
+      console.log(events);
+
       setBarangEvents(() => ({
         ...Object.fromEntries(
           events.map((e: Event) => [
@@ -87,12 +89,18 @@ export default function Catalog() {
           ])
         ),
       }));
+
+      console.log(events[0].id);
+      // sliderRef.current.slickGoTo(events.length - 1);
+
       if (events.length > 0) setActiveEventId(events[0].id);
     };
     fetch();
   }, []);
 
   useEffect(() => {
+    console.log(activeEventId);
+
     const fetch = async () => {
       setFetchingBarang(true);
       try {
@@ -188,54 +196,71 @@ export default function Catalog() {
                   Math.max(Object.entries(barangEvents).length, 1),
                   3
                 )}
+                initialSlide={0}
                 ref={sliderRef}
               >
-                {Object.entries(barangEvents).map(([id, e], index) => (
-                  <div
-                    key={id}
-                    onClick={() => sliderRef.current.slickGoTo(index)}
-                  >
+                {Object.entries(barangEvents)
+                  .reverse()
+                  .map(([id, e], index) => (
                     <div
-                      className={styles.sliderItem}
-                      style={{
-                        background: `
+                      key={id}
+                      onClick={() => sliderRef.current.slickGoTo(index)}
+                    >
+                      <div
+                        className={styles.sliderItem}
+                        style={{
+                          background: `
                   linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%),
                   url(${e.event.foto[0]})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                      }}
-                    >
-                      {!moment(moment()).isAfter(e.event.date) ? (
-                        <div className={`${styles.tag} ${styles.open}`}>
-                          <img src="/open.svg" alt="" />
-                          <b>Open</b>
-                        </div>
-                      ) : (
-                        <div className={`${styles.tag} ${styles.closed}`}>
-                          <img src="/closed.svg" alt="" />
-                          <b>Closed</b>
-                        </div>
-                      )}
-                      <div className={styles.sliderContent}>
-                        <h5>{e.event.name}</h5>
-                        <div className={styles.subcontainer}>
-                          <img
-                            src="/broadcast.svg"
-                            alt=""
-                            className={`${styles.icon} icon`}
-                          />
-                          <p className="extra-small">
-                            LIVE auction{" "}
-                            {moment(e.event.date).format("dddd, D MMMM y")}
-                          </p>
-                        </div>
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                          backgroundRepeat: "no-repeat",
+                        }}
+                      >
                         {!moment(moment()).isAfter(e.event.date) ? (
-                          <a
-                            href="https://bit.ly/RegNarauction_tac2"
-                            target="_blank"
-                          >
-                            <Button size="small" color="secondaryPale">
+                          <div className={`${styles.tag} ${styles.open}`}>
+                            <img src="/open.svg" alt="" />
+                            <b>Open</b>
+                          </div>
+                        ) : (
+                          <div className={`${styles.tag} ${styles.closed}`}>
+                            <img src="/closed.svg" alt="" />
+                            <b>Closed</b>
+                          </div>
+                        )}
+                        <div className={styles.sliderContent}>
+                          <h5>{e.event.name}</h5>
+                          <div className={styles.subcontainer}>
+                            <img
+                              src="/broadcast.svg"
+                              alt=""
+                              className={`${styles.icon} icon`}
+                            />
+                            <p className="extra-small">
+                              LIVE auction{" "}
+                              {moment(e.event.date).format("dddd, D MMMM y")}
+                            </p>
+                          </div>
+                          {!moment(moment()).isAfter(e.event.date) ? (
+                            <a
+                              href="https://bit.ly/RegNarauction_tac2"
+                              target="_blank"
+                            >
+                              <Button size="small" color="secondaryPale">
+                                <img
+                                  src="/bid.svg"
+                                  alt=""
+                                  className={`${styles.icon} icon`}
+                                />
+                                <p className="small">{t("bidnow")}</p>
+                              </Button>
+                            </a>
+                          ) : (
+                            <Button
+                              size="small"
+                              color="secondaryPaleDisabled"
+                              disabled
+                            >
                               <img
                                 src="/bid.svg"
                                 alt=""
@@ -243,25 +268,11 @@ export default function Catalog() {
                               />
                               <p className="small">{t("bidnow")}</p>
                             </Button>
-                          </a>
-                        ) : (
-                          <Button
-                            size="small"
-                            color="secondaryPaleDisabled"
-                            disabled
-                          >
-                            <img
-                              src="/bid.svg"
-                              alt=""
-                              className={`${styles.icon} icon`}
-                            />
-                            <p className="small">{t("bidnow")}</p>
-                          </Button>
-                        )}
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </CustomSlider>
             </div>
             <div id="lots">
