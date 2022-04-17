@@ -88,7 +88,9 @@ const testimonials = [
 ];
 
 export default function Home() {
-  const [event, setEvent] = useState<UpcomingEvent | undefined>();
+  const [upcomingEvent, setUpcomingEvent] = useState<
+    UpcomingEvent | undefined
+  >();
   const [eta, setEta] = useState("");
   const [t, currentLang] = useTranslation();
   const sliderRef = useRef<any>(null);
@@ -101,13 +103,15 @@ export default function Home() {
       const { data } = await axios.get<UpcomingEvent>(
         "https://narauction.et.r.appspot.com/event/upcoming"
       );
+      console.log(data);
 
-      setEvent(data);
+      setUpcomingEvent(data);
       setInterval(() => {
-        const eta = moment.duration(moment(data.date).diff(moment())).asDays();
+        const eta = moment
+          .duration(moment(data.event.date).diff(moment()))
+          .asDays();
 
         let day = eta;
-        let hour = (day % 1) * 24;
         day = Math.floor(day);
 
         setEta(`${day}`);
@@ -121,7 +125,7 @@ export default function Home() {
     <Layout>
       <div>
         <div className={styles.root}>
-          {event && (
+          {upcomingEvent && (
             <Grid container>
               <Grid item xs={1} />
               <Grid item xs={10}>
@@ -133,18 +137,20 @@ export default function Home() {
                   rgba(53, 46, 31, 0.8) 0%,
                   rgba(53, 46, 31, 0) 100%
                 ),
-                url(${event.foto[0] ?? "/bg_home_header.png"}) center/cover`,
+                url(${
+                  upcomingEvent.event.foto[0] ?? "/bg_home_header.png"
+                }) center/cover`,
                   }}
                 >
-                  <h1>{event.name}</h1>
+                  <h1>{upcomingEvent.event.name}</h1>
                   <Grid container className={styles.subtitleBar}>
                     <Grid container item xs={12} md={7} lg={8} xl={9}>
                       <Grid item xs={12}>
                         <p className={styles.subtitle}>
                           {
                             {
-                              id: event.descId,
-                              en: event.descEn,
+                              id: upcomingEvent.event.descId,
+                              en: upcomingEvent.event.descEn,
                             }[currentLang]
                           }
                         </p>
@@ -182,13 +188,13 @@ export default function Home() {
                       </Grid>
                     </Grid>
                     <Grid item xs={12} md={5} lg={4} xl={3}>
-                      {event.fotoItem && (
+                      {upcomingEvent.fotoItem && (
                         <div className={styles.paletteContainer}>
                           <BatikPalette
                             className={styles.palette5}
                             src="/icon_others.svg"
                           />
-                          {event.fotoItem
+                          {upcomingEvent.fotoItem
                             .filter((_, i) => i < 4)
                             .map((src, index) => {
                               const i = 4 - index;
@@ -217,7 +223,9 @@ export default function Home() {
                       </b>
                     </div>
                     <div className={`${styles.divider} ${styles.left}`} />
-                    <p className={styles.lotCount}>{event.itemCount} Lots</p>
+                    <p className={styles.lotCount}>
+                      {upcomingEvent.itemCount} Lots
+                    </p>
                     <div className={`${styles.divider} ${styles.right}`} />
                     <div className={styles.subcontainer}>
                       <img
@@ -227,7 +235,9 @@ export default function Home() {
                       />
                       <p>
                         LIVE auction{" "}
-                        {moment(event.date).format("dddd, D MMMM y")}
+                        {moment(upcomingEvent.event.date).format(
+                          "dddd, D MMMM y"
+                        )}
                       </p>
                     </div>
                   </div>

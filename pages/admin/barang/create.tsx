@@ -59,7 +59,7 @@ const barangField: InputField[] = [
   },
   {
     type: "text",
-    name: "asal_daerah",
+    name: "asalDaerah",
     label: "Asal Daerah",
   },
   {
@@ -179,7 +179,7 @@ const AdminBarangCreate = () => {
   }, []);
 
   const handleSubmit = async (fields: Fields) => {
-    if (fields.asal_daerah === "") delete fields.asal_daerah;
+    if (fields.asalDaerah === "") delete fields.asalDaerah;
 
     try {
       await axios.post(
@@ -213,8 +213,8 @@ const AdminBarangCreate = () => {
             ...barangField,
             {
               type: "select",
-              name: "idEvent",
-              label: "ID Event",
+              name: "eventID",
+              label: "Event ID",
               items: eventIds,
               validator: (v) =>
                 v.length === 0 || v === "" ? "Wajib Dipilih" : undefined,

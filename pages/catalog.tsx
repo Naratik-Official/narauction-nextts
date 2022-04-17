@@ -16,7 +16,7 @@ import Link from "next/link";
 import Layout from "components/Layout";
 
 import axios from "axios";
-import { BarangEvent, Event } from "utils/types";
+import { Barang, BarangEvent, Event } from "utils/types";
 import moment from "moment";
 import useTranslation from "utils/useTranslation";
 
@@ -67,12 +67,12 @@ export default function Catalog() {
   const isOngoing = useMemo(() => {
     if (!activeEventId) return false;
 
-    return !moment(moment()).isAfter(barangEvents[activeEventId].date);
+    return !moment(moment()).isAfter(barangEvents[activeEventId].event.date);
   }, [barangEvents, activeEventId]);
 
   useEffect(() => {
     const fetch = async () => {
-      const { data: events } = await axios.get(
+      const { data: events } = await axios.get<Event[]>(
         "https://narauction.et.r.appspot.com/event"
       );
 
@@ -81,7 +81,7 @@ export default function Catalog() {
           events.map((e: Event) => [
             e.id,
             {
-              ...e,
+              event: e,
               barang: [],
             },
           ])
@@ -96,7 +96,7 @@ export default function Catalog() {
     const fetch = async () => {
       setFetchingBarang(true);
       try {
-        const { data: barang } = await axios.get(
+        const { data: barang } = await axios.get<Barang[]>(
           `https://narauction.et.r.appspot.com/barang/event/${activeEventId}`
         );
 
@@ -200,13 +200,13 @@ export default function Catalog() {
                       style={{
                         background: `
                   linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%),
-                  url(${e.foto[0]})`,
+                  url(${e.event.foto[0]})`,
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                         backgroundRepeat: "no-repeat",
                       }}
                     >
-                      {!moment(moment()).isAfter(e.date) ? (
+                      {!moment(moment()).isAfter(e.event.date) ? (
                         <div className={`${styles.tag} ${styles.open}`}>
                           <img src="/open.svg" alt="" />
                           <b>Open</b>
@@ -218,7 +218,7 @@ export default function Catalog() {
                         </div>
                       )}
                       <div className={styles.sliderContent}>
-                        <h5>{e.name}</h5>
+                        <h5>{e.event.name}</h5>
                         <div className={styles.subcontainer}>
                           <img
                             src="/broadcast.svg"
@@ -227,12 +227,10 @@ export default function Catalog() {
                           />
                           <p className="extra-small">
                             LIVE auction{" "}
-                            {moment(e.date).format("dddd, D MMMM y")}
-                            {/* {" "}
-                          {t("at")} {moment(e.date).format("hh:mm A")} */}
+                            {moment(e.event.date).format("dddd, D MMMM y")}
                           </p>
                         </div>
-                        {!moment(moment()).isAfter(e.date) ? (
+                        {!moment(moment()).isAfter(e.event.date) ? (
                           <a
                             href="https://bit.ly/RegNarauction_tac2"
                             target="_blank"

@@ -95,9 +95,9 @@ const AdminBarangEdit = () => {
           },
           {
             type: "text",
-            name: "asal_daerah",
+            name: "asalDaerah",
             label: "Asal Daerah",
-            initialValue: barang.asal_daerah,
+            initialValue: barang.asalDaerah,
           },
           {
             type: "text",
@@ -202,10 +202,10 @@ const AdminBarangEdit = () => {
           },
           {
             type: "select",
-            name: "idEvent",
+            name: "eventID",
             label: "ID Event",
             items: eventIds,
-            initialValue: barang.idEvent,
+            initialValue: barang.eventID,
             validator: (v) =>
               v.length === 0 || v === "" ? "Wajib Dipilih" : undefined,
           },
@@ -220,7 +220,7 @@ const AdminBarangEdit = () => {
   }, [id]);
 
   const handleSubmit = async (fields: Fields) => {
-    if (fields.asal_daerah === "") delete fields.asal_daerah;
+    if (fields.asalDaerah === "") delete fields.asalDaerah;
 
     try {
       await axios.put(

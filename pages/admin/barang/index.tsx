@@ -12,6 +12,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import withAdminAuth from "utils/withAdminAuth";
 import { adminRequestConfig } from "..";
+import { Barang } from "utils/types";
 
 const columns: GridColumns = [
   {
@@ -19,7 +20,9 @@ const columns: GridColumns = [
     headerName: "ID",
     minWidth: 200,
     renderCell: (params) => (
-      <Link href={`/admin/barang/${params.row.id}`}>{params.row.id}</Link>
+      <Link href={`/admin/barang/${params.row.id}`}>
+        {params.row.id.toString()}
+      </Link>
     ),
   },
   {
@@ -48,7 +51,7 @@ const columns: GridColumns = [
     minWidth: 50,
   },
   {
-    field: "asal_daerah",
+    field: "asalDaerah",
     headerName: "Asal Daerah",
     minWidth: 200,
   },
@@ -71,7 +74,8 @@ const columns: GridColumns = [
   {
     field: "hargaAwal",
     headerName: "Normal Price",
-    valueGetter: (params) => (params.row.hargaAwal as number).toLocaleString(),
+    valueGetter: (params) =>
+      ((params.row.hargaAwal as number) ?? 0).toLocaleString(),
   },
   // {
   //   field: "maxPrice",
@@ -102,8 +106,8 @@ const columns: GridColumns = [
     headerName: "Dye Type",
   },
   {
-    field: "idEvent",
-    headerName: "ID Event",
+    field: "eventID",
+    headerName: "Event ID",
   },
 ];
 
@@ -117,12 +121,12 @@ function AdminBarangList() {
   useEffect(() => {
     const fetch = async () => {
       setIsLoading(true);
-      const barang = await axios.get(
+      const { data } = await axios.get<Barang[]>(
         "https://narauction.et.r.appspot.com/barang"
       );
-      setRows([...barang.data]);
-      console.log([...barang.data]);
+      console.log(data);
 
+      setRows([...data]);
       setIsLoading(false);
     };
 

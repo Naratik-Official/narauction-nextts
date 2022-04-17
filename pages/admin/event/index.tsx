@@ -20,7 +20,9 @@ const columns: GridColumns = [
     headerName: "ID",
     minWidth: 200,
     renderCell: (params) => (
-      <Link href={`/admin/event/${params.row.id}`}>{params.row.id}</Link>
+      <Link href={`/admin/event/${params.row.id}`}>
+        {params.row.id.toString()}
+      </Link>
     ),
   },
   {
@@ -72,11 +74,11 @@ function AdminEventList() {
   useEffect(() => {
     const fetch = async () => {
       setIsLoading(true);
-      const event = await axios.get(
+      const { data } = await axios.get<Event[]>(
         "https://narauction.et.r.appspot.com/event"
       );
-      setRows([...event.data]);
-      console.log([...event.data]);
+      setRows([...data]);
+      console.log([...data]);
 
       setIsLoading(false);
     };

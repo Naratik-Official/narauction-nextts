@@ -49,7 +49,7 @@ function LotDetailModal({
         `https://narauction.et.r.appspot.com/barang/${lotId}`
       );
       const { data: newEvent } = await axios.get<Event>(
-        `https://narauction.et.r.appspot.com/event/${newBarang.idEvent}`
+        `https://narauction.et.r.appspot.com/event/${newBarang.eventID}`
       );
       setBarang(newBarang);
       setEvent(newEvent);
@@ -164,7 +164,7 @@ function LotDetailModal({
                     <b>{t("creator")}</b>
                   </Grid>
                   <Grid item xs={6} lg={3}>
-                    {barang.asal_daerah}
+                    {barang.asalDaerah}
                   </Grid>
                   <Grid item xs={6} lg={3}>
                     <b>{t("size")}</b>
